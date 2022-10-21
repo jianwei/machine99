@@ -51,11 +51,13 @@ class Inferer:
             self.model(torch.zeros(1, 3, *self.img_size).to(self.device).type_as(next(self.model.model.parameters())))  # warmup
 
         # Load data
-        if self.camera == '0':
+        # if self.camera == '0':
+        if len(self.camera) <= 2:
             pass
         else:
             self.files = LoadData(source)
             self.source = source
+        
 
 
 
@@ -71,9 +73,9 @@ class Inferer:
     
     def infer(self, conf_thres, iou_thres, classes, agnostic_nms, max_det, save_dir, save_txt, save_img, hide_labels, hide_conf,view_img=True):
         ''' Model Inference and results visualization '''
-        if self.camera == '0':
-            print("开始调用摄像头...")
-            cap = cv2.VideoCapture(0)
+        if len(self.camera) <= 2:
+            print("开始调用摄像头...",self.camera,len(self.camera))
+            cap = cv2.VideoCapture(int(self.camera))
             while True:
                 t1=time.time()
                 f, img_src = cap.read()
