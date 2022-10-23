@@ -53,16 +53,17 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 
-def filter_boxes(boxes, box_confidences, box_class_probs, conf_thres):
-    box_scores = box_confidences * box_class_probs  # 条件概率， 在该cell存在物体的概率的基础上是某个类别的概率
-    box_classes = np.argmax(box_scores, axis=-1)  # 找出概率最大的类别索引
-    box_class_scores = np.max(box_scores, axis=-1)  # 最大类别对应的概率值
-    pos = np.where(box_class_scores >= conf_thres)  # 找出概率大于阈值的item
-    # pos = box_class_scores >= OBJ_THRESH  # 找出概率大于阈值的item
-    boxes = boxes[pos]
-    classes = box_classes[pos]
-    scores = box_class_scores[pos]
-    return boxes, classes, scores
+# def filter_boxes(boxes, box_confidences, box_class_probs, conf_thres):
+#     print("+++++++++++++++++++++++++++++++++")
+#     box_scores = box_confidences * box_class_probs  # 条件概率， 在该cell存在物体的概率的基础上是某个类别的概率
+#     box_classes = np.argmax(box_scores, axis=-1)  # 找出概率最大的类别索引
+#     box_class_scores = np.max(box_scores, axis=-1)  # 最大类别对应的概率值
+#     pos = np.where(box_class_scores >= conf_thres)  # 找出概率大于阈值的item
+#     # pos = box_class_scores >= OBJ_THRESH  # 找出概率大于阈值的item
+#     boxes = boxes[pos]
+#     classes = box_classes[pos]
+#     scores = box_class_scores[pos]
+#     return boxes, classes, scores
 
 
 def nms_boxes(boxes, scores, iou_thres):
@@ -216,7 +217,6 @@ def process(input, mask, anchors):
 
 def filter_boxes(boxes, box_confidences, box_class_probs):
     """Filter boxes with box threshold. It's a bit different with origin yolov5 post process!
-
     # Arguments
         boxes: ndarray, boxes of objects.
         box_confidences: ndarray, confidences of objects.
