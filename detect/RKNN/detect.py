@@ -397,9 +397,9 @@ if __name__ == '__main__':
     detector = RKNNDetector(model, SIZE, MASKS,  CLASSES)
 
     cap=cv2.VideoCapture(20)
-    cap.set(3,640)#宽
-    cap.set(4,640)#高
-    cap.set(10,10000)#亮度
+    # cap.set(3,640)#宽
+    # cap.set(4,640)#高
+    # cap.set(10,10000)#亮度
     while True:
         print("--------------------------------------------------------------------------------------------------")
         t0 = time.time()
