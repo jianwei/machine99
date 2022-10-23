@@ -8,7 +8,7 @@ from rknnlite.api import RKNNLite
 """
 yolov5 预测脚本 for rknn
 """
-QUANTIZE_ON = True
+# QUANTIZE_ON = True
 
 OBJ_THRESH = 0.25
 NMS_THRESH = 0.45
