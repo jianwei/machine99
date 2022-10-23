@@ -325,14 +325,20 @@ class RKNNDetector:
             model = load_rknn_model(model)
         self._rknn = model
         self.draw_box = False
+        self.inference_time = 0
+        self.inference_number = 0
 
     def _predict(self,  _img):
         # src_h, src_w = img_src.shape[:2]
         _img = cv2.cvtColor(_img, cv2.COLOR_BGR2RGB)
+        self.inference_number+=1
         t0 = time.time()
         # pred_onx = self._rknn.inference(inputs=[_img])
         outputs = self._rknn.inference(inputs=[_img])
-        print("inference time:\t", time.time() - t0,len(outputs))
+        inference_time = time.time() - t0
+        self.inference_time += inference_time
+        avg_inference_time = self.inference_time / self.inference_number
+        print("inference time:{},avg_inference_time:{}\t".format(inference_time,avg_inference_time) )
         input0_data = outputs[0]
         input1_data = outputs[1]
         input2_data = outputs[2]
@@ -400,6 +406,7 @@ if __name__ == '__main__':
     # cap.set(3,640)#宽
     # cap.set(4,640)#高
     # cap.set(10,10000)#亮度
+
     while True:
         print("--------------------------------------------------------------------------------------------------")
         t0 = time.time()
@@ -409,7 +416,7 @@ if __name__ == '__main__':
         t1 = time.time()
         fps = round(1/(t1-t0),3)
         cv2.putText(img_1,"fps:{}".format(fps), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
-        print("fps,src_h, src_w:",fps,src_h, src_w)
+        print("width:{},height:{},fps:{}".format(src_w,src_h,fps) )
         cv2.imshow("Video",img_1)
         if cv2.waitKey(1)&0xFF==ord('q'):
             break
