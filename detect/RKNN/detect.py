@@ -316,11 +316,11 @@ def draw(image, boxes, scores, classes):
 
 class RKNNDetector:
     # def __init__(self, model, wh, masks, anchors, names):
-    def __init__(self, model, wh, masks,  names):
+    def __init__(self, model, wh):
         self.wh = wh
-        self._masks = masks
+        # self._masks = masks
         # self._anchors = anchors
-        self.names = names
+        # self.names = names
         if isinstance(model, str):
             model = load_rknn_model(model)
         self._rknn = model
@@ -394,7 +394,7 @@ if __name__ == '__main__':
     # ANCHORS = [[10, 13], [16, 30], [33, 23], [30, 61], [62, 45], [59, 119], [116, 90], [156, 198], [373, 326]]
     model = load_rknn_model(RKNN_MODEL_PATH)
     # detector = RKNNDetector(model, SIZE, MASKS, ANCHORS, CLASSES)
-    detector = RKNNDetector(model, SIZE, MASKS,  CLASSES)
+    detector = RKNNDetector(model, SIZE)
 
     cap=cv2.VideoCapture(20)
     # cap.set(3,640)#宽
