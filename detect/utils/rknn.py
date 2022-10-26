@@ -113,7 +113,7 @@ class RKNNDetector:
 
     def send_next(self,next_data):
         print("next_data:",next_data)
-        unix_socket.send_message(next_data)
+        self.unix_socket.send_message(next_data)
        
 
     def yolov5_post_process(self, input_data):
