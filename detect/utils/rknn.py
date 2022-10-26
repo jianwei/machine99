@@ -37,17 +37,17 @@ class RKNNDetector:
 
     def load_rknn_model(self, PATH):
         rknn = RKNNLite()
-        print('--> Loading model')
+        # print('--> Loading model')
         ret = rknn.load_rknn(PATH)
         if ret != 0:
             print('load rknn model failed')
             exit(ret)
-        print('done')
+        # print('done')
         ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1)
         if ret != 0:
             print('Init runtime environment failed')
             exit(ret)
-        print('done')
+        print('load_rknn_model  done')
         return rknn
 
     def _predict(self,  _img):
@@ -82,17 +82,15 @@ class RKNNDetector:
         netx_data = []
         for box, score, cl in zip(boxes, scores, classes):
             top, left, right, bottom = box
-            print('class: {}, score: {}'.format(self.CLASSES[cl], score))
-            # print('box coordinate left,top,right,down: [{}, {}, {}, {}]'.format(top, left, right, bottom))
+            # print('class: {}, score: {}'.format(self.CLASSES[cl], score))
             top = int(top)
             left = int(left)
             right = int(right)
             bottom = int(bottom)
             point = [(top,left),(top,right),(bottom,left),(bottom,right)]
             item = self.get_item_next(self.CLASSES[cl],point)
-            # self.send_next(self.CLASSES[cl],point)
             netx_data.append(item)
-            print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
+            # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
 
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
             cv2.putText(image, '{0} {1:.2f}'.format(self.CLASSES[cl], score),
@@ -123,8 +121,6 @@ class RKNNDetector:
 
         boxes, classes, scores = [], [], []
         for input, mask in zip(input_data, masks):
-            # print("------------------------------------------------------")
-            # print("input, mask:",input, mask)
             b, c, s = self.process(input, mask, anchors)
             b, c, s = self.filter_boxes(b, c, s)
             boxes.append(b)
