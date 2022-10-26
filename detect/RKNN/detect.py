@@ -9,6 +9,7 @@ yolov5 预测脚本 for rknn
 """
 # QUANTIZE_ON = True
 
+
 OBJ_THRESH = 0.25
 NMS_THRESH = 0.45
 IMG_SIZE = 640
