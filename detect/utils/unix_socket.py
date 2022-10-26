@@ -10,7 +10,7 @@ class unix_socket():
         self.server_address = server_address
         # if os.path.exists(self.server_address):
         #     os.unlink(self.server_address)
-        print("unix_socket init____")
+        print("unix_socket ____init____")
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         
     
