@@ -3,6 +3,7 @@ import time
 import numpy as np
 from rknnlite.api import RKNNLite
 import yaml
+import unix_socket
 
 
 class RKNNDetector:
@@ -17,6 +18,7 @@ class RKNNDetector:
         self.inference_time = 0
         self.inference_number = 0
         self.config_yaml = config_yaml
+        self.unix_socket = unix_socket()
 
 
     def set_screen_size(self,screenSize):
@@ -110,6 +112,7 @@ class RKNNDetector:
 
     def send_next(self,next_data):
         print("next_data:",next_data)
+        unix_socket.send_message(next_data)
        
 
     def yolov5_post_process(self, input_data):
