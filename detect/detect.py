@@ -1,4 +1,4 @@
-import RKNNDetector from utils.rknn
+from utils.rknn import RKNNDetector 
 import cv2
 import time
 
