@@ -7,12 +7,12 @@ from rknnlite.api import RKNNLite
 
 
 class RKNNDetector:
-    def __init__(self, model_path, wh):
+    def __init__(self, model_path):
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
         self.CLASSES=("box",)
-        self.wh = wh
+        self.wh = (640, 640)
         self._rknn = self.load_rknn_model(model_path)
         self.draw_box = False
         self.inference_time = 0
