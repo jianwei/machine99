@@ -8,19 +8,16 @@ import time,uuid
 class unix_socket():
     def __init__(self,server_address):
         self.server_address = server_address
-        # if os.path.exists(self.server_address):
-        #     os.unlink(self.server_address)
-        print("unix_socket ____init____")
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        
-    
-    def send_message(self,message):
-        print('connecting to {}'.format(self.server_address))
         try:
             self.socket.connect(self.server_address)
         except socket.error as msg:
             print("send_message,error:",msg)
             sys.exit(1)
+        
+    
+    def send_message(self,message):
+        print('connecting to {}'.format(self.server_address))
         try:
             message = message.encode('utf-8')
             print('sending {!r}'.format(message))

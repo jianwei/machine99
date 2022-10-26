@@ -27,15 +27,12 @@ class unix_socket():
             try:
                 data_str = ""
                 while True:
-                    data = connection.recv(10)
+                    data = connection.recv(1024)
                     data_str += data.decode()
-                    print('data-----------:',data_str)
                     if data:
                         print('sending data back to the client',data)
                         connection.sendall(data)
                     else:
-                        print('no data from:{},data:{}'.format(client_address,data_str))
-                        # deal_message.do_message(data_str)
                         break
             finally:
                 # Clean up the connection
