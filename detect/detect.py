@@ -1,6 +1,5 @@
 import cv2
 import time
-import random
 import numpy as np
 from rknnlite.api import RKNNLite
 # from rknn.api import RKNN
@@ -10,10 +9,11 @@ yolov5 预测脚本 for rknn
 """
 # QUANTIZE_ON = True
 
+
 OBJ_THRESH = 0.25
 NMS_THRESH = 0.45
 IMG_SIZE = 640
-CLASSES=("box")
+# CLASSES=("box")
 # CLASSES = ("person", "bicycle", "car", "motorbike ", "aeroplane ", "bus ", "train", "truck ", "boat", "traffic light",
 #            "fire hydrant", "stop sign ", "parking meter", "bench", "bird", "cat", "dog ", "horse ", "sheep", "cow", "elephant",
 #            "bear", "zebra ", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite",
@@ -236,7 +236,7 @@ def filter_boxes(boxes, box_confidences, box_class_probs):
     box_confidences = box_confidences.reshape(-1)
     box_class_probs = box_class_probs.reshape(-1, box_class_probs.shape[-1])
 
-    _box_pos = np.where(box_confidences >= OBJ_THRESH)
+    _box_pos = np.where(box_confidences >= OBJ_THRESH)  # 找出概率大于阈值的item
     boxes = boxes[_box_pos]
     box_confidences = box_confidences[_box_pos]
     box_class_probs = box_class_probs[_box_pos]
@@ -303,9 +303,10 @@ def draw(image, boxes, scores, classes):
         scores: ndarray, scores of objects.
         all_classes: all classes name.
     """
+    CLASSES=("box",)
     for box, score, cl in zip(boxes, scores, classes):
         top, left, right, bottom = box
-        print('class: {}, score: {}'.format(CLASSES[cl], score))
+        print('class: {}, score: {},CLASSES:{},cl:{},type:{}'.format(CLASSES[cl], score,CLASSES,cl,type(CLASSES)))
         # print('box coordinate left,top,right,down: [{}, {}, {}, {}]'.format(top, left, right, bottom))
         top = int(top)
         left = int(left)
