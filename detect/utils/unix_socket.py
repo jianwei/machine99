@@ -6,14 +6,10 @@ import time,uuid
 
 
 class unix_socket():
-    def __init__(self,server_address,is_server=False):
+    def __init__(self,server_address):
         self.server_address = server_address
-        if(is_server):
-            try:
-                os.unlink(self.server_address)
-            except OSError:
-                if os.path.exists(self.server_address):
-                    raise
+        # if os.path.exists(self.server_address):
+        #     os.unlink(self.server_address)
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         
     
