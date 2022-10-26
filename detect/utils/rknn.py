@@ -3,7 +3,7 @@ import time
 import numpy as np
 from rknnlite.api import RKNNLite
 import yaml
-from unix_socket import unix_socket
+from utils.unix_socket import unix_socket
 
 
 class RKNNDetector:
