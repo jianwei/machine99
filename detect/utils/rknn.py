@@ -77,6 +77,7 @@ class RKNNDetector:
     def draw(self, image, boxes, scores, classes):
         data=self.get_yaml_data()
         print("unix_socket:",data.get('unix_socket'))
+        netx_data = []
         for box, score, cl in zip(boxes, scores, classes):
             top, left, right, bottom = box
             print('class: {}, score: {}'.format(self.CLASSES[cl], score))
@@ -86,7 +87,9 @@ class RKNNDetector:
             right = int(right)
             bottom = int(bottom)
             point = [(top,left),(top,right),(bottom,left),(bottom,right)]
-            self.do_next(self.CLASSES[cl],point)
+            item = self.get_item_next(self.CLASSES[cl],point)
+            # self.send_next(self.CLASSES[cl],point)
+            netx_data.append(item)
             print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
 
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
@@ -94,15 +97,20 @@ class RKNNDetector:
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6, (0, 0, 255), 2)
+        if(len(netx_data)>0):
+            self.send_next(netx_data)
     
-    def do_next(self,name,point):
+    def get_item_next(self,name,point):
         next_data = {}
         next_data["point"] = point
         next_data["name"] = name
         next_data["time"] = time.time()
         next_data["screenSize"] = self.screenSize
-        print ("next_data:",next_data)
-        
+        return next_data
+
+    def send_next(self,next_data):
+        print("next_data:",next_data)
+       
 
     def yolov5_post_process(self, input_data):
         # print("input_data:",input_data)
