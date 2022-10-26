@@ -9,7 +9,6 @@ yolov5 预测脚本 for rknn
 """
 # QUANTIZE_ON = True
 
-
 OBJ_THRESH = 0.25
 NMS_THRESH = 0.45
 IMG_SIZE = 640
@@ -362,10 +361,10 @@ class RKNNDetector:
         boxes, classes, scores = yolov5_post_process(input_data)
         t2 = time.time()
         # print(t2-t1)
-        img_1 = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        # img_1 = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         if boxes is not None:
-            draw(img_1, boxes, scores, classes)
-        return img_1
+            draw(_img, boxes, scores, classes)
+        return _img
         # show output
        
 
