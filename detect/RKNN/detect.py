@@ -1,6 +1,5 @@
 import cv2
 import time
-import random
 import numpy as np
 from rknnlite.api import RKNNLite
 # from rknn.api import RKNN
@@ -13,13 +12,14 @@ yolov5 预测脚本 for rknn
 OBJ_THRESH = 0.25
 NMS_THRESH = 0.45
 IMG_SIZE = 640
-CLASSES = ("person", "bicycle", "car", "motorbike ", "aeroplane ", "bus ", "train", "truck ", "boat", "traffic light",
-           "fire hydrant", "stop sign ", "parking meter", "bench", "bird", "cat", "dog ", "horse ", "sheep", "cow", "elephant",
-           "bear", "zebra ", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite",
-           "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife ",
-           "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza ", "donut", "cake", "chair", "sofa",
-           "pottedplant", "bed", "diningtable", "toilet ", "tvmonitor", "laptop	", "mouse	", "remote ", "keyboard ", "cell phone", "microwave ",
-           "oven ", "toaster", "sink", "refrigerator ", "book", "clock", "vase", "scissors ", "teddy bear ", "hair drier", "toothbrush ")
+# CLASSES=("box")
+# CLASSES = ("person", "bicycle", "car", "motorbike ", "aeroplane ", "bus ", "train", "truck ", "boat", "traffic light",
+#            "fire hydrant", "stop sign ", "parking meter", "bench", "bird", "cat", "dog ", "horse ", "sheep", "cow", "elephant",
+#            "bear", "zebra ", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite",
+#            "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife ",
+#            "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza ", "donut", "cake", "chair", "sofa",
+#            "pottedplant", "bed", "diningtable", "toilet ", "tvmonitor", "laptop	", "mouse	", "remote ", "keyboard ", "cell phone", "microwave ",
+#            "oven ", "toaster", "sink", "refrigerator ", "book", "clock", "vase", "scissors ", "teddy bear ", "hair drier", "toothbrush ")
 
 def get_max_scale(img, max_w, max_h):
     h, w = img.shape[:2]
@@ -134,12 +134,15 @@ def load_rknn_model(PATH):
     return rknn
 
 def yolov5_post_process(input_data):
+    # print("input_data:",input_data)
     masks = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
     anchors = [[10, 13], [16, 30], [33, 23], [30, 61], [62, 45],
                [59, 119], [116, 90], [156, 198], [373, 326]]
 
     boxes, classes, scores = [], [], []
     for input, mask in zip(input_data, masks):
+        # print("------------------------------------------------------")
+        # print("input, mask:",input, mask)
         b, c, s = process(input, mask, anchors)
         b, c, s = filter_boxes(b, c, s)
         boxes.append(b)
@@ -232,7 +235,7 @@ def filter_boxes(boxes, box_confidences, box_class_probs):
     box_confidences = box_confidences.reshape(-1)
     box_class_probs = box_class_probs.reshape(-1, box_class_probs.shape[-1])
 
-    _box_pos = np.where(box_confidences >= OBJ_THRESH)
+    _box_pos = np.where(box_confidences >= OBJ_THRESH)  # 找出概率大于阈值的item
     boxes = boxes[_box_pos]
     box_confidences = box_confidences[_box_pos]
     box_class_probs = box_class_probs[_box_pos]
@@ -299,9 +302,10 @@ def draw(image, boxes, scores, classes):
         scores: ndarray, scores of objects.
         all_classes: all classes name.
     """
+    CLASSES=("box",)
     for box, score, cl in zip(boxes, scores, classes):
         top, left, right, bottom = box
-        print('class: {}, score: {}'.format(CLASSES[cl], score))
+        print('class: {}, score: {},CLASSES:{},cl:{},type:{}'.format(CLASSES[cl], score,CLASSES,cl,type(CLASSES)))
         # print('box coordinate left,top,right,down: [{}, {}, {}, {}]'.format(top, left, right, bottom))
         top = int(top)
         left = int(left)
@@ -336,6 +340,7 @@ class RKNNDetector:
         t0 = time.time()
         # pred_onx = self._rknn.inference(inputs=[_img])
         outputs = self._rknn.inference(inputs=[_img])
+        # self.show_top5(outputs)
         inference_time = time.time() - t0
         self.inference_time += inference_time
         avg_inference_time = self.inference_time / self.inference_number
@@ -393,11 +398,30 @@ class RKNNDetector:
     def __del__(self):
         self.close()
 
+    def show_top5(result):
+        output = result[0].reshape(-1)
+        # softmax
+        output = np.exp(output)/sum(np.exp(output))
+        output_sorted = sorted(output, reverse=True)
+        top5_str = 'resnet18\n-----TOP 5-----\n'
+        for i in range(5):
+            value = output_sorted[i]
+            index = np.where(output == value)
+            for j in range(len(index)):
+                if (i + j) >= 5:
+                    break
+                if value > 0:
+                    topi = '{}: {}\n'.format(index[j], value)
+                else:
+                    topi = '-1: 0.0\n'
+                top5_str += topi
+        print(top5_str)
+
 
 if __name__ == '__main__':
-    RKNN_MODEL_PATH = r"./yolov5s.rknn"
+    RKNN_MODEL_PATH = r"./box.rknn"
     SIZE = (640, 640)
-    MASKS = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+    # MASKS = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
     # ANCHORS = [[10, 13], [16, 30], [33, 23], [30, 61], [62, 45], [59, 119], [116, 90], [156, 198], [373, 326]]
     model = load_rknn_model(RKNN_MODEL_PATH)
     # detector = RKNNDetector(model, SIZE, MASKS, ANCHORS, CLASSES)
