@@ -5,6 +5,9 @@ import argparse
 
 
 def main(camera_id):
+
+    print(camera_id,type(camera_id))
+
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH)
@@ -29,7 +32,7 @@ def main(camera_id):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--camera_id', nargs='+', type=str, default= '20', help='model path or triton URL')
+    parser.add_argument('--camera_id',  type=str, default= '20', help='model path or triton URL')
     opt = parser.parse_args()
     print(opt,type(opt))
     main(**vars(opt))
