@@ -4,10 +4,11 @@ import time,os
 import argparse
 
 
-def main(camera_id):
+def main(camera_id,save_video=False):
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH)
+    print("save:",save_video,type(save_video))
     
     cap=cv2.VideoCapture(camera_id)
     while True:
@@ -31,6 +32,7 @@ def main(camera_id):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--camera_id',  type=int, default=20, help='model path or triton URL')
+    parser.add_argument('--save_video', action='store_true', help='do not save images/videos')
     opt = parser.parse_args()
     print(opt,type(opt))
     main(**vars(opt))
