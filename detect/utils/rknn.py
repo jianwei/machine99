@@ -19,6 +19,9 @@ class RKNNDetector:
         self.config_yaml = config_yaml
 
 
+    def set_screen_size(self,screenSize):
+        self.screenSize = screenSize
+
 
     def get_yaml_data(self):
         with open(self.config_yaml, encoding='utf-8')as file:
@@ -82,7 +85,8 @@ class RKNNDetector:
             left = int(left)
             right = int(right)
             bottom = int(bottom)
-
+            point = [(top,left),(top,right),(bottom,left),(bottom,right)]
+            self.do_next(self.CLASSES[cl],point)
             print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
 
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
@@ -90,6 +94,15 @@ class RKNNDetector:
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6, (0, 0, 255), 2)
+    
+    def do_next(self,name,point):
+        next_data = {}
+        next_data["point"] = point
+        next_data["name"] = name
+        next_data["time"] = time.time()
+        next_data["screenSize"] = self.screenSize
+        print ("next_data:",next_data)
+        
 
     def yolov5_post_process(self, input_data):
         # print("input_data:",input_data)

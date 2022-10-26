@@ -18,7 +18,6 @@ def main(camera_id,save_video=False):
         video_path = './run/source/{}.mp4'.format(now_time)
         source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         # inference_video=cv2.VideoWriter('./run/inference/{}.mp4'.format(now_time),fource,20,(640,480))
-
     while True:
         print("--------------------------------------------------------------------------------------------------")
         t0 = time.time()
@@ -27,6 +26,7 @@ def main(camera_id,save_video=False):
             source_video.write(img)
         if success:
             src_h, src_w = img.shape[:2]
+            detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
             t1 = time.time()
             fps = round(1/(t1-t0),3)
