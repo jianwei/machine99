@@ -2,10 +2,11 @@ import cv2
 import time
 import numpy as np
 from rknnlite.api import RKNNLite
+import yaml
 
 
 class RKNNDetector:
-    def __init__(self, model_path):
+    def __init__(self, model_path,config_yaml):
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
@@ -15,6 +16,17 @@ class RKNNDetector:
         self.draw_box = False
         self.inference_time = 0
         self.inference_number = 0
+        self.config_yaml = config_yaml
+
+
+
+    def get_yaml_data(self):
+        with open(self.config_yaml, encoding='utf-8')as file:
+            content = file.read()
+            data = yaml.load(content, Loader=yaml.FullLoader)
+            return data
+
+
 
     def load_rknn_model(self, PATH):
         rknn = RKNNLite()
@@ -55,15 +67,13 @@ class RKNNDetector:
         input_data.append(np.transpose(input2_data, (2, 3, 0, 1)))
 
         boxes, classes, scores = self.yolov5_post_process(input_data)
-        # t2 = time.time()
-        # print(t2-t1)
-        # img_1 = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         if boxes is not None:
             self.draw(_img, boxes, scores, classes)
         return _img
-        # show output
 
     def draw(self, image, boxes, scores, classes):
+        data=self.get_yaml_data()
+        print("unix_socket:",data.get('unix_socket'))
         for box, score, cl in zip(boxes, scores, classes):
             top, left, right, bottom = box
             print('class: {}, score: {}'.format(self.CLASSES[cl], score))
@@ -72,6 +82,8 @@ class RKNNDetector:
             left = int(left)
             right = int(right)
             bottom = int(bottom)
+
+            print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
 
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
             cv2.putText(image, '{0} {1:.2f}'.format(self.CLASSES[cl], score),
