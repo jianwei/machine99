@@ -35,7 +35,7 @@ def main(camera_id,save_video=False):
             cv2.imshow("3588_inference_video",img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
-                    print("video:{}".format(video_path))
+                    print("save video to:{}".format(video_path))
                 break
 
 
