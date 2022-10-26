@@ -12,6 +12,7 @@ def get_yaml_data(config_yaml):
 # u = unix_socket("../uds_socket")
 unix_socket_path = get_yaml_data('../config.yaml').get('unix_socket')
 u = unix_socket(unix_socket_path)
-message = json.dumps({"a":1})
-u.send_message(message)
+for i in range(100):
+    message = json.dumps({"a":i})
+    u.send_message(message)
 
