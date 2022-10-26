@@ -18,8 +18,8 @@ class RKNNDetector:
         self.inference_time = 0
         self.inference_number = 0
         self.config_yaml = config_yaml
-        yaml_data = self.get_yaml_data()
-        self.unix_socket = unix_socket(yaml_data.get('unix_socket'))
+        self.yaml_data = self.get_yaml_data()
+        self.unix_socket = unix_socket(self.yaml_data.get('unix_socket'))
 
 
     def set_screen_size(self,screenSize):
@@ -78,7 +78,7 @@ class RKNNDetector:
         return _img
 
     def draw(self, image, boxes, scores, classes):
-        data=self.get_yaml_data()
+        
         print("unix_socket:",data.get('unix_socket'))
         netx_data = []
         for box, score, cl in zip(boxes, scores, classes):
