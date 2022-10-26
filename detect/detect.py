@@ -1,12 +1,15 @@
 from utils.rknn import RKNNDetector 
 import cv2
-import time
+import time,os
 
 
 
 
 if __name__ == '__main__':
-    RKNN_MODEL_PATH = r"./weight/box.rknn"
+    filt_folder = os.getcwd()
+    print("filt_folder:",filt_folder)
+    RKNN_MODEL_PATH = filt_folder + "/weight/box.rknn"
+    print("RKNN_MODEL_PATH:",RKNN_MODEL_PATH)
     detector = RKNNDetector(RKNN_MODEL_PATH)
     cap=cv2.VideoCapture(20)
 
