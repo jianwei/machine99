@@ -4,20 +4,12 @@ import time,os
 import argparse
 
 
-
-
-
-
-
 def main(camera_id):
-
-    print("camera_id:",camera_id)
-
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH)
     
-    cap=cv2.VideoCapture(20)
+    cap=cv2.VideoCapture(camera_id)
     while True:
         print("--------------------------------------------------------------------------------------------------")
         t0 = time.time()
