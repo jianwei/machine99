@@ -37,12 +37,10 @@ class RKNNDetector:
 
     def load_rknn_model(self, PATH):
         rknn = RKNNLite()
-        # print('--> Loading model')
         ret = rknn.load_rknn(PATH)
         if ret != 0:
             print('load rknn model failed')
             exit(ret)
-        # print('done')
         ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1)
         if ret != 0:
             print('Init runtime environment failed')
