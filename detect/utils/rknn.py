@@ -8,7 +8,7 @@ from utils.unix_socket import unix_socket
 
 
 class RKNNDetector:
-    def __init__(self, model_path,config_yaml):
+    def __init__(self, model_path, config_yaml):
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
@@ -22,18 +22,14 @@ class RKNNDetector:
         yaml_data = self.get_yaml_data()
         self.unix_socket = unix_socket(yaml_data.get('unix_socket'))
 
-
-    def set_screen_size(self,screenSize):
+    def set_screen_size(self, screenSize):
         self.screenSize = screenSize
-
 
     def get_yaml_data(self):
         with open(self.config_yaml, encoding='utf-8')as file:
             content = file.read()
             data = yaml.load(content, Loader=yaml.FullLoader)
             return data
-
-
 
     def load_rknn_model(self, PATH):
         rknn = RKNNLite()
@@ -85,8 +81,9 @@ class RKNNDetector:
             left = int(left)
             right = int(right)
             bottom = int(bottom)
-            point = [(top,left),(top,right),(bottom,left),(bottom,right)]
-            item = self.get_item_next(self.CLASSES[cl],point)
+            point = [(top, left), (top, right),
+                     (bottom, left), (bottom, right)]
+            item = self.get_item_next(self.CLASSES[cl], point)
             netx_data.append(item)
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
 
@@ -95,10 +92,10 @@ class RKNNDetector:
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6, (0, 0, 255), 2)
-        if(len(netx_data)>0):
+        if (len(netx_data) > 0):
             self.send_next(netx_data)
-    
-    def get_item_next(self,name,point):
+
+    def get_item_next(self, name, point):
         next_data = {}
         next_data["point"] = point
         next_data["name"] = name
@@ -106,10 +103,9 @@ class RKNNDetector:
         next_data["screenSize"] = self.screenSize
         return next_data
 
-    def send_next(self,next_data):
-        print("next_data:",next_data)
+    def send_next(self, next_data):
+        print("next_data:", next_data)
         self.unix_socket.send_message(json.dumps(next_data))
-       
 
     def yolov5_post_process(self, input_data):
         # print("input_data:",input_data)
