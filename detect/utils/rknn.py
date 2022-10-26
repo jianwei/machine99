@@ -4,22 +4,19 @@ import numpy as np
 from rknnlite.api import RKNNLite
 
 
-
-
 class RKNNDetector:
     def __init__(self, model_path):
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
-        self.CLASSES=("box",)
+        self.CLASSES = ("box",)
         self.wh = (640, 640)
         self._rknn = self.load_rknn_model(model_path)
         self.draw_box = False
         self.inference_time = 0
         self.inference_number = 0
-    
 
-    def load_rknn_model(PATH):
+    def load_rknn_model(self, PATH):
         rknn = RKNNLite()
         print('--> Loading model')
         ret = rknn.load_rknn(PATH)
@@ -34,16 +31,16 @@ class RKNNDetector:
         print('done')
         return rknn
 
-
     def _predict(self,  _img):
         _img = cv2.cvtColor(_img, cv2.COLOR_BGR2RGB)
-        self.inference_number+=1
+        self.inference_number += 1
         t0 = time.time()
         outputs = self._rknn.inference(inputs=[_img])
         inference_time = time.time() - t0
         self.inference_time += inference_time
         avg_inference_time = self.inference_time / self.inference_number
-        print("inference time:{},avg_inference_time:{}\t".format(inference_time,avg_inference_time) )
+        print("inference time:{},avg_inference_time:{}\t".format(
+            inference_time, avg_inference_time))
         input0_data = outputs[0]
         input1_data = outputs[1]
         input2_data = outputs[2]
@@ -65,9 +62,8 @@ class RKNNDetector:
             self.draw(_img, boxes, scores, classes)
         return _img
         # show output
-    
 
-    def draw(self,image, boxes, scores, classes):
+    def draw(self, image, boxes, scores, classes):
         for box, score, cl in zip(boxes, scores, classes):
             top, left, right, bottom = box
             print('class: {}, score: {}'.format(self.CLASSES[cl], score))
@@ -83,13 +79,11 @@ class RKNNDetector:
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6, (0, 0, 255), 2)
 
-    
-
-    def yolov5_post_process(self,input_data):
+    def yolov5_post_process(self, input_data):
         # print("input_data:",input_data)
         masks = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
         anchors = [[10, 13], [16, 30], [33, 23], [30, 61], [62, 45],
-                [59, 119], [116, 90], [156, 198], [373, 326]]
+                   [59, 119], [116, 90], [156, 198], [373, 326]]
 
         boxes, classes, scores = [], [], []
         for input, mask in zip(input_data, masks):
@@ -128,8 +122,7 @@ class RKNNDetector:
 
         return boxes, classes, scores
 
-
-    def nms_boxes(self,boxes, scores):
+    def nms_boxes(self, boxes, scores):
         x = boxes[:, 0]
         y = boxes[:, 1]
         w = boxes[:, 2] - boxes[:, 0]
@@ -158,15 +151,10 @@ class RKNNDetector:
         keep = np.array(keep)
         return keep
 
-
-
-
-    def sigmoid(self,x):
+    def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
-
-
-    def xywh2xyxy(self,x):
+    def xywh2xyxy(self, x):
         # Convert [x, y, w, h] to [x1, y1, x2, y2]
         y = np.copy(x)
         y[:, 0] = x[:, 0] - x[:, 2] / 2  # top left x
@@ -175,12 +163,13 @@ class RKNNDetector:
         y[:, 3] = x[:, 1] + x[:, 3] / 2  # bottom right y
         return y
 
-
-    def filter_boxes(self,boxes, box_confidences, box_class_probs):
+    def filter_boxes(self, boxes, box_confidences, box_class_probs):
         boxes = boxes.reshape(-1, 4)
         box_confidences = box_confidences.reshape(-1)
-        box_class_probs = box_class_probs.reshape(-1, box_class_probs.shape[-1])
-        _box_pos = np.where(box_confidences >= self.OBJ_THRESH)  # 找出概率大于阈值的item
+        box_class_probs = box_class_probs.reshape(-1,
+                                                  box_class_probs.shape[-1])
+        _box_pos = np.where(box_confidences >=
+                            self.OBJ_THRESH)  # 找出概率大于阈值的item
         boxes = boxes[_box_pos]
         box_confidences = box_confidences[_box_pos]
         box_class_probs = box_class_probs[_box_pos]
@@ -189,12 +178,10 @@ class RKNNDetector:
         _class_pos = np.where(class_max_score >= self.OBJ_THRESH)
         boxes = boxes[_class_pos]
         classes = classes[_class_pos]
-        scores = (class_max_score* box_confidences)[_class_pos]
+        scores = (class_max_score * box_confidences)[_class_pos]
         return boxes, classes, scores
 
-
-
-    def process(self,input, mask, anchors):
+    def process(self, input, mask, anchors):
 
         anchors = [anchors[i] for i in mask]
         grid_h, grid_w = map(int, input.shape[0:2])
@@ -219,8 +206,6 @@ class RKNNDetector:
 
         return box, box_confidence, box_class_probs
 
-
-
     def predict_resize(self, img_src, conf_thres=0.4, iou_thres=0.45):
         """
         预测一张图片，预处理使用resize
@@ -230,13 +215,13 @@ class RKNNDetector:
         gain = img_src.shape[:2][::-1]
         return self._predict(img_src, _img, gain, conf_thres, iou_thres, )
 
-    def letterbox(self,img, new_wh=(416, 416), color=(114, 114, 114)):
+    def letterbox(self, img, new_wh=(416, 416), color=(114, 114, 114)):
         a = AutoScale(img, *new_wh)
         new_img = a.new_img
         h, w = new_img.shape[:2]
-        new_img = cv2.copyMakeBorder(new_img, 0, new_wh[1] - h, 0, new_wh[0] - w, cv2.BORDER_CONSTANT, value=color)
+        new_img = cv2.copyMakeBorder(
+            new_img, 0, new_wh[1] - h, 0, new_wh[0] - w, cv2.BORDER_CONSTANT, value=color)
         return new_img, (new_wh[0] / a.scale, new_wh[1] / a.scale)
-
 
     def predict(self, img_src, conf_thres=0.4, iou_thres=0.45):
         """
@@ -244,7 +229,7 @@ class RKNNDetector:
         return: labels,boxes
         """
         _img, gain = self.letterbox(img_src, self.wh)
-        return self._predict( _img)
+        return self._predict(_img)
 
     def close(self):
         self._rknn.release()
@@ -278,21 +263,19 @@ class RKNNDetector:
         print(top5_str)
 
 
-
 class AutoScale:
     def __init__(self, img, max_w, max_h):
         self._src_img = img
         self.scale = self.get_max_scale(img, max_w, max_h)
         self._new_size = self.get_new_size(img, self.scale)
         self.__new_img = None
-    
-    def get_max_scale(self,img, max_w, max_h):
+
+    def get_max_scale(self, img, max_w, max_h):
         h, w = img.shape[:2]
         scale = min(max_w / w, max_h / h, 1)
         return scale
 
-
-    def get_new_size(self,img, scale):
+    def get_new_size(self, img, scale):
         return tuple(map(int, np.array(img.shape[:2][::-1]) * scale))
 
     @property
@@ -304,5 +287,3 @@ class AutoScale:
         if self.__new_img is None:
             self.__new_img = cv2.resize(self._src_img, self._new_size)
         return self.__new_img
-
-
