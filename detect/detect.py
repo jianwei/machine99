@@ -32,7 +32,7 @@ def main(camera_id):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--camera_id',  type=str, default= '20', help='model path or triton URL')
+    parser.add_argument('--camera_id',  type=int, default=20, help='model path or triton URL')
     opt = parser.parse_args()
     print(opt,type(opt))
     main(**vars(opt))
