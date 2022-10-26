@@ -36,8 +36,8 @@ class unix_socket():
                 return data.decode('utf-8')
 
         finally:
-            print('closing socket')
-            self.socket.close()
+            print('finally socket')
+            # self.socket.close()
                 
         
 
