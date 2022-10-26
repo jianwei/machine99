@@ -9,15 +9,14 @@ import argparse
 
 
 
-def main():
+def main(camera_id):
+
+    print("camera_id:",camera_id)
+
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH)
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--camera_device', nargs='+', type=str, default= '20', help='model path or triton URL')
-    opt = parser.parse_args()
-    print(opt,type(opt))
+    
     cap=cv2.VideoCapture(20)
     while True:
         print("--------------------------------------------------------------------------------------------------")
@@ -37,6 +36,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--camera_id', nargs='+', type=str, default= '20', help='model path or triton URL')
+    opt = parser.parse_args()
+    print(opt,type(opt))
+    main(**vars(opt))
     pass
 
