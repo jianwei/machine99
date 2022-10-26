@@ -1,18 +1,24 @@
 from utils.rknn import RKNNDetector 
 import cv2
 import time,os
+import argparse
 
 
 
 
-if __name__ == '__main__':
+
+
+
+def main():
     filt_folder = os.getcwd()
-    print("filt_folder:",filt_folder)
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
-    print("RKNN_MODEL_PATH:",RKNN_MODEL_PATH)
     detector = RKNNDetector(RKNN_MODEL_PATH)
-    cap=cv2.VideoCapture(20)
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--camera_device', nargs='+', type=str, default= '20', help='model path or triton URL')
+    opt = parser.parse_args()
+    print(opt,type(opt))
+    cap=cv2.VideoCapture(20)
     while True:
         print("--------------------------------------------------------------------------------------------------")
         t0 = time.time()
@@ -26,4 +32,11 @@ if __name__ == '__main__':
         cv2.imshow("Video",img_1)
         if cv2.waitKey(1)&0xFF==ord('q'):
             break
+
+
+
+
+if __name__ == '__main__':
+    main()
+    pass
 
