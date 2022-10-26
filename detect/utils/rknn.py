@@ -3,6 +3,7 @@ import time
 import numpy as np
 from rknnlite.api import RKNNLite
 import yaml
+import json
 from utils.unix_socket import unix_socket
 
 
@@ -111,7 +112,7 @@ class RKNNDetector:
 
     def send_next(self,next_data):
         print("next_data:",next_data)
-        self.unix_socket.send_message(next_data)
+        self.unix_socket.send_message(json.dumps(next_data))
        
 
     def yolov5_post_process(self, input_data):
