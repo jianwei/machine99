@@ -32,8 +32,9 @@ def main(camera_id,save_video=False):
             cv2.putText(img_1,"fps:{}".format(fps), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             print("width:{},height:{},fps:{}".format(src_w,src_h,fps) )
             if save_video:
+                print(123)
                 inference_video.write(img_1)
-            cv2.imshow("Video",img_1)
+            cv2.imshow("3588_inference_video",img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 break
 
