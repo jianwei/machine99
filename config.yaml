@@ -1,2 +1,6 @@
-unix_socket_run: '~/uds_socket_run'
-unix_socket_work: '~/uds_socket_work'
+unix_socket_run: 
+  run: '/home/coolpi/uds_socket_run'
+  work: '/home/coolpi/uds_socket_work'
+# unix_socket: 
+#   run: '/Users/carlos/uds_socket_run'
+#   work: '/Users/carlos/uds_socket_work'

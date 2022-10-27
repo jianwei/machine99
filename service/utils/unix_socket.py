@@ -8,7 +8,9 @@ from utils.deal_message import deal_message
 
 class unix_socket():
     def __init__(self,server_address,to_do='run'):
+        # print("server_address:",server_address)
         self.server_address = server_address
+        self.to_do = to_do
         self.deal_message = deal_message()
         try:
             os.unlink(self.server_address)
