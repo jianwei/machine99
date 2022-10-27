@@ -8,14 +8,14 @@ def main(camera_id,save_video=False,to_do="run"):
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH,'../config.yaml',to_do)
-    print("save:",save_video,type(save_video),to_do,type(to_do))
+    print("save:",save_video)
 
     cap=cv2.VideoCapture(camera_id)
     if save_video:
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         #对视频设置的编码解码的方式MPEG-4编码
         fource=cv2.VideoWriter_fourcc(*'DIVX')
-        video_path = './run/source/{}.mp4'.format(str(now_time)+to_do)
+        video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
         source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         # inference_video=cv2.VideoWriter('./run/inference/{}.mp4'.format(now_time),fource,20,(640,480))
     while True:
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true', help='do not save images/videos')
     parser.add_argument('--to_do', type=str,default="run", help='run or work')
     opt = parser.parse_args()
-    print(opt,type(opt))
+    # print(opt,type(opt))
     main(**vars(opt))
     pass
 
