@@ -83,12 +83,13 @@ class RKNNDetector:
             left = int(left)
             right = int(right)
             bottom = int(bottom)
+
             point = [(top, left), (bottom, left),
                      (top, right), (bottom, right)]
             item = self.get_item_next(self.CLASSES[cl], point)
             netx_data.append(item)
-            centery = (left + right)/2
-            centerx = (top + bottom)/2
+            centery = (left + bottom)/2
+            centerx = (top + right)/2
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
             
             msg1 = "{},{}".format(centerx,centery)
