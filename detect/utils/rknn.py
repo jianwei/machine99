@@ -99,6 +99,10 @@ class RKNNDetector:
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.4, (0, 0, 255), 2)
+            cv2.putText(image, show_msg,
+                        (top, left - 12),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.4, (0, 0, 255), 2)
         if (len(netx_data) > 0):
             self.send_next(netx_data)
 
