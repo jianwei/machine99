@@ -78,7 +78,6 @@ class RKNNDetector:
         netx_data = []
         for box, score, cl in zip(boxes, scores, classes):
             top, left, right, bottom = box
-            # print('class: {}, score: {}'.format(self.CLASSES[cl], score))
             top = int(top)
             left = int(left)
             right = int(right)
@@ -86,11 +85,12 @@ class RKNNDetector:
 
             point = [(top, left), (bottom, left),
                      (top, right), (bottom, right)]
-            item = self.get_item_next(self.CLASSES[cl], point)
-            netx_data.append(item)
             centery = (left + bottom)/2
             centerx = (top + right)/2
-            # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
+            item = self.get_item_next(self.CLASSES[cl], point,(centerx,centery))
+            netx_data.append(item)
+            
+
             
             msg1 = "{},{}".format(centerx,centery)
             msg2 = "{},{},{},{}".format(top, left,bottom, right)
@@ -108,11 +108,12 @@ class RKNNDetector:
         if (len(netx_data) > 0):
             self.send_next(netx_data)
 
-    def get_item_next(self, name, point):
+    def get_item_next(self, name, point,center):
         next_data = {}
         next_data["point"] = point
         next_data["name"] = name
         next_data["time"] = time.time()
+        next_data["center"] = center
         next_data["screenSize"] = self.screenSize
         return next_data
 
