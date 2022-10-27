@@ -35,7 +35,7 @@ class unix_socket():
                         reasult = self.deal_message.do_message(data)
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
-                        print('sending data back to the client:',reasult)
+                        print('data:{},reasult:{}'.format(data,reasult))
                         connection.sendall(reasult)
 
                     else:
