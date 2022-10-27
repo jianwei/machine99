@@ -1,0 +1,1 @@
+{"data_ok": true, "utc_string": "062827.000", "hours": 6, "minutes": 28, "seconds": 27.0, "date": [27, 10, 22], "datetime": 1666852107.0, "data_valid_flag": "A", "lat_string": "3205.19587", "lat_h": "N", "lat": 32.086597833333336, "lng_string": "11852.90587", "lng_h": "E", "lng": 118.8817645, "latlng_ok": true, "spd_knt": 0.0, "speed": 0.0, "course": 6.71}
