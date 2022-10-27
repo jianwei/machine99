@@ -14,14 +14,15 @@ class deal_message():
 
     def do_message(self, message):
         if (message):
-            self.get_common_data(message)
-            self.redis.set(message)
-            message = json.loads(message)
-            if (message["is_synchro"]):
-                pass
-            else:
-                self.work_thread = threading.Thread(target=self.work.do, args=())
-                self.work_thread.start()
+            return "do_message finish"
+            # self.get_common_data(message)
+            # self.redis.set(message)
+            # message = json.loads(message)
+            # if (message["is_synchro"]):
+            #     pass
+            # else:
+            #     self.work_thread = threading.Thread(target=self.work.do, args=())
+            #     self.work_thread.start()
 
     def get_common_data(self, message):
         point = message["point"]
