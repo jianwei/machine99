@@ -93,8 +93,12 @@ class RKNNDetector:
             
             msg = "centerx:{},centery:{}".format(centerx,centery)
             print(msg)
+            show_msg = '{0} {1:.2f} '.format(self.CLASSES[cl], score)
+            print(show_msg)
+            show_msg+=msg
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
-            cv2.putText(image, '{0} {1:.2f} {}'.format(self.CLASSES[cl], score,msg),
+            # cv2.putText(image, '{0} {1:.2f} {}'.format(self.CLASSES[cl], score,msg),
+            cv2.putText(image, show_msg,
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6, (0, 0, 255), 2)
