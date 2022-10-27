@@ -87,9 +87,15 @@ class RKNNDetector:
                      (top, right), (bottom, right)]
             item = self.get_item_next(self.CLASSES[cl], point)
             netx_data.append(item)
+            centerx = (left + right)/2
+            centery = (top + bottom)/2
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
 
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
+            cv2.putText(image, '{},{}'.format(centerx, centery),
+                        (centerx, centery),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.6, (0, 0, 255), 2)
             cv2.putText(image, '{0} {1:.2f}'.format(self.CLASSES[cl], score),
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
