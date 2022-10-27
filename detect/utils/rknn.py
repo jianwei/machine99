@@ -90,9 +90,11 @@ class RKNNDetector:
             centerx = (left + right)/2
             centery = (top + bottom)/2
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
-            print("centerx:{},centery:{}".format(centerx,centery))
+            
+            msg = "centerx:{},centery:{}".format(centerx,centery)
+            print("msg:",msg)
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
-            cv2.putText(image,"{},{}".format(centerx,centery), (centerx,centery),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.putText(image,msg, (centerx,centery),cv2.FONT_HERSHEY_SIMPLEX,0.6,(0, 0, 255),thickness=1,lineType=cv2.LINE_AA)
             # cv2.putText(image, '{},{}'.format(centerx, centery),
             #             (centerx, centery),
             #             cv2.FONT_HERSHEY_SIMPLEX,
