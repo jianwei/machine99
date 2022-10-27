@@ -5,7 +5,7 @@ def get_yaml_data(config_yaml):
     with open(config_yaml, encoding='utf-8') as file:
         content = file.read()
         data = yaml.load(content, Loader=yaml.FullLoader)
-        print("get_yaml_data:",data)
+        # print("get_yaml_data:",data)
         return data
 
 def main(to_do='run'):
