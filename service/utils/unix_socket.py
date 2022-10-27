@@ -7,7 +7,7 @@ from utils.deal_message import deal_message
 
 
 class unix_socket():
-    def __init__(self,server_address):
+    def __init__(self,server_address,to_do='run'):
         self.server_address = server_address
         self.deal_message = deal_message()
         try:

@@ -8,7 +8,7 @@ from utils.unix_socket import unix_socket
 
 
 class RKNNDetector:
-    def __init__(self, model_path, config_yaml):
+    def __init__(self, model_path, config_yaml,to_do):
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
@@ -20,7 +20,9 @@ class RKNNDetector:
         self.inference_number = 0
         self.config_yaml = config_yaml
         yaml_data = self.get_yaml_data()
-        self.unix_socket = unix_socket(yaml_data.get('unix_socket'))
+        self.to_do = to_do
+        self.unix_socket_run = unix_socket(yaml_data.get('unix_socket_'+to_do))
+
 
     def set_screen_size(self, screenSize):
         self.screenSize = screenSize
@@ -105,7 +107,7 @@ class RKNNDetector:
 
     def send_next(self, next_data):
         print("next_data:", next_data)
-        self.unix_socket.send_message(json.dumps(next_data))
+        self.unix_socket_run.send_message(json.dumps(next_data))
 
     def yolov5_post_process(self, input_data):
         # print("input_data:",input_data)
