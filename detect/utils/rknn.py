@@ -18,17 +18,17 @@ class RKNNDetector:
         self.draw_box = False
         self.inference_time = 0
         self.inference_number = 0
-        self.config_yaml = config_yaml
-        yaml_data = self.get_yaml_data()
+        yaml_data = self.get_yaml_data(config_yaml)
         self.to_do = to_do
-        self.unix_socket_run = unix_socket(yaml_data.get('unix_socket_'+to_do))
+        self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
+        print("to_do:{},to_do:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
 
 
     def set_screen_size(self, screenSize):
         self.screenSize = screenSize
 
-    def get_yaml_data(self):
-        with open(self.config_yaml, encoding='utf-8')as file:
+    def get_yaml_data(self,config_yaml):
+        with open(config_yaml, encoding='utf-8')as file:
             content = file.read()
             data = yaml.load(content, Loader=yaml.FullLoader)
             return data
