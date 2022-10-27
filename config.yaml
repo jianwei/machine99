@@ -1,4 +1,4 @@
-unix_socket_run: 
+unix_socket: 
   run: '/home/coolpi/uds_socket_run'
   work: '/home/coolpi/uds_socket_work'
 # unix_socket: 
