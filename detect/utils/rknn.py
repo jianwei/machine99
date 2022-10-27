@@ -91,7 +91,7 @@ class RKNNDetector:
             centerx = (top + bottom)/2
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
             
-            msg = "{},{}".format(top,left,right,bottom)
+            msg = "{},{},{},{}".format(top,left,right,bottom)
             show_msg = '{0} {1:.2f} '.format(self.CLASSES[cl], score)
             show_msg=msg
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
