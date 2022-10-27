@@ -1,16 +1,16 @@
 import json
-import redis_connect
+# import redis_connect
 import time
 import threading
-import work
+# import work
 
 
 class deal_message():
 
     def __init__(self):
-        self.redis = redis_connect()
+        # self.redis = redis_connect()
         self.work_thread = ""
-        self.work = work(self.redis)
+        # self.work = work(self.redis)
 
     def do_message(self, message):
         if (message):
