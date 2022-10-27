@@ -83,8 +83,8 @@ class RKNNDetector:
             left = int(left)
             right = int(right)
             bottom = int(bottom)
-            point = [(top, left), (top, right),
-                     (bottom, left), (bottom, right)]
+            point = [(top, left), (bottom, left),
+                     (top, right), (bottom, right)]
             item = self.get_item_next(self.CLASSES[cl], point)
             netx_data.append(item)
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
