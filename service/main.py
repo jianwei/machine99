@@ -10,7 +10,7 @@ def get_yaml_data(config_yaml):
 
 def main(to_do='run'):
     unix_socket_path = get_yaml_data('../config.yaml').get('unix_socket').get(to_do)
-    print("to_do:{},unix_socket_path:{}",to_do,unix_socket_path)
+    print("to_do:{},unix_socket_path:{}".format(to_do,unix_socket_path))
     u = unix_socket(unix_socket_path,to_do)
     u.server()
 
