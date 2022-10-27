@@ -91,18 +91,19 @@ class RKNNDetector:
             centerx = (top + bottom)/2
             # print("point:{},{},{},{}".format((top,left),(top,right),(bottom,left),(bottom,right)))
             
-            msg = "{},{}".format(centerx,centery)
-            show_msg = '{0} {1:.2f} '.format(self.CLASSES[cl], score)
-            show_msg=msg
+            msg1 = "{},{}".format(centerx,centery)
+            msg2 = "{},{},{},{}".format(top, left,bottom, right)
+            # show_msg = '{0} {1:.2f} '.format(self.CLASSES[cl], score)
+            # show_msg=msg
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
-            cv2.putText(image, show_msg,
+            cv2.putText(image, msg1,
                         (top, left - 6),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.4, (0, 0, 255), 2)
-            cv2.putText(image, show_msg,
-                        (top, left +36),
+            cv2.putText(image, msg2,
+                        (top, left +12),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0, 0, 255), 2)
+                        0.4, (0, 255, 255), 2)
         if (len(netx_data) > 0):
             self.send_next(netx_data)
 
