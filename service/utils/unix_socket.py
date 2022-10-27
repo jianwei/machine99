@@ -32,11 +32,10 @@ class unix_socket():
                     data = connection.recv(1024)
                     data_str += data.decode()
                     if data:
-                        print('sending data back to the client-1',data,type(data))
                         reasult = self.deal_message.do_message(data)
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
-                        print('sending data back to the client-2',reasult,type(reasult),type(reasult)==str)
+                        print('sending data back to the client:',reasult)
                         connection.sendall(reasult)
 
                     else:
