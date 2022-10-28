@@ -75,7 +75,7 @@ class RKNNDetector:
         return _img
 
     def draw(self, image, boxes, scores, classes):
-        netx_data = []
+        next_data = []
         for box, score, cl in zip(boxes, scores, classes):
             top, left, right, bottom = box
             top = int(top)
@@ -83,12 +83,13 @@ class RKNNDetector:
             right = int(right)
             bottom = int(bottom)
 
-            point = [(top, left), (bottom, left),
-                     (top, right), (bottom, right)]
+            point = [(top, left), (right, left),
+                     (top, bottom), (right, bottom)]
+
             centery = (left + bottom)/2
             centerx = (top + right)/2
             item = self.get_item_next(self.CLASSES[cl], point,(centerx,centery))
-            netx_data.append(item)
+            next_data.append(item)
             
 
             
@@ -105,8 +106,22 @@ class RKNNDetector:
                         (top, left +12),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.4, (0,0,0), 2)
-        if (len(netx_data) > 0):
-            self.send_next(netx_data)
+        if (len(next_data) > 0):
+            self.send_next(next_data)
+
+
+    
+    # def draw_line(self,image,next_data):
+    #     center_list = []
+    #     for item in next_data:
+    #         center_list.append(item.get("center"))
+    #     pass
+    
+    # def draw_list(self,image,next_data):
+    #     center_list = []
+    #     for item in next_data:
+    #         center_list.append(item.get("center"))
+    #     pass
 
     def get_item_next(self, name, point,center):
         next_data = {}
