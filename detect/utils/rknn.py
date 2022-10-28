@@ -13,7 +13,7 @@ class RKNNDetector:
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
         self.CLASSES = ("box",)
-        self.wh = (640, 480)
+        self.wh = (640, 640)
         self._rknn = self.load_rknn_model(model_path)
         self.draw_box = False
         self.inference_time = 0
