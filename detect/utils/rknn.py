@@ -129,6 +129,8 @@ class RKNNDetector:
         next_data["name"] = name
         next_data["time"] = time.time()
         next_data["center"] = center
+        next_data["centerx"] = center[0]
+        next_data["centery"] = center[1]
         next_data["screenSize"] = self.screenSize
         return next_data
 
