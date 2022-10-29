@@ -21,7 +21,7 @@ class RKNNDetector:
         yaml_data = self.get_yaml_data(config_yaml)
         self.to_do = to_do
         self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
-        print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
+        # print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
 
 
     def set_screen_size(self, screenSize):
@@ -135,7 +135,7 @@ class RKNNDetector:
         return next_data
 
     def send_next(self, next_data):
-        print("next_data:", next_data)
+        # print("next_data:", next_data)
         self.unix_socket.send_message(json.dumps(next_data))
 
     def yolov5_post_process(self, input_data):
