@@ -20,6 +20,7 @@ def main(camera_id,save_video=False,to_do="run"):
         # inference_video=cv2.VideoWriter('./run/inference/{}.mp4'.format(now_time),fource,20,(640,480))
     total_frame = 0
     totao_fps=0
+    t01 = time.time()
     while True:
         print("--------------------------------------------------------------------------------------------------")
         total_frame+=1
@@ -35,7 +36,9 @@ def main(camera_id,save_video=False,to_do="run"):
             fps = round(1/(t1-t0),3)
             totao_fps += fps
             avg_fps = round(totao_fps/total_frame,3)
-            cv2.putText(img_1,"FPS:{}".format(avg_fps), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            t02 = time.time()
+            t22 = round((t02-t01)/60,2)
+            cv2.putText(img_1,"FPS:{},run time:{}(minute)".format(avg_fps,t22), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             # print("width:{},height:{},fps:{}".format(src_w,src_h,fps) )
             cv2.imshow("3588_run_inference_video",img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
