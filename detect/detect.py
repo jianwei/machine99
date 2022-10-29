@@ -18,8 +18,11 @@ def main(camera_id,save_video=False,to_do="run"):
         video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
         source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         # inference_video=cv2.VideoWriter('./run/inference/{}.mp4'.format(now_time),fource,20,(640,480))
+    total_frame = 0
+    totao_fps=0
     while True:
         print("--------------------------------------------------------------------------------------------------")
+        total_frame+=1
         t0 = time.time()
         success,img=cap.read()
         if save_video:
@@ -30,8 +33,10 @@ def main(camera_id,save_video=False,to_do="run"):
             img_1 = detector.predict(img)
             t1 = time.time()
             fps = round(1/(t1-t0),3)
-            cv2.putText(img_1,"fps:{}".format(fps), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
-            print("width:{},height:{},fps:{}".format(src_w,src_h,fps) )
+            totao_fps += fps
+            avg_fps = totao_fps/total_frame
+            cv2.putText(img_1,"FPS:{},avg Fps:{}".format(fps,avg_fps), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            # print("width:{},height:{},fps:{}".format(src_w,src_h,fps) )
             cv2.imshow("3588_run_inference_video",img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
