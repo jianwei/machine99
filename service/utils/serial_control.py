@@ -39,20 +39,23 @@ class serial_control():
         else:
             cmd = None
         uuid = message["uuid"]
-        # print("cmd:",cmd)
+        print("cmd:",cmd)
         if (cmd):
-            # self.logger.info("cmd:%s,begin_time:%s", cmd, time.time())
+            # print("cmd:{},begin_time:{}".format(cmd, time.time()))
             self.ser.write(cmd.encode())
-            # self.logger.info("cmd:end write:%s", time.time())
+            # print("cmd:end write:{}".format(time.time()))
             try:
                 cnt = 1
                 ret_all = ""
                 time0 = time.time()
+                # print(1)
                 while True:
+                    # print(2)
                     cnt += 1
                     time1 = float(time.time())
+                    print(3)
                     response = self.ser.read()
-                    # print("response:",response)
+                    print("response:",response)
                     time2 = float(time.time())
                     diff = time2-time1
                     if (response):
@@ -60,8 +63,8 @@ class serial_control():
                         response_arr = ret_all.splitlines()
                         ret = response_arr[len(
                             response_arr)-1] if len(response_arr) > 0 else ""
-                        # self.logger.info("1--cnt:%s,send_cmd:uuid:%s,cmd:%s,ret:%s,difftime:%s,response:%s", cnt, uuid, cmd, ret, diff, ret_all)
-                        # time.sleep(0.1)
+                        print("1--cnt:{},send_cmd:uuid:{},cmd:{},ret:{},difftime:{},response:{}".format( cnt, uuid, cmd, ret, diff, ret_all))
+                        time.sleep(0.1)
                         s1 = re.compile('^(-?[1-9]|0{1}\d*)$')
                         r1 = s1.findall(ret)
                         if (len(r1) > 0):
@@ -70,7 +73,6 @@ class serial_control():
                                 "uuid": uuid,
                                 "cmd": cmd,
                                 "retsult": ret,
-
                             }
                             self.ret_dict = ret_dict
                             print("break,cmd:{},end_time:{},ret_all:{}".format(cmd, time.time(), ret_all))

@@ -1,7 +1,8 @@
 from points import points
 import time
 import numpy
-import serial_control
+from serial_control import serial_control
+import uuid
 class run ():
     def __init__(self):
         self.points_obj = points()
@@ -31,4 +32,4 @@ class run ():
         if (int(abs(angle))<=10 and int(abs(angle))>=3):
             cmd = "{} {}".format(cmd_prefix,int(angle))
             self.global_angle += angle
-            self.serial_control.send_cmd({"message":cmd})
+            # self.serial_control.send_cmd({"uuid":str(uuid.uuid1()),"cmd":cmd})
