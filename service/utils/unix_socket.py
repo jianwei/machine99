@@ -32,7 +32,7 @@ class unix_socket():
                     data = connection.recv(1024)
                     data_str += data.decode()
                     if data:
-                        reasult = self.deal_message.do_message(data)
+                        reasult = self.deal_message.do_message(str(data),self.to_do)
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
                         print('data:{},reasult:{}'.format(data,reasult))
