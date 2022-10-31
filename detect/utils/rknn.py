@@ -49,7 +49,7 @@ class RKNNDetector:
 
 
     def get_inference_time(self):
-        return round(self.avg_inference_time,3)
+        return round(self.avg_inference_time*1000,1)
 
 
     def _predict(self,  _img):
