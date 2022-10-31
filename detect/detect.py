@@ -32,6 +32,7 @@ def main(camera_id,save_video=False,to_do="run"):
             src_h, src_w = img.shape[:2]
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
+            avg_inference_time = detector.get_inference_time()
             t1 = time.time()
             fps = round(1/(t1-t0),3)
             totao_fps += fps
@@ -40,9 +41,8 @@ def main(camera_id,save_video=False,to_do="run"):
             # t22 = round((t02-t01)/60,2)
             min = int((t02-t01)/60)
             second = int((t02-t01)%60)
-            cv2.putText(img_1,"AVG FPS:{},{}:{}".format(avg_fps,min,second), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
-            # print("width:{},height:{},fps:{}".format(src_w,src_h,fps) )
-            cv2.imshow("3588_run_inference_video",img_1)
+            cv2.putText(img_1,"FPS:{}, run{}:{}, infer:{}".format(avg_fps,min,second,avg_inference_time), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
                     print("save video to:{}".format(video_path))

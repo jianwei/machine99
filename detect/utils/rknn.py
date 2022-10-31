@@ -1,3 +1,4 @@
+from select import select
 import cv2
 import time
 import numpy as np
@@ -46,6 +47,11 @@ class RKNNDetector:
         print('load_rknn_model  done')
         return rknn
 
+
+    def get_inference_time(self):
+        return round(self.avg_inference_time,3)
+
+
     def _predict(self,  _img):
         _img = cv2.cvtColor(_img, cv2.COLOR_BGR2RGB)
         self.inference_number += 1
@@ -53,9 +59,9 @@ class RKNNDetector:
         outputs = self._rknn.inference(inputs=[_img])
         inference_time = time.time() - t0
         self.inference_time += inference_time
-        avg_inference_time = self.inference_time / self.inference_number
+        self.avg_inference_time = self.inference_time / self.inference_number
         print("inference time:{},avg_inference_time:{}\t".format(
-            inference_time, avg_inference_time))
+            inference_time, self.avg_inference_time))
         input0_data = outputs[0]
         input1_data = outputs[1]
         input2_data = outputs[2]
