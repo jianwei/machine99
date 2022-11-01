@@ -1,13 +1,18 @@
 import json
 
 # b = {"c":1}
-bb = b'[{"point": [[200, 182], [291, 182], [200, 240], [291, 240]], "name": "box", "time": 1667272063.4156375, "center": [245.5, 211.0], "centerx": 245.5, "centery": 211.0, "screenSize": [640, 480]}, {"point": [[84, 242], [164, 242], [84, 327], [164, 327]], "name": "box", "time": 1667272063.4161322, "center": [124.0, 284.5], "centerx": 124.0, "centery": 284.5, "screenSize": [640, 480]}, {"point": [[105, 176], [192, 176], [105, 245], [192, 245]], "name": "box", "time": 1667272063.4165049, "center": [148.5, 210.5], "centerx": 148.5, "centery": 210.5, "screenSize": [640, 480]}, {"point": [[178, 267], [267, 267], [178, 340], [267, 340]], "name": "box", "time": 1667272063.4168823, "center": [222.5, 303.5], "centerx": 222.5, "centery": 303.5, "screenSize": [640, 480]}, {"point": [[301, 213], [373, 213], [301, 285], [373, 285]], "name": "box", "time": 1667272063.4172862, "center": [337.0, 249.0], "centerx": 337.0, "centery": 249.0, "screenSize": [640, 480]}, {"point": [[338, 180], [418, 180], [338, 230], [418, 230]], "name": "box", "time": 1667272063.417679, "center": [378.0, 205.0], "centerx": 378.0, "centery": 205.0, "screenSize": [640, 480]}]'
+bb = b'[{"point": [[103, 177], [194, 177], [103, 245], [194, 245]], "name": "box", "time": 1667273542.4828572, "center": [148.5, 211.0], "centerx": 148.5, "centery": 211.0, "screenSize": [640, 480]}, {"point": [[85, 243], [163, 243], [85, 326], [163, 326]], "name": "box", "time": 1667273542.4831724, "center": [124.0, 284.5], "centerx": 124.0, "centery": 284.5, "screenSize": [640, 480]}, {"point": [[178, 266], [265, 266], [178, 342], [265, 342]], "name": "box", "time": 1667273542.4873724, "center": [221.5, 304.0], "centerx": 221.5, "centery": 304.0, "screenSize": [640, 480]}, {"point": [[200, 182], [291, 182], [200, 240], [291, 240]], "name": "box", "time": 1667273542.4876957, "center": [245.5, 211.0], "centerx": 245.5, "centery": 211.0, "screenSize": [640, 480]}, {"point": [[300, 216], [376, 216], [300, 285], [376, 285]], "name": "box", "time": 1667273542.4879677, "center": [338.0, 250.5], "centerx": 338.0, "centery": 250.5, "screenSize": [640, 480]}, {"point": [[337, 181], [417, 181], [337, 232], [417, 232]], "name": "box", "time": 1667273542.488291, "center": [377.0, 206.5], "centerx": 377.0, "centery": 206.5, "screenSize": [640, 480]}]'
 # d = json.dumps(b)
 # c=str(b)
 # c = json.loads(d)
-cc = json.loads(bb)
+# b3 = bb.encode('utf-8')
+# cc = json.loads(b3)
 
-# print(d,type(d),c,type(c))
-print(type(bb),cc)
+# # print(d,type(d),c,type(c))
+# print(type(b3),cc)
+
+a='d'.encode()
+# b4 = s.encode()
+print(type(a))
 
  
