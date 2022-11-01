@@ -41,7 +41,7 @@ def main(camera_id,save_video=False,to_do="run"):
             # t22 = round((t02-t01)/60,2)
             min = int((t02-t01)/60)
             second = int((t02-t01)%60)
-            cv2.putText(img_1,"FPS: {}, run: {}:{}, infer: {}".format(avg_fps,min,second,avg_inference_time), (0,30),0,1,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.putText(img_1,"FPS: {}, run: {}:{}, infer: {}".format(avg_fps,min,second,avg_inference_time), (0,30),0,0.4,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
