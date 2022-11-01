@@ -1,7 +1,7 @@
 from utils.points import points
 import time
 import numpy
-from serial_control import serial_control
+from utils.serial_control import serial_control
 import uuid
 class run ():
     def __init__(self):
