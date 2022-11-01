@@ -18,6 +18,7 @@ class RKNNDetector:
         self._rknn = self.load_rknn_model(model_path)
         self.draw_box = False
         self.inference_time = 0
+        self.yolo_time = 0
         self.inference_number = 0
         yaml_data = self.get_yaml_data(config_yaml)
         self.to_do = to_do
