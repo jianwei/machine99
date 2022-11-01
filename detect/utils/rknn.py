@@ -42,7 +42,7 @@ class RKNNDetector:
         if ret != 0:
             print('load rknn model failed')
             exit(ret)
-        ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
+        ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0)
         if ret != 0:
             print('Init runtime environment failed')
             exit(ret)
