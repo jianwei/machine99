@@ -29,7 +29,7 @@ class unix_socket():
             try:
                 data_str = ""
                 while True:
-                    data = connection.recv(1024)
+                    data = connection.recv(102400)
                     data_str += data.decode()
                     if data:
                         reasult = self.deal_message.do_message(str(data),self.to_do)
