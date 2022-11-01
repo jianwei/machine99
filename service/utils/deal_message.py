@@ -17,8 +17,8 @@ class deal_message():
     def do_message(self, message,to_do):
         ret = {"message":"done"}
         if (message):
-            print("message:",message)
-            message = json.loads(message)
+            print("message:",str(message))
+            message = json.loads(str(message))
             if (to_do=="run"):
                 if (self.run_thread!="" and self.run_thread.is_alive()):
                     ret["message"] = "run_thread is_alive"
