@@ -50,6 +50,9 @@ class RKNNDetector:
 
     def get_inference_time(self):
         return round(self.avg_inference_time*1000,1)
+    
+    def get_yolo_time(self):
+        return round(self.avg_yolo_time*1000,1)
 
 
     def _predict(self,  _img):
@@ -57,11 +60,11 @@ class RKNNDetector:
         self.inference_number += 1
         t0 = time.time()
         outputs = self._rknn.inference(inputs=[_img])
-        inference_time = time.time() - t0
-        self.inference_time += inference_time
+        t1 = time.time()
+        self.inference_time += (t1 - t0)
         self.avg_inference_time = self.inference_time / self.inference_number
         print("inference time:{},avg_inference_time:{}\t".format(
-            inference_time, self.avg_inference_time))
+            (t1 - t0), self.avg_inference_time))
         input0_data = outputs[0]
         input1_data = outputs[1]
         input2_data = outputs[2]
@@ -74,10 +77,11 @@ class RKNNDetector:
         input_data.append(np.transpose(input0_data, (2, 3, 0, 1)))
         input_data.append(np.transpose(input1_data, (2, 3, 0, 1)))
         input_data.append(np.transpose(input2_data, (2, 3, 0, 1)))
-
         boxes, classes, scores = self.yolov5_post_process(input_data)
         if boxes is not None:
             self.draw(_img, boxes, scores, classes)
+        self.yolo_time += time.time()-t1
+        self.avg_yolo_time = self.yolo_time / self.inference_number
         return _img
 
     def draw(self, image, boxes, scores, classes):
