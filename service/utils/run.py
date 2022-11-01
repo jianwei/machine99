@@ -1,4 +1,4 @@
-from points import points
+from utils.points import points
 import time
 import numpy
 from serial_control import serial_control
