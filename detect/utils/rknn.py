@@ -128,10 +128,10 @@ class RKNNDetector:
                         (right, bottom),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.4, (0, 255, 0), 2)
-            cv2.putText(image, msg5,
-                        (centerx, centery),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (255,0,0), 2)
+            # cv2.putText(image, msg5,
+            #             (centerx, centery),
+            #             cv2.FONT_HERSHEY_SIMPLEX,
+            #             0.4, (255,0,0), 2)
         if (len(next_data) > 0):
             self.send_next(next_data)
 
