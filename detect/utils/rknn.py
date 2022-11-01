@@ -128,6 +128,7 @@ class RKNNDetector:
                         (right, bottom),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.4, (0, 255, 0), 2)
+            print(msg5)
             cv2.putText(image, msg5,
                         (centerx, centery),
                         cv2.FONT_HERSHEY_SIMPLEX,
