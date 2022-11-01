@@ -123,24 +123,24 @@ class RKNNDetector:
             cv2.putText(image, msg1,
                         (top, left),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0, 0, 255), 2)
+                        0.4, (61,1435,64), 2)
             cv2.putText(image, msg2,
                         (right, left),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0, 0, 255), 2)
+                        0.4, (61,1435,64), 2)
             cv2.putText(image, msg3,
                         (top, bottom),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0, 255, 0), 2)
+                        0.4, (235, 142, 85), 2)
             cv2.putText(image, msg4,
                         (right, bottom),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0, 255, 0), 2)
+                        0.4, (235, 142, 85), 2)
 
             cv2.putText(image, msg5,
                         (int(centerx-20), int(centery)),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0, 0, 0), 2)
+                        0.4, (210,180,140), 2)
 
 
             
