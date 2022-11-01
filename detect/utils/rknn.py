@@ -104,19 +104,34 @@ class RKNNDetector:
             
 
             
-            msg1 = "{},{}".format(centerx,centery)
-            msg2 = "{},{},{},{}".format(top, left,bottom, right)
+            msg1 = "{},{}".format(top, left)
+            msg2 = "{},{}".format(right, left)
+            msg3 = "{},{}".format(top, bottom)
+            msg4 = "{},{}".format(right, bottom)
+            msg5 = "{},{}".format(centerx, centery)
             # show_msg = '{0} {1:.2f} '.format(self.CLASSES[cl], score)
             # show_msg=msg
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
             cv2.putText(image, msg1,
-                        (top, left - 6),
+                        (top, left),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.4, (0, 0, 255), 2)
             cv2.putText(image, msg2,
-                        (top, left +12),
+                        (right, left),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0,0,0), 2)
+                        0.4, (0, 0, 255), 2)
+            cv2.putText(image, msg3,
+                        (top, bottom),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.4, (0, 255, 0), 2)
+            cv2.putText(image, msg4,
+                        (right, bottom),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.4, (0, 255, 0), 2)
+            cv2.putText(image, msg5,
+                        (centerx, centery),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.4, (255,0,0), 2)
         if (len(next_data) > 0):
             self.send_next(next_data)
 
