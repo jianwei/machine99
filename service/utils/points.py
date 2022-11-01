@@ -47,7 +47,7 @@ class points ():
         turn_data_list = data[:2]
         screenSize = turn_data_list[0][0].get("screenSize")
         center_pointer = screenSize[0]/2  # 640px中间
-        print("screenSize:",screenSize)
+        # print("screenSize:",screenSize)
         for item in turn_data_list:
             length = len(item)
             center_0 = item[0].get("centerx")
@@ -68,6 +68,6 @@ class points ():
             point = item2.get("point")
             y = point[2][1]
             max_y = y if  y>max_y else  max_y
-        print("max_y",max_y)
+        # print("max_y",max_y)
         return max_y
     

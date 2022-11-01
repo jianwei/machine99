@@ -37,12 +37,6 @@ class deal_message():
             ret["message"] = "message is none,message:{}".format(message)
         return json.dumps(ret)
 
-    # def get_common_data(self, message):
-    #     point = message["point"]
-    #     message["centerx"] = (point[0][0] + point[1][0])/2
-    #     message["centery"] = (point[0][1] + point[2][1])/2
-    #     message["center"] = [message["centerx"], message["centery"]]
-    #     return message
 
 
 if __name__ == '__main__':

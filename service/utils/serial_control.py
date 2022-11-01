@@ -48,14 +48,10 @@ class serial_control():
                 cnt = 1
                 ret_all = ""
                 time0 = time.time()
-                # print(1)
                 while True:
-                    # print(2)
                     cnt += 1
                     time1 = float(time.time())
-                    print(3)
                     response = self.ser.read()
-                    print("response:",response)
                     time2 = float(time.time())
                     diff = time2-time1
                     if (response):
@@ -63,7 +59,7 @@ class serial_control():
                         response_arr = ret_all.splitlines()
                         ret = response_arr[len(
                             response_arr)-1] if len(response_arr) > 0 else ""
-                        print("1--cnt:{},send_cmd:uuid:{},cmd:{},ret:{},difftime:{},response:{}".format( cnt, uuid, cmd, ret, diff, ret_all))
+                        # print("1--cnt:{},send_cmd:uuid:{},cmd:{},ret:{},difftime:{},response:{}".format( cnt, uuid, cmd, ret, diff, ret_all))
                         time.sleep(0.1)
                         s1 = re.compile('^(-?[1-9]|0{1}\d*)$')
                         r1 = s1.findall(ret)

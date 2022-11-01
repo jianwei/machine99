@@ -1,11 +1,13 @@
-import yaml
+# import json
 
-def get_yaml_data(yaml_file):
-    with open(yaml_file, encoding='utf-8')as file:
-        content = file.read()
-        data = yaml.load(content, Loader=yaml.FullLoader)
-        return data
+# file_object = open("gps.txt",'r') #创建一个文件对象，也是一个可迭代对象
+# all_the_text = file_object.read()  #结果为str类型
+# print (json.loads(all_the_text))
 
-if __name__ == "__main__":
-    data=get_yaml_data("config.yaml")
-    print(data.get('unix_socket')) 
+# a=[11,22,33,4,5,6,7,8]
+# b=a[:5]
+# print(b)
+
+print(5%2)
+
+ 

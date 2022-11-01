@@ -31,5 +31,6 @@ class run ():
         cmd_prefix = "TR" if target_turn_point_x<center_pointer_x else "TL"
         if (int(abs(angle))<=10 and int(abs(angle))>=3):
             cmd = "{} {}".format(cmd_prefix,int(angle))
+            # cmd = "{} {}.".format(cmd_prefix,10)
             self.global_angle += angle
-            # self.serial_control.send_cmd({"uuid":str(uuid.uuid1()),"cmd":cmd})
+            self.serial_control.send_cmd({"uuid":str(uuid.uuid1()),"cmd":cmd})
