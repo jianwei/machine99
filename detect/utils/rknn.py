@@ -9,12 +9,14 @@ from utils.unix_socket import unix_socket
 
 
 class RKNNDetector:
+
     def __init__(self, model_path, config_yaml,to_do):
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
         self.CLASSES = ("box",)
         self.wh = (640, 640)
+        self.to_do = to_do
         self._rknn = self.load_rknn_model(model_path)
         self.draw_box = False
         self.inference_time = 0
@@ -22,9 +24,8 @@ class RKNNDetector:
         self.draw_time = 0
         self.inference_number = 0
         yaml_data = self.get_yaml_data(config_yaml)
-        self.to_do = to_do
         self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
-        print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
+        # print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
 
 
     def set_screen_size(self, screenSize):
@@ -42,7 +43,7 @@ class RKNNDetector:
         if ret != 0:
             print('load rknn model failed')
             exit(ret)
-        print("load_rknn_model:",self.to_do)
+        # print("load_rknn_model:",self.to_do)
         if self.to_do == "run":
             ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0)
         else:

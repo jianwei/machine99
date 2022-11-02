@@ -7,7 +7,7 @@ import argparse
 def main(camera_id,save_video=False,to_do="run"):
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
-    print("save:",save_video,to_do)
+    # print("save:",save_video,to_do)
     detector = RKNNDetector(RKNN_MODEL_PATH,'../config.yaml',to_do)
     
 
