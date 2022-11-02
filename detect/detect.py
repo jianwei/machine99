@@ -18,9 +18,10 @@ def main(camera_id,save_video=False,to_do="run"):
         fource=cv2.VideoWriter_fourcc(*'DIVX')
         video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
         source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
-        # inference_video=cv2.VideoWriter('./run/inference/{}.mp4'.format(now_time),fource,20,(640,480))
+        inference_path = './run/inference/{}.mp4'.format(to_do+"_"+str(now_time))
+        inference_video=cv2.VideoWriter(inference_path,fource,20,(640,480))
     total_frame = 0
-    totao_fps=0
+    totao_fps = 0
     t01 = time.time()
     while True:
         print("--------------------------------------------------------------------------------------------------")
@@ -33,6 +34,8 @@ def main(camera_id,save_video=False,to_do="run"):
             src_h, src_w = img.shape[:2]
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
+            if save_video:
+                inference_video.write(img_1)
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
             avg_draw_time = detector.get_draw_time()
@@ -48,6 +51,7 @@ def main(camera_id,save_video=False,to_do="run"):
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
+                    
                     print("save video to:{}".format(video_path))
                 break
 
