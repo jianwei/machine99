@@ -13,6 +13,8 @@ def main(camera_id,save_video=False,to_do="run"):
 
     cap=cv2.VideoCapture(camera_id)
     if save_video:
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         #对视频设置的编码解码的方式MPEG-4编码
         # fource=cv2.VideoWriter_fourcc(*'DIVX')
@@ -20,7 +22,7 @@ def main(camera_id,save_video=False,to_do="run"):
         video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
         # source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         inference_path = './run/inference/{}.mp4'.format(to_do+"_"+str(now_time))
-        inference_video=cv2.VideoWriter(inference_path,fource,20,(640,480))
+        inference_video=cv2.VideoWriter(inference_path,fource,20,(width,height))
     total_frame = 0
     totao_fps = 0
     t01 = time.time()
