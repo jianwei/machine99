@@ -13,14 +13,11 @@ def main(camera_id,save_video=False,to_do="run"):
 
     cap=cv2.VideoCapture(camera_id)
     if save_video:
-        # width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        # height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         #对视频设置的编码解码的方式MPEG-4编码
-        # fource=cv2.VideoWriter_fourcc(*'DIVX')
-        fource=cv2.VideoWriter_fourcc('X', 'V', 'I', 'D')
+        fource=cv2.VideoWriter_fourcc(*'DIVX')
         video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
-        # source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
+        source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         inference_path = './run/inference/{}.mp4'.format(to_do+"_"+str(now_time))
         inference_video=cv2.VideoWriter(inference_path,fource,20,(640,640))
     total_frame = 0
@@ -31,14 +28,12 @@ def main(camera_id,save_video=False,to_do="run"):
         total_frame+=1
         t0 = time.time()
         success,img=cap.read()
-        # if save_video:
-        #     source_video.write(img)
+        if save_video:
+            source_video.write(img)
         if success:
             src_h, src_w = img.shape[:2]
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
-            src_h1, src_w1 = img_1.shape[:2]
-            print("src_h1, src_w1:",src_h1, src_w1)
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
             avg_draw_time = detector.get_draw_time()
@@ -47,7 +42,6 @@ def main(camera_id,save_video=False,to_do="run"):
             totao_fps += fps
             avg_fps = round(totao_fps/total_frame,3)
             t02 = time.time()
-            # t22 = round((t02-t01)/60,2)
             min = int((t02-t01)/60)
             second = int((t02-t01)%60)
             cv2.putText(img_1,"FPS: {}, run: {}:{}, infer: {},yolo:{},draw:{}".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,avg_draw_time), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
