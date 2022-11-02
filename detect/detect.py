@@ -36,7 +36,7 @@ def main(camera_id,save_video=False,to_do="run"):
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
             if save_video:
-                print("---------------------------")
+                print("+++++++++++++++++++++++++++++++++++++---------------------------++++++++++++++++++++++++++++++")
                 inference_video.write(img_1)
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
