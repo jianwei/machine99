@@ -22,7 +22,7 @@ def main(camera_id,save_video=False,to_do="run"):
         video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
         # source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         inference_path = './run/inference/{}.mp4'.format(to_do+"_"+str(now_time))
-        inference_video=cv2.VideoWriter(inference_path,fource,20,(width,height))
+        inference_video=cv2.VideoWriter(inference_path,fource,20,(height,width))
     total_frame = 0
     totao_fps = 0
     t01 = time.time()
