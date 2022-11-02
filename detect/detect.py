@@ -7,7 +7,6 @@ import argparse
 def main(camera_id,save_video=False,to_do="run"):
     filt_folder = os.getcwd()
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
-    # print("save:",save_video,to_do)
     detector = RKNNDetector(RKNN_MODEL_PATH,'../config.yaml',to_do)
     
 
@@ -52,8 +51,7 @@ def main(camera_id,save_video=False,to_do="run"):
                 inference_video.write(img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
-                    
-                    print("save video to:{}".format(video_path))
+                    print("save video to:{},inference_path:{}".format(video_path,inference_path))
                 break
 
 
@@ -65,7 +63,6 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true', help='do not save images/videos')
     parser.add_argument('--to_do', type=str,default="run", help='run or work')
     opt = parser.parse_args()
-    # print(opt,type(opt))
     main(**vars(opt))
     pass
 
