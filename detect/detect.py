@@ -37,6 +37,8 @@ def main(camera_id,save_video=False,to_do="run"):
             src_h, src_w = img.shape[:2]
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
+            src_h1, src_w1 = img_1.shape[:2]
+            print("src_h1, src_w1:",src_h1, src_w1)
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
             avg_draw_time = detector.get_draw_time()
