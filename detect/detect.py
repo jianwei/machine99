@@ -15,7 +15,8 @@ def main(camera_id,save_video=False,to_do="run"):
     if save_video:
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         #对视频设置的编码解码的方式MPEG-4编码
-        fource=cv2.VideoWriter_fourcc(*'DIVX')
+        # fource=cv2.VideoWriter_fourcc(*'DIVX')
+        fource=cv2.VideoWriter_fourcc('F', 'L', 'V', '1')
         video_path = './run/source/{}.mp4'.format(to_do+"_"+str(now_time))
         # source_video=cv2.VideoWriter(video_path,fource,20,(640,480))
         inference_path = './run/inference/{}.mp4'.format(to_do+"_"+str(now_time))
