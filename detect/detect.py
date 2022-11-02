@@ -35,9 +35,6 @@ def main(camera_id,save_video=False,to_do="run"):
             src_h, src_w = img.shape[:2]
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
-            if save_video:
-                print("+++++++++++++++++++++++++++++++++++++---------------------------++++++++++++++++++++++++++++++")
-                inference_video.write(img_1)
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
             avg_draw_time = detector.get_draw_time()
@@ -51,6 +48,9 @@ def main(camera_id,save_video=False,to_do="run"):
             second = int((t02-t01)%60)
             cv2.putText(img_1,"FPS: {}, run: {}:{}, infer: {},yolo:{},draw:{}".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,avg_draw_time), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
+            if save_video:
+                print("+++++++++++++++++++++++++++++++++++++---------------------------++++++++++++++++++++++++++++++")
+                inference_video.write(img_1)
             if cv2.waitKey(1)&0xFF==ord('q'):
                 if save_video:
                     
