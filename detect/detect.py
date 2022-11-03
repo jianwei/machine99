@@ -22,6 +22,20 @@ def main(camera_id,save_video=False,to_do="run"):
     total_frame = 0
     totao_fps = 0
     t01 = time.time()
+    t0 = 0
+    success,img = 0,0
+    src_h, src_w = 0 , 0
+    img_1 = 0
+    avg_inference_time = 0
+    avg_yolo_time = 0
+    avg_draw_time = 0
+    t1 = 0
+    fps  = 0
+    totao_fps= 0
+    avg_fps = 0
+    t02 = 0
+    min = 0
+    second = 0
     while True:
         print("--------------------------------------------------------------------------------------------------")
         total_frame+=1
