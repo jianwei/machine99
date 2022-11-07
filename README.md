@@ -8,3 +8,8 @@ sudo /etc/NX/nxserver --restart
 
 virtualenv -p /usr/bin/python3 venv
 source venv/bin/activate
+
+
+CPU 温度：
+apt-get install lm-sensors
+sensors

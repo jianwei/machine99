@@ -4,3 +4,4 @@ ubunu 22:
     sudo apt-get install libxslt1-dev zlib1g zlib1g-dev libglib2.0-0 \ libsm6 libgl1-mesa-glx libprotobuf-dev gcc
 
     pip3 install -r doc/requirements_cp38-1.4.0.txt
+
