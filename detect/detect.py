@@ -47,9 +47,9 @@ def main(camera_id,save_video=False,to_do="run"):
             second = int((t02-t01)%60)
             tmp_cmd = 'cat /sys/class/thermal/thermal_zone0/temp'
             val = os.popen(tmp_cmd)
-            tmp = int(val.read())/1000
+            tmp = int(int(val.read())/1000)
             # print(tmp)
-            cv2.putText(img_1,"FPS: {}, run: {}:{}, infer: {},yolo:{},draw:{},tmp:{}°".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,avg_draw_time,tmp), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.putText(img_1,"FPS: {}, run: {}:{}, infer: {},yolo:{},draw:{},tmp:{}".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,avg_draw_time,tmp), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if save_video:
                 inference_video.write(img_1)
