@@ -6,6 +6,7 @@ def main(cmds):
         thread = threading.Thread(target=run_cmd, args=(cmd,))
         thread.start()
 
+
 def run_cmd(cmd):
     print("cmd:",cmd)
     os.system(cmd)
