@@ -11,7 +11,9 @@ def run_cmd(camera_id):
     cap=cv2.VideoCapture(camera_id) #cv2.VideoCapture(0)代表调取摄像头资源，其中0代表电脑摄像头，1代表外接摄像头(usb摄像头)
     while True:
         success,img=cap.read()
-        cv2.imshow("Video",img)
+        print(11)
+        if success:
+            cv2.imshow("Video",img)
         if cv2.waitKey(1)&0xFF==ord('q'):
             break
 
