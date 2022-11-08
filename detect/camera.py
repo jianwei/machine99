@@ -1,23 +1,28 @@
-import cv2,time
-import threading
+import numpy as np
+import cv2
+import multiprocessing
+import time
+ 
 
-def main(camera_arr):
-    for camera_id in camera_arr:
-        thread = threading.Thread(target=run_cmd, args=(camera_id,))
-        thread.start()
-
-
-def run_cmd(camera_id):
-    # print ("camera_id:",camera_id)
-    cap=cv2.VideoCapture(camera_id) #cv2.VideoCapture(0)代表调取摄像头资源，其中0代表电脑摄像头，1代表外接摄像头(usb摄像头)
-    while True:
-        success,img=cap.read()
-        print ("camera_id:",camera_id,time.time(),success)
-        if success:
-            cv2.imshow("Video",img)
-        if cv2.waitKey(1)&0xFF==ord('q'):
+ 
+def video_read(camera_id):
+    cap = cv2.VideoCapture(camera_id)
+    width = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
+    height = (int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+    print(width,height)
+    while (cap.isOpened()):
+        ret,frame = cap.read()
+        cv2.imshow('camera', frame )
+        key = cv2.waitKey(10)
+        if int(key) == 113:
             break
+    cap.release()
+
 
 if __name__ == '__main__':
-    camera_arr = [20,22]
-    main(camera_arr)
+    print("主进程开始启动！")
+    camera_arr = [0,2]
+    for item in camera_arr:
+        p = multiprocessing.Process(target = video_read, args = (item,))
+        p.start()
+    print('程序结束！')
