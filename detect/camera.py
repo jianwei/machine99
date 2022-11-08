@@ -21,7 +21,7 @@ def video_read(camera_id):
 
 if __name__ == '__main__':
     print("主进程开始启动！")
-    camera_arr = [0,2]
+    camera_arr = [20,22]
     for item in camera_arr:
         p = multiprocessing.Process(target = video_read, args = (item,))
         p.start()
