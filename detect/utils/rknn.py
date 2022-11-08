@@ -5,7 +5,7 @@ import numpy as np
 from rknnlite.api import RKNNLite
 import yaml
 import json
-# from utils.unix_socket import unix_socket
+from utils.unix_socket import unix_socket
 
 
 class RKNNDetector:
@@ -24,7 +24,7 @@ class RKNNDetector:
         self.draw_time = 0
         self.inference_number = 0
         yaml_data = self.get_yaml_data(config_yaml)
-        # self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
+        self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
         # print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
 
 
@@ -45,14 +45,12 @@ class RKNNDetector:
             exit(ret)
         # print("load_rknn_model:",self.to_do)
         # RKNNLite.NPU_CORE_AUTO
-        # if self.to_do == "run":
-        #     # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_2)
-        #     ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0)
-            
-        # else:
-        #     # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1)
-        #     ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_1)
-        ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_AUTO)
+        if self.to_do == "run":
+            # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_2)
+            ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_AUTO)
+        else:
+            # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1)
+            ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_AUTO)
         if ret != 0:
             print('Init runtime environment failed')
             exit(ret)
@@ -183,8 +181,8 @@ class RKNNDetector:
         return next_data
 
     def send_next(self, next_data):
-        # self.unix_socket.send_message(json.dumps(next_data))
-        pass
+        # print("next_data:", next_data)
+        self.unix_socket.send_message(json.dumps(next_data))
 
     def yolov5_post_process(self, input_data):
         # print("input_data:",input_data)
