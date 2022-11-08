@@ -5,7 +5,7 @@ import numpy as np
 from rknnlite.api import RKNNLite
 import yaml
 import json
-from utils.unix_socket import unix_socket
+# from utils.unix_socket import unix_socket
 
 
 class RKNNDetector:
@@ -24,7 +24,7 @@ class RKNNDetector:
         self.draw_time = 0
         self.inference_number = 0
         yaml_data = self.get_yaml_data(config_yaml)
-        self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
+        # self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
         # print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
 
 
