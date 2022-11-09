@@ -10,7 +10,7 @@ def main(camera_id,save_video=False,to_do="run"):
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH,'../config.yaml',to_do)
     
-
+    
     cap=cv2.VideoCapture(camera_id)
     if save_video:
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
