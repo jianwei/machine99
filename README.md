@@ -10,3 +10,11 @@ CPU 温度：
 
 pip3.9 install pyyaml -i   http://pypi.douban.com/simple --trusted-host pypi.douban.com
 
+
+debian wifi:
+vim /etc/network/interfaces
+
+auto wlan0
+iface wlan0 inet dhcp
+wpa-essid Raspberry_PI_5G
+wpa-psk tuniu890!
