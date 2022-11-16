@@ -1,4 +1,3 @@
-# from select import select
 import cv2
 import time
 import numpy as np
@@ -25,7 +24,6 @@ class RKNNDetector:
         self.inference_number = 0
         yaml_data = self.get_yaml_data(config_yaml)
         self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
-        # print("to_do:{},unix_socket:{}".format(to_do,yaml_data.get('unix_socket').get(to_do)))
 
 
     def set_screen_size(self, screenSize):
@@ -43,14 +41,10 @@ class RKNNDetector:
         if ret != 0:
             print('load rknn model failed')
             exit(ret)
-        # print("load_rknn_model:",self.to_do)
-        # RKNNLite.NPU_CORE_AUTO
         if self.to_do == "run":
             ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_2)
-            # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_AUTO)
         else:
             ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1)
-            # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_AUTO)
         if ret != 0:
             print('Init runtime environment failed')
             exit(ret)
@@ -81,11 +75,9 @@ class RKNNDetector:
         input0_data = outputs[0]
         input1_data = outputs[1]
         input2_data = outputs[2]
-
         input0_data = input0_data.reshape([3, -1]+list(input0_data.shape[-2:]))
         input1_data = input1_data.reshape([3, -1]+list(input1_data.shape[-2:]))
         input2_data = input2_data.reshape([3, -1]+list(input2_data.shape[-2:]))
-
         input_data = list()
         input_data.append(np.transpose(input0_data, (2, 3, 0, 1)))
         input_data.append(np.transpose(input1_data, (2, 3, 0, 1)))
@@ -95,7 +87,6 @@ class RKNNDetector:
         self.yolo_time += t2-t1
         if boxes is not None:
             self.draw(_img, boxes, scores, classes)
-        # self.yolo_time += time.time()-t1
         self.draw_time += time.time()-t2
         self.avg_yolo_time = self.yolo_time / self.inference_number
         self.avg_draw_time = self.draw_time / self.inference_number
@@ -109,24 +100,17 @@ class RKNNDetector:
             left = int(left)
             right = int(right)
             bottom = int(bottom)
-
             point = [(top, left), (right, left),
                      (top, bottom), (right, bottom)]
-
             centery = (left + bottom)/2
             centerx = (top + right)/2
             item = self.get_item_next(self.CLASSES[cl], point,(centerx,centery))
             next_data.append(item)
-            
-
-            
             msg1 = "{},{}".format(top, left)
             msg2 = "{},{}".format(right, left)
             msg3 = "{},{}".format(top, bottom)
             msg4 = "{},{}".format(right, bottom)
             msg5 = "{},{}".format(centerx, centery)
-            # show_msg = '{0} {1:.2f} '.format(self.CLASSES[cl], score)
-            # show_msg=msg
             cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
             cv2.putText(image, msg1,
                         (top, left),
@@ -148,26 +132,9 @@ class RKNNDetector:
             cv2.putText(image, msg5,
                         (int(centerx-20), int(centery)),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        0.4, (0,0,0), 2)
-
-
-            
+                        0.4, (0,0,0), 2)       
         if (len(next_data) > 0):
             self.send_next(next_data)
-
-
-    
-    # def draw_line(self,image,next_data):
-    #     center_list = []
-    #     for item in next_data:
-    #         center_list.append(item.get("center"))
-    #     pass
-    
-    # def draw_list(self,image,next_data):
-    #     center_list = []
-    #     for item in next_data:
-    #         center_list.append(item.get("center"))
-    #     pass
 
     def get_item_next(self, name, point,center):
         next_data = {}
@@ -181,15 +148,12 @@ class RKNNDetector:
         return next_data
 
     def send_next(self, next_data):
-        # print("next_data:", next_data)
         self.unix_socket.send_message(json.dumps(next_data))
 
     def yolov5_post_process(self, input_data):
-        # print("input_data:",input_data)
         masks = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
         anchors = [[10, 13], [16, 30], [33, 23], [30, 61], [62, 45],
                    [59, 119], [116, 90], [156, 198], [373, 326]]
-
         boxes, classes, scores = [], [], []
         for input, mask in zip(input_data, masks):
             b, c, s = self.process(input, mask, anchors)
@@ -197,12 +161,10 @@ class RKNNDetector:
             boxes.append(b)
             classes.append(c)
             scores.append(s)
-
         boxes = np.concatenate(boxes)
         boxes = self.xywh2xyxy(boxes)
         classes = np.concatenate(classes)
         scores = np.concatenate(scores)
-
         nboxes, nclasses, nscores = [], [], []
         for c in set(classes):
             inds = np.where(classes == c)
@@ -215,14 +177,11 @@ class RKNNDetector:
             nboxes.append(b[keep])
             nclasses.append(c[keep])
             nscores.append(s[keep])
-
         if not nclasses and not nscores:
             return None, None, None
-
         boxes = np.concatenate(nboxes)
         classes = np.concatenate(nclasses)
         scores = np.concatenate(nscores)
-
         return boxes, classes, scores
 
     def nms_boxes(self, boxes, scores):
@@ -230,24 +189,19 @@ class RKNNDetector:
         y = boxes[:, 1]
         w = boxes[:, 2] - boxes[:, 0]
         h = boxes[:, 3] - boxes[:, 1]
-
         areas = w * h
         order = scores.argsort()[::-1]
-
         keep = []
         while order.size > 0:
             i = order[0]
             keep.append(i)
-
             xx1 = np.maximum(x[i], x[order[1:]])
             yy1 = np.maximum(y[i], y[order[1:]])
             xx2 = np.minimum(x[i] + w[i], x[order[1:]] + w[order[1:]])
             yy2 = np.minimum(y[i] + h[i], y[order[1:]] + h[order[1:]])
-
             w1 = np.maximum(0.0, xx2 - xx1 + 0.00001)
             h1 = np.maximum(0.0, yy2 - yy1 + 0.00001)
             inter = w1 * h1
-
             ovr = inter / (areas[i] + areas[order[1:]] - inter)
             inds = np.where(ovr <= self.NMS_THRESH)[0]
             order = order[inds + 1]
@@ -258,7 +212,6 @@ class RKNNDetector:
         return 1 / (1 + np.exp(-x))
 
     def xywh2xyxy(self, x):
-        # Convert [x, y, w, h] to [x1, y1, x2, y2]
         y = np.copy(x)
         y[:, 0] = x[:, 0] - x[:, 2] / 2  # top left x
         y[:, 1] = x[:, 1] - x[:, 3] / 2  # top left y
@@ -285,15 +238,12 @@ class RKNNDetector:
         return boxes, classes, scores
 
     def process(self, input, mask, anchors):
-
         anchors = [anchors[i] for i in mask]
         grid_h, grid_w = map(int, input.shape[0:2])
-
         box_confidence = self.sigmoid(input[..., 4])
         box_confidence = np.expand_dims(box_confidence, axis=-1)
         box_class_probs = self.sigmoid(input[..., 5:])
         box_xy = self.sigmoid(input[..., :2])*2 - 0.5
-
         col = np.tile(np.arange(0, grid_w), grid_w).reshape(-1, grid_w)
         row = np.tile(np.arange(0, grid_h).reshape(-1, 1), grid_h)
         col = col.reshape(grid_h, grid_w, 1, 1).repeat(3, axis=-2)
@@ -301,19 +251,12 @@ class RKNNDetector:
         grid = np.concatenate((col, row), axis=-1)
         box_xy += grid
         box_xy *= int(self.IMG_SIZE/grid_h)
-
         box_wh = pow(self.sigmoid(input[..., 2:4])*2, 2)
         box_wh = box_wh * anchors
-
         box = np.concatenate((box_xy, box_wh), axis=-1)
-
         return box, box_confidence, box_class_probs
 
     def predict_resize(self, img_src, conf_thres=0.4, iou_thres=0.45):
-        """
-        预测一张图片，预处理使用resize
-        return: labels,boxes
-        """
         _img = cv2.resize(img_src, self.wh)
         gain = img_src.shape[:2][::-1]
         return self._predict(img_src, _img, gain, conf_thres, iou_thres, )
@@ -327,10 +270,6 @@ class RKNNDetector:
         return new_img, (new_wh[0] / a.scale, new_wh[1] / a.scale)
 
     def predict(self, img_src, conf_thres=0.4, iou_thres=0.45):
-        """
-        预测一张图片，预处理保持宽高比
-        return: labels,boxes
-        """
         _img, gain = self.letterbox(img_src, self.wh)
         return self._predict(_img)
 
@@ -346,24 +285,24 @@ class RKNNDetector:
     def __del__(self):
         self.close()
 
-    def show_top5(result):
-        output = result[0].reshape(-1)
-        # softmax
-        output = np.exp(output)/sum(np.exp(output))
-        output_sorted = sorted(output, reverse=True)
-        top5_str = 'resnet18\n-----TOP 5-----\n'
-        for i in range(5):
-            value = output_sorted[i]
-            index = np.where(output == value)
-            for j in range(len(index)):
-                if (i + j) >= 5:
-                    break
-                if value > 0:
-                    topi = '{}: {}\n'.format(index[j], value)
-                else:
-                    topi = '-1: 0.0\n'
-                top5_str += topi
-        print(top5_str)
+    # def show_top5(result):
+    #     output = result[0].reshape(-1)
+    #     # softmax
+    #     output = np.exp(output)/sum(np.exp(output))
+    #     output_sorted = sorted(output, reverse=True)
+    #     top5_str = 'resnet18\n-----TOP 5-----\n'
+    #     for i in range(5):
+    #         value = output_sorted[i]
+    #         index = np.where(output == value)
+    #         for j in range(len(index)):
+    #             if (i + j) >= 5:
+    #                 break
+    #             if value > 0:
+    #                 topi = '{}: {}\n'.format(index[j], value)
+    #             else:
+    #                 topi = '-1: 0.0\n'
+    #             top5_str += topi
+    #     print(top5_str)
 
 
 class AutoScale:
