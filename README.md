@@ -8,9 +8,6 @@ CPU 温度：
 2.apt-get install lm-sensors
     2.1 sensors
 
-pip3.9 install pyyaml -i   http://pypi.douban.com/simple --trusted-host pypi.douban.com
-
-
 debian wifi:
 vim /etc/network/interfaces
 
