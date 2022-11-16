@@ -49,7 +49,7 @@ def main(camera_id,save_video=False,to_do="run"):
             val = os.popen(tmp_cmd)
             tmp = int(int(val.read())/1000)
             # print(tmp)
-            cv2.putText(img_1,"avg_fps: {}, run: {}:{}, infer: {},yolo:{},draw:{},tmp:{}".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,avg_draw_time,tmp), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.putText(img_1,"avg_fps: {}, run: {}:{}, infer: {},yolo:{},tmp:{}".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,tmp), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.putText(img_1,"cur_fps:{}".format(fps), (0,src_h-10),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if save_video:
