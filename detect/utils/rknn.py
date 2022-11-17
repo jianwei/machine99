@@ -22,12 +22,12 @@ class RKNNDetector:
         self.yolo_time = 0
         self.draw_time = 0
         self.inference_number = 0
-        # yaml_data = self.get_yaml_data(config_yaml)
+        yaml_data = self.get_yaml_data(config_yaml)
         # self.unix_socket = unix_socket(yaml_data.get('unix_socket').get(to_do))
-        self.unix_socket = unix_socket(self.get_unix_socket(to_do))
+        self.unix_socket = unix_socket(self.get_unix_socket(to_do,yaml_data))
 
-    def get_unix_socket(self,to_do,config_yaml):
-        yaml_config = self.get_yaml_data(config_yaml)
+    def get_unix_socket(self,to_do,yaml_config):
+        # yaml_config = self.get_yaml_data(config_yaml)
         cameras = yaml_config.get("camera")
         for item in cameras:
             if to_do == item.get("to_do"):
