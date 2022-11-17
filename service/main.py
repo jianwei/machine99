@@ -20,7 +20,7 @@ def main(to_do='run1'):
 
 def get_unix_socket(cameras,to_do):
     for item in cameras:
-        print(item)
+        # print(item)
         if(to_do==item.get("to_do")):
             return item.get("unix_socket")
 
