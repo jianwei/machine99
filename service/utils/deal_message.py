@@ -14,7 +14,7 @@ class deal_message():
         self.work_obj = work()
 
 
-    def do_message(self, message,to_do):
+    def do_message(self, message,to_do,send_cmd_socket):
         ret = {"message":"done"}
         if (message):
             # print("message:",message,type(message))
@@ -25,7 +25,7 @@ class deal_message():
                     ret["message"] = "near_thread is_alive"
                 else:
                     print("----------------------------------------------------------------------------------------near")
-                    self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,))
+                    self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,send_cmd_socket,))
                     self.run_thread.start()
                     ret["message"] = "near_thread done"
             elif (to_do=="work" ):
