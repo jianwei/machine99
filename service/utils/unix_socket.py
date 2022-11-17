@@ -10,6 +10,7 @@ class unix_socket():
     def __init__(self,server_address,cmd_server_address,to_do='run'):
         # print("server_address:",server_address)
         self.server_address = server_address
+        self.cmd_server_address = cmd_server_address
         self.to_do = to_do
         self.deal_message = deal_message()
         try:
