@@ -25,11 +25,12 @@ except socket.error as msg:
     print(msg)
     sys.exit(1)
 
-
-sock.send(b'{"a": 1}')
-sock.close()
+# message = json.dumps({"uuid": })
+# sock.send(b'{"": 1}')
+# sock.close()
 # u = unix_socket(unix_socket_path)
-# for i in range(100):
-#     message = json.dumps({"a": i})
-#     u.send_message(message)
-#     time.sleep(1)
+for i in range(100):
+    message = json.dumps({"uuid": i,"cmd":"TR {}".format(i+10)})
+    # u.send_message(message)
+    sock.send(message)
+    time.sleep(1)
