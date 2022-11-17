@@ -30,7 +30,7 @@ class unix_socket_send():
                 print("j============",j)
                 data = self.send_cmd_socket.recv(102400)
                 amount_received += len(data)
-                # print('received {!r}'.format(data))
+                print('received {!r}'.format(data))
                 return data.decode('utf-8')
 
         finally:
