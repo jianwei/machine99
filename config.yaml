@@ -1,5 +1,6 @@
 unix_socket: 
-  run: '/home/coolpi/uds_socket_run'
+  run1: '/home/coolpi/uds_socket_run1'
+  run2: '/home/coolpi/uds_socket_run2'
   work: '/home/coolpi/uds_socket_work'
 serial_control:
   port: '/dev/ttyACM0'
