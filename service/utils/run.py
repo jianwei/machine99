@@ -11,7 +11,6 @@ class run ():
         self.angle_diff_px = 10  #像素10 以内不做调整
         self.max_angle = 10   #转向不超过 10度
         # self.serial_control = serial_control()
-        self.send_unix_socket = 
 
     
     def do(self,message,send_cmd_socket):
