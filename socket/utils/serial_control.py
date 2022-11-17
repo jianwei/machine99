@@ -36,9 +36,9 @@ class serial_control():
         uuid = message["uuid"]
         print("cmd:",cmd)
         if (cmd):
-            # print("cmd:{},begin_time:{}".format(cmd, time.time()))
+            print("cmd:{},begin_time:{}".format(cmd, time.time()))
             self.ser.write(cmd.encode())
-            # print("cmd:end write:{}".format(time.time()))
+            print("cmd:end write:{}".format(time.time()))
             try:
                 cnt = 1
                 ret_all = ""
@@ -54,7 +54,7 @@ class serial_control():
                         response_arr = ret_all.splitlines()
                         ret = response_arr[len(
                             response_arr)-1] if len(response_arr) > 0 else ""
-                        # print("1--cnt:{},send_cmd:uuid:{},cmd:{},ret:{},difftime:{},response:{}".format( cnt, uuid, cmd, ret, diff, ret_all))
+                        print("1--cnt:{},send_cmd:uuid:{},cmd:{},ret:{},difftime:{},response:{}".format( cnt, uuid, cmd, ret, diff, ret_all))
                         time.sleep(0.1)
                         s1 = re.compile('^(-?[1-9]|0{1}\d*)$')
                         r1 = s1.findall(ret)
