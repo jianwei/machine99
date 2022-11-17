@@ -40,4 +40,5 @@ class run ():
         message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
         print("send cmd message:",message)
         # self.serial_control.send_cmd(message)
-        self.unix_socket_send.send_message(message)
+        ret = self.unix_socket_send.send_message(message)
+        print("send cmd message ret )))))))))))):",ret)
