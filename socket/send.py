@@ -17,7 +17,7 @@ def get_yaml_data(config_yaml):
 server_address = get_yaml_data('../config.yaml').get("serial_control").get('unix_socket')
 
 
-server_address = './uds_socket'
+# server_address = './uds_socket'
 sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 try:
     sock.connect(server_address)
