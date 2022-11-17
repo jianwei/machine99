@@ -2,7 +2,7 @@ from utils.points import points
 import time
 import numpy
 # from utils.serial_control import serial_control
-from utils.unix_socket import unix_socket
+# from utils.unix_socket import unix_socket
 import uuid
 class run ():
     def __init__(self):
