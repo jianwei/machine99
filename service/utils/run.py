@@ -4,6 +4,7 @@ import numpy
 # from utils.serial_control import serial_control
 # from utils.unix_socket import unix_socket
 import uuid
+import json
 class run ():
     def __init__(self):
         self.points_obj = points()
@@ -34,7 +35,7 @@ class run ():
         cmd = "{} {}".format(cmd_prefix,int(angle))
         # cmd = "{} {}.".format(cmd_prefix,10)
         self.global_angle += angle
-        message = {"uuid":str(uuid.uuid1()),"cmd":cmd}
+        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
         print("send cmd message:",message,send_cmd_socket,type(send_cmd_socket))
         # self.serial_control.send_cmd(message)
         send_cmd_socket.send_message(message)
