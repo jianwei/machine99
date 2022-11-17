@@ -59,7 +59,7 @@ class unix_socket():
                     data = connection.recv(102400)
                     data_str += data.decode()
                     if data:
-                        reasult = self.deal_message.do_message(str(data.decode()),self.to_do,self.send_cmd_socket)
+                        reasult = self.deal_message.do_message(str(data.decode()),self.to_do,self)
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
                         # print('data:{},reasult:{}'.format(data,reasult))
