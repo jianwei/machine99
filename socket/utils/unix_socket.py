@@ -35,7 +35,7 @@ class unix_socket():
                         if (message):
                             message = json.loads(message)
                             # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
-                            self.serial_control.send_cmd(message)
+                            reasult = self.serial_control.send_cmd(message)
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
                         print('reasult:{}'.format(reasult))
