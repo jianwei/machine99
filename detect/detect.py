@@ -3,15 +3,13 @@ import cv2
 import time,os
 import argparse
 
-
 def main(camera_id,save_video=False,to_do="run"):
     filt_folder = os.getcwd()
     # RKNN_MODEL_PATH = filt_folder + "/weights/chives.rknn"
     RKNN_MODEL_PATH = filt_folder + "/weights/box.rknn"
     detector = RKNNDetector(RKNN_MODEL_PATH,'../config.yaml',to_do)
     
-    
-    cap=cv2.VideoCapture(camera_id)
+    cap = cv2.VideoCapture(camera_id)
     if save_video:
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         #对视频设置的编码解码的方式MPEG-4编码
@@ -33,7 +31,6 @@ def main(camera_id,save_video=False,to_do="run"):
             src_h, src_w = img.shape[:2]
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
-
 
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
@@ -59,9 +56,6 @@ def main(camera_id,save_video=False,to_do="run"):
                     print("save video to:{},inference_path:{}".format(video_path,inference_path))
                 break
 
-
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--camera_id',  type=int, default=20, help='model path or triton URL')
@@ -69,5 +63,5 @@ if __name__ == '__main__':
     parser.add_argument('--to_do', type=str,default="run", help='run or work')
     opt = parser.parse_args()
     main(**vars(opt))
-    pass
-
+    
+    
