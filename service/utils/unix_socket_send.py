@@ -19,8 +19,16 @@ class unix_socket_send():
         print('connecting to {}'.format(self.server_address))
         try:
             message = message.encode('utf-8')
-            print('sending {!r}'.format(message))
-            self.send_cmd_socket.sendall(message)
+            sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            try:
+                sock.connect(self.server_address)
+            except socket.error as msg:
+                print(msg)
+                sys.exit(1)
+            sock.send(message.encode("UTF-8"))
+
+            # print('sending {!r}'.format(message))
+            # self.send_cmd_socket.sendall(message)
 
             # amount_received = 0
             # amount_expected = len(message)
