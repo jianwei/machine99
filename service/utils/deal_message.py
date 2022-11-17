@@ -19,13 +19,13 @@ class deal_message():
         if (message):
             # print("message:",message,type(message))
             message = json.loads(message)
-            if (to_do=="run"):
+            if (to_do=="near"):
                 if (self.run_thread!="" and self.run_thread.is_alive()):
-                    ret["message"] = "run_thread is_alive"
+                    ret["message"] = "near_thread is_alive"
                 else:
                     self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,))
                     self.run_thread.start()
-                    ret["message"] = "run_thread done"
+                    ret["message"] = "near_thread done"
             elif (to_do=="work" ):
                 if (self.work_thread!="" and self.work_thread.is_alive()):
                     ret["message"] = "work_thread is_alive"

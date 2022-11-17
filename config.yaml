@@ -3,13 +3,13 @@ serial_control:
   port: "/dev/ttyACM0"
 camera:
   - {
-      unix_socket: "/home/coolpi/uds_socket_run1",
-      to_do: "run1",
+      unix_socket: "/home/coolpi/uds_socket_distance",
+      to_do: "distance",
       camera_id: "0",
     }
   - {
-      unix_socket: "/home/coolpi/uds_socket_run2",
-      to_do: "run2",
+      unix_socket: "/home/coolpi/uds_socket_near",
+      to_do: "near",
       camera_id: "2",
     }
   - {
