@@ -26,7 +26,7 @@ class unix_socket_send():
             amount_expected = len(message)
 
             while amount_received < amount_expected:
-                data = self.socket.recv(1024)
+                data = self.send_cmd_socket.recv(1024)
                 amount_received += len(data)
                 # print('received {!r}'.format(data))
                 return data.decode('utf-8')
