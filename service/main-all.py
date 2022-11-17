@@ -11,5 +11,5 @@ def run_cmd(cmd):
     os.system(cmd)
 
 if __name__ == '__main__':
-    cmds = ["python3 main.py --to_do run","python3 main.py --to_do work"]
+    cmds = ["python3 main.py --to_do run1","python3 main.py --to_do run2","python3 main.py --to_do work"]
     main(cmds)
