@@ -35,4 +35,4 @@ class run ():
         self.global_angle += angle
         message = {"uuid":str(uuid.uuid1()),"cmd":cmd}
         # self.serial_control.send_cmd({"uuid":str(uuid.uuid1()),"cmd":cmd})
-        serial_control.send_cmd(message)
+        self.serial_control.send_cmd(message)
