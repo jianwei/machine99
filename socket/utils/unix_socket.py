@@ -33,6 +33,7 @@ class unix_socket():
                     if data:
                         message = str(data.decode())
                         if (message):
+                            print("message:",message)
                             message = json.loads(message)
                             # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
                             reasult = self.serial_control.send_cmd(message)
