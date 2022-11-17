@@ -24,6 +24,7 @@ class unix_socket():
             if os.path.exists(self.cmd_server_address):
                 raise
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.send_cmd_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         try:
             self.send_cmd_socket.connect(self.cmd_server_address)
         except socket.error as msg:
