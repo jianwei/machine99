@@ -1,4 +1,4 @@
-from utils.unix_socket import unix_socket
+from utils.unix_socket_server import unix_socket_server
 import yaml,argparse
 
 def get_yaml_data(config_yaml):
@@ -14,7 +14,7 @@ def main(to_do='run1'):
     camera_unix_socket_path = get_unix_socket(yaml_config.get("camera"),to_do)
     cmd_unix_socket_path = yaml_config.get("serial_control").get("unix_socket")
     print("camera_unix_socket_path:{},cmd_unix_socket_path:{}".format(camera_unix_socket_path,cmd_unix_socket_path))
-    u = unix_socket(camera_unix_socket_path,cmd_unix_socket_path,to_do)
+    u = unix_socket_server(camera_unix_socket_path,cmd_unix_socket_path,to_do)
     u.server()
 
 

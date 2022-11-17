@@ -7,14 +7,15 @@ from utils.work import work
 
 class deal_message():
 
-    def __init__(self):
+    def __init__(self,cmd_server_address):
         self.run_thread = ""
         self.work_thread = ""
-        self.run_obj = run()
+        # self.cmd_server_address = self.cmd_server_address
+        self.run_obj = run(cmd_server_address)
         self.work_obj = work()
 
 
-    def do_message(self, message,to_do,send_cmd_socket):
+    def do_message(self, message,to_do,cmd_server_address):
         ret = {"message":"done"}
         if (message):
             # print("message:",message,type(message))
@@ -25,7 +26,7 @@ class deal_message():
                     ret["message"] = "near_thread is_alive"
                 else:
                     print("----------------------------------------------------------------------------------------near")
-                    self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,send_cmd_socket,))
+                    self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,))
                     self.run_thread.start()
                     ret["message"] = "near_thread done"
             elif (to_do=="work" ):

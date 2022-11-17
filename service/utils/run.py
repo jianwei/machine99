@@ -2,26 +2,28 @@ from utils.points import points
 import time
 import numpy
 # from utils.serial_control import serial_control
-# from utils.unix_socket import unix_socket
+from utils.unix_socket_send import unix_socket_send
 import uuid
 import json
 class run ():
-    def __init__(self):
+    def __init__(self,cmd_server_address):
         self.points_obj = points()
         self.global_angle = 90
         self.angle_diff_px = 10  #像素10 以内不做调整
         self.max_angle = 10   #转向不超过 10度
         # self.serial_control = serial_control()
+        self.cmd_server_address  = cmd_server_address
+        self.unix_socket_send = unix_socket_send(cmd_server_address)
 
     
-    def do(self,message,send_cmd_socket):
+    def do(self,message):
         target_turn_point_x = self.points_obj.get_turn_point_x(message)
         target_turn_point_y = self.points_obj.get_turn_point_y(message)
         print("target_turn_point:",target_turn_point_x,target_turn_point_y)
-        self.turn(message,target_turn_point_x,target_turn_point_x,send_cmd_socket)
+        self.turn(message,target_turn_point_x,target_turn_point_x)
 
 
-    def turn(self,data,target_turn_point_x,target_turn_point_y,send_cmd_socket):
+    def turn(self,data,target_turn_point_x,target_turn_point_y):
         unit = 0.0386  # 1 pint 0.0386cm
         gap = 30  # cm 导航摄像头的视野盲区
         screenSize = data[0].get("screenSize")
@@ -36,6 +38,6 @@ class run ():
         # cmd = "{} {}.".format(cmd_prefix,10)
         self.global_angle += angle
         message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
-        print("send cmd message:",message,send_cmd_socket,type(send_cmd_socket))
+        print("send cmd message:",message)
         # self.serial_control.send_cmd(message)
-        send_cmd_socket.send_message(message)
+        self.unix_socket_send.send_message(message)
