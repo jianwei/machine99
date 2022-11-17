@@ -9,6 +9,7 @@ class unix_socket():
     def __init__(self,server_address):
         self.server_address = server_address
         self.serial_control = serial_control()
+        print("self.server_address:",self.server_address)
         try:
             os.unlink(self.server_address)
         except OSError:
@@ -21,7 +22,7 @@ class unix_socket():
         self.socket.bind(self.server_address)
         self.socket.listen(10)
         while True:
-            print('waiting for a connection')
+            print('waiting for cmd socket connection')
             connection, client_address = self.socket.accept()
             try:
                 data_str = ""
