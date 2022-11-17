@@ -15,7 +15,7 @@ class deal_message():
         self.work_obj = work()
 
 
-    def do_message(self, message,to_do,cmd_server_address):
+    def do_message(self, message,to_do):
         ret = {"message":"done"}
         if (message):
             # print("message:",message,type(message))
