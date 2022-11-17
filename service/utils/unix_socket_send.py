@@ -22,16 +22,16 @@ class unix_socket_send():
             print('sending {!r}'.format(message))
             self.send_cmd_socket.sendall(message)
 
-            amount_received = 0
-            amount_expected = len(message)
-            j = 1
-            while amount_received < amount_expected:
-                j+=1
-                print("j============",j)
-                data = self.send_cmd_socket.recv(102400)
-                amount_received += len(data)
-                print('received {!r}'.format(data))
-                return data.decode('utf-8')
+            # amount_received = 0
+            # amount_expected = len(message)
+            # j = 1
+            # while amount_received < amount_expected:
+            #     j+=1
+            #     print("j============",j)
+            #     data = self.send_cmd_socket.recv(102400)
+            #     amount_received += len(data)
+            #     print('received {!r}'.format(data))
+            #     return data.decode('utf-8')
 
         finally:
             print('finally socket')
