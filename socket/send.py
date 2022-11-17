@@ -32,5 +32,5 @@ except socket.error as msg:
 for i in range(100):
     message = json.dumps({"uuid": i,"cmd":"TR {}".format(i+10)})
     # u.send_message(message)
-    sock.send(message)
+    sock.send(message.encode("UTF-8"))
     time.sleep(1)
