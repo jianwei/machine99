@@ -25,7 +25,7 @@ class unix_socket_send():
             except socket.error as msg:
                 print(msg)
                 sys.exit(1)
-            sock.send(message.encode("UTF-8"))
+            sock.send(message)
 
             # print('sending {!r}'.format(message))
             # self.send_cmd_socket.sendall(message)
