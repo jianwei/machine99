@@ -18,11 +18,6 @@ class unix_socket():
         except OSError:
             if os.path.exists(self.server_address):
                 raise
-        try:
-            os.unlink(self.cmd_server_address)
-        except OSError:
-            if os.path.exists(self.cmd_server_address):
-                raise
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.send_cmd_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         try:
