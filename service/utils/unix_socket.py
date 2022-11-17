@@ -7,7 +7,7 @@ from utils.deal_message import deal_message
 
 
 class unix_socket():
-    def __init__(self,server_address,to_do='run'):
+    def __init__(self,server_address,cmd_server_address,to_do='run'):
         # print("server_address:",server_address)
         self.server_address = server_address
         self.to_do = to_do
@@ -17,7 +17,37 @@ class unix_socket():
         except OSError:
             if os.path.exists(self.server_address):
                 raise
+        try:
+            os.unlink(self.cmd_server_address)
+        except OSError:
+            if os.path.exists(self.cmd_server_address):
+                raise
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        try:
+            self.send_cmd_socket.connect(self.cmd_server_address)
+        except socket.error as msg:
+            print("send_message,error:",msg)
+            sys.exit(1)
+
+    def send_message(self,message):
+        # print('connecting to {}'.format(self.server_address))
+        try:
+            message = message.encode('utf-8')
+            # print('sending {!r}'.format(message))
+            self.send_cmd_socket.sendall(message)
+
+            amount_received = 0
+            amount_expected = len(message)
+
+            while amount_received < amount_expected:
+                data = self.socket.recv(102400)
+                amount_received += len(data)
+                # print('received {!r}'.format(data))
+                return data.decode('utf-8')
+
+        finally:
+            print('finally socket')
+            # self.socket.close()
         
 
     def server(self):
