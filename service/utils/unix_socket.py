@@ -27,10 +27,10 @@ class unix_socket():
             sys.exit(1)
 
     def send_message(self,message):
-        # print('connecting to {}'.format(self.server_address))
+        print('connecting to {}'.format(self.cmd_server_address))
         try:
             message = message.encode('utf-8')
-            # print('sending {!r}'.format(message))
+            print('sending {!r}'.format(message))
             self.send_cmd_socket.sendall(message)
 
             amount_received = 0
