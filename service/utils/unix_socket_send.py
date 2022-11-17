@@ -3,7 +3,6 @@ import os
 import socket
 import sys
 import time,uuid
-from utils.deal_message import deal_message
 
 
 class unix_socket_send():
