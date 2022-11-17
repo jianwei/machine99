@@ -51,7 +51,7 @@ class unix_socket():
         self.socket.bind(self.server_address)
         self.socket.listen(10)
         while True:
-            print('waiting for {} connection'.format(self.to_do))
+            print('waiting for {} connection:,send_cmd_socket:{}{}'.format(self.to_do,self.send_cmd_socket,type(self.send_cmd_socket)))
             connection, client_address = self.socket.accept()
             try:
                 data_str = ""
