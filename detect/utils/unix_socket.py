@@ -17,21 +17,15 @@ class unix_socket():
         
     
     def send_message(self,message):
-        # print('connecting to {}'.format(self.server_address))
         try:
             message = message.encode('utf-8')
-            # print('sending {!r}'.format(message))
             self.socket.sendall(message)
-
             amount_received = 0
             amount_expected = len(message)
-
             while amount_received < amount_expected:
                 data = self.socket.recv(102400)
                 amount_received += len(data)
-                # print('received {!r}'.format(data))
                 return data.decode('utf-8')
-
         finally:
             print('finally socket')
             # self.socket.close()

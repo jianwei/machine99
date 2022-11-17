@@ -16,6 +16,20 @@ class unix_socket():
             if os.path.exists(self.server_address):
                 raise
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    
+    def send_message(self,message):
+        try:
+            message = message.encode('utf-8')
+            self.socket.sendall(message)
+            amount_received = 0
+            amount_expected = len(message)
+            while amount_received < amount_expected:
+                data = self.socket.recv(102400)
+                amount_received += len(data)
+                return data.decode('utf-8')
+        finally:
+            print('finally socket')
+            # self.socket.close()
         
 
     def server(self):
