@@ -2,6 +2,8 @@ from utils.unix_socket import unix_socket
 import json
 import yaml
 import time
+import os
+import socket,sys
 
 
 def get_yaml_data(config_yaml):
@@ -12,9 +14,22 @@ def get_yaml_data(config_yaml):
 
 
 # u = unix_socket("../uds_socket")
-unix_socket_path = get_yaml_data('../config.yaml').get("serial_control").get('unix_socket')
-u = unix_socket(unix_socket_path)
-for i in range(100):
-    message = json.dumps({"a": i})
-    u.send_message(message)
-    time.sleep(1)
+server_address = get_yaml_data('../config.yaml').get("serial_control").get('unix_socket')
+
+
+server_address = './uds_socket'
+sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+try:
+    sock.connect(server_address)
+except socket.error as msg:
+    print(msg)
+    sys.exit(1)
+
+
+sock.send(b'{"a": 1}')
+sock.close()
+# u = unix_socket(unix_socket_path)
+# for i in range(100):
+#     message = json.dumps({"a": i})
+#     u.send_message(message)
+#     time.sleep(1)
