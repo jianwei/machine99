@@ -40,6 +40,8 @@ class unix_socket():
                             reasult = reasult.encode('UTF-8')
                         print('reasult:{}'.format(reasult))
                         connection.sendall(reasult)
+                        if (str(reasult)== "0"):
+                            break
                     else:
                         break
             finally:
