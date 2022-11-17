@@ -35,6 +35,6 @@ class run ():
         # cmd = "{} {}.".format(cmd_prefix,10)
         self.global_angle += angle
         message = {"uuid":str(uuid.uuid1()),"cmd":cmd}
-        print("send cmd message:",message)
+        print("send cmd message:",message,send_cmd_socket,type(send_cmd_socket))
         # self.serial_control.send_cmd(message)
         send_cmd_socket.send_message(message)
