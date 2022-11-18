@@ -2,6 +2,7 @@ import json
 import threading
 from utils.run import run 
 from utils.work import work 
+from utils.distance import distance 
 
 
 
@@ -10,9 +11,11 @@ class deal_message():
     def __init__(self,cmd_server_address):
         self.run_thread = ""
         self.work_thread = ""
+        self.distance_thread = ""
         # self.cmd_server_address = self.cmd_server_address
         self.run_obj = run(cmd_server_address)
         self.work_obj = work(cmd_server_address)
+        self.distance_obj = work(cmd_server_address)
 
 
     def do_message(self, message,to_do):
@@ -22,10 +25,8 @@ class deal_message():
             message = json.loads(message)
             if (to_do=="near"):
                 if (self.run_thread!="" and self.run_thread.is_alive()):
-                    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++near")
                     ret["message"] = "near_thread is_alive"
                 else:
-                    print("----------------------------------------------------------------------------------------near")
                     self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,))
                     self.run_thread.start()
                     ret["message"] = "near_thread done"
@@ -36,6 +37,13 @@ class deal_message():
                     self.work_thread = threading.Thread(target=self.work_obj.do, args=(message,))
                     self.work_thread.start()
                     ret["message"] = "work_thread done"
+            elif (to_do=="distance" ):
+                if (self.work_thread!="" and self.distance_thread.is_alive()):
+                    ret["message"] = "distance_thread is_alive"
+                else:
+                    self.work_thread = threading.Thread(target=self.distance_obj.do, args=(message,))
+                    self.work_thread.start()
+                    ret["message"] = "distance_thread done"
         else:
             ret["message"] = "message is none,message:{}".format(message)
         return json.dumps(ret)
