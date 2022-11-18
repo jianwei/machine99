@@ -35,10 +35,11 @@ class serial_control():
         else:
             cmd = None
         uuid = message["uuid"]
-        print("cmd1:",cmd)
+        # print("cmd1:",cmd)
         cmd = cmd+"." if not cmd[-1]=="." else cmd
-        print("cmd2:",cmd)
+        # print("cmd2:",cmd)
         if (cmd):
+            print("------------------------------------------------------------cmd-------------------------------------------------------------------")
             # print("cmd:{},begin_time:{}".format(cmd, time.time()))
             self.ser.write(cmd.encode())
             # print("cmd:end write:{}".format(time.time()))
