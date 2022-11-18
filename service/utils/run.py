@@ -13,7 +13,7 @@ class run ():
         self.max_angle = 10   #转向不超过 10度
         # self.serial_control = serial_control()
         self.cmd_server_address  = cmd_server_address
-        self.unix_socket_send = unix_socket_send(cmd_server_address)
+        
 
     
     def do(self,message):
@@ -43,5 +43,6 @@ class run ():
         print("send cmd message:",message)
         # self.serial_control.send_cmd(message)
         # self.unix_socket_send(message)
-        ret = self.unix_socket_send.send_message(message)
+        send_socket = unix_socket_send(self.cmd_server_address)
+        ret = send_socket.send_message(message)
         print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)

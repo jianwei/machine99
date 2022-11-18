@@ -26,6 +26,7 @@ class unix_socket_send():
                 print("sock.connect error:",msg)
                 sys.exit(1)
             sock.send(message)
+            sock.close()
 
             # print('sending {!r}'.format(message))
             # self.send_cmd_socket.sendall(message)
