@@ -28,7 +28,7 @@ for i in range(30):
         sock.connect(server_address)
     except socket.error as msg:
         print(msg)
-    message = json.dumps({"uuid":i,"cmd":"TR"+str(i+10),"send_time":str(time.time())})
+    message = json.dumps({"uuid":i,"cmd":"TR "+str(i+10),"send_time":str(time.time())})
     print(message)
     sock.send(message.encode("UTF-8"))
     sock.close()
