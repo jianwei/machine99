@@ -27,7 +27,12 @@ class unix_socket_send():
             #     sys.exit(1)
             # sock.send(message)
             # sock.close()
+            # a= "1".encode("UTF-8")
+            # if isinstance(a,bytes):
+            #     print(123)
 
+            if not isinstance(message,bytes):  
+                message = message.encode("UTF-8")
 
             send_cmd_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
             try:
