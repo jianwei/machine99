@@ -33,6 +33,8 @@ class run ():
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
         print("angle:",angle)
         cmd_prefix = "TR" if target_turn_point_x<center_pointer_x else "TL"
+
+
         # if (int(abs(angle))<=10 and int(abs(angle))>=3):
         cmd = "{} {}".format(cmd_prefix,int(angle))
         # cmd = "{} {}.".format(cmd_prefix,10)
@@ -40,5 +42,6 @@ class run ():
         message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
         print("send cmd message:",message)
         # self.serial_control.send_cmd(message)
+        # self.unix_socket_send(message)
         ret = self.unix_socket_send.send_message(message)
-        print("send cmd message ret )))))))))))):",ret)
+        print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)

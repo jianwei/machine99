@@ -7,13 +7,13 @@ camera:
       to_do: "distance",
       camera_id: "0",
     }
-  - {
-      unix_socket: "/home/coolpi/uds_socket_near",
-      to_do: "near",
-      camera_id: "2",
-    }
-  - {
-      unix_socket: "/home/coolpi/uds_socket_work",
-      to_do: "work",
-      camera_id: "4",
-    }
+  # - {
+  #     unix_socket: "/home/coolpi/uds_socket_near",
+  #     to_do: "near",
+  #     camera_id: "2",
+  #   }
+  # - {
+  #     unix_socket: "/home/coolpi/uds_socket_work",
+  #     to_do: "work",
+  #     camera_id: "4",
+  #   }
