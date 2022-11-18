@@ -1,6 +1,3 @@
-import os,sys
-import time
-
-a= "1".encode("UTF-8")
-if isinstance(a,bytes):
-    print(123)
+cmd="TR 1"
+cmd = cmd+"." if not cmd[-1]=="." else cmd
+print (cmd)
