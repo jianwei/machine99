@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import os
 import socket
-import json
+import json,time
 from utils.serial_control import serial_control
 
 
@@ -33,7 +33,7 @@ class unix_socket():
                     if data:
                         message = str(data.decode())
                         if (message):
-                            print("message:",message)
+                            print("message:",message,time.time())
                             # message = json.loads(message)
                             # # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
                             # reasult = self.serial_control.send_cmd(message)
