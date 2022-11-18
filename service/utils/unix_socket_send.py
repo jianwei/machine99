@@ -11,7 +11,7 @@ class unix_socket_send():
        
 
     def send_message(self,message):
-        print('connecting to {}'.format(self.server_address))
+        # print('connecting to {}'.format(self.server_address))
         try:
             message = message if isinstance(message,bytes) else message.encode('utf-8')
             sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)

@@ -31,7 +31,7 @@ class run ():
         diff_point_x = center_pointer_x-target_turn_point_x
         tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
-        print("angle:",angle)
+        # print("angle:",angle)
         cmd_prefix = "TR" if target_turn_point_x<center_pointer_x else "TL"
 
 
@@ -40,7 +40,7 @@ class run ():
         # cmd = "{} {}.".format(cmd_prefix,10)
         self.global_angle += angle
         message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
-        print("send cmd message:",message)
+        # print("send cmd message:",message)
         # self.serial_control.send_cmd(message)
         # self.unix_socket_send(message)
         send_socket = unix_socket_send(self.cmd_server_address)
