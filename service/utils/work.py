@@ -6,7 +6,7 @@ class work():
         self.cmd_server_address = cmd_server_address
     
     def do(self,message):
-        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"WORK 123-----------------------work"})
-        print("work-do-message:",message)
+        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"LROT 255"})
+        # print("work-do-message:",message)
         send_socket = unix_socket_send(self.cmd_server_address)
         ret = send_socket.send_message(message)
