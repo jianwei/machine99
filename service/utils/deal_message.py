@@ -38,11 +38,11 @@ class deal_message():
                     self.work_thread.start()
                     ret["message"] = "work_thread done"
             elif (to_do=="distance" ):
-                if (self.work_thread!="" and self.distance_thread.is_alive()):
+                if (self.distance_thread!="" and self.distance_thread.is_alive()):
                     ret["message"] = "distance_thread is_alive"
                 else:
-                    self.work_thread = threading.Thread(target=self.distance_obj.do, args=(message,))
-                    self.work_thread.start()
+                    self.distance_thread = threading.Thread(target=self.distance_obj.do, args=(message,))
+                    self.distance_thread.start()
                     ret["message"] = "distance_thread done"
         else:
             ret["message"] = "message is none,message:{}".format(message)
