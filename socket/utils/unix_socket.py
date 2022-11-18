@@ -34,15 +34,15 @@ class unix_socket():
                         message = str(data.decode())
                         if (message):
                             print("message:",message,time.time())
-                            message = json.loads(message)
-                            # # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
-                            reasult = self.serial_control.send_cmd(message)
-                        if (type(reasult)==str):
-                            reasult = reasult.encode('UTF-8')
-                        print('reasult:{}'.format(reasult))
-                        # connection.sendall(reasult)
-                        if (str(reasult)== "0" or str(reasult)== "-1"):
-                            break
+                        #     message = json.loads(message)
+                        #     # # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
+                        #     reasult = self.serial_control.send_cmd(message)
+                        # if (type(reasult)==str):
+                        #     reasult = reasult.encode('UTF-8')
+                        # print('reasult:{}'.format(reasult))
+                        # # connection.sendall(reasult)
+                        # if (str(reasult)== "0" or str(reasult)== "-1"):
+                        #     break
                     else:
                         break
             finally:
