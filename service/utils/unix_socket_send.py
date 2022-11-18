@@ -23,7 +23,7 @@ class unix_socket_send():
             try:
                 sock.connect(self.server_address)
             except socket.error as msg:
-                print(msg)
+                print("sock.connect error:",msg)
                 sys.exit(1)
             sock.send(message)
 
