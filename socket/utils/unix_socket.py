@@ -23,7 +23,7 @@ class unix_socket():
         self.socket.bind(self.server_address)
         self.socket.listen(10)
         while True:
-            print('waiting for cmd socket connection')
+            # print('waiting for cmd socket connection')
             connection, client_address = self.socket.accept()
             try:
                 data_str = ""
@@ -34,15 +34,15 @@ class unix_socket():
                         message = str(data.decode())
                         if (message):
                             print("message:",message,time.time())
-                            # message = json.loads(message)
-                            # # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
-                            # reasult = self.serial_control.send_cmd(message)
-                        # if (type(reasult)==str):
-                        #     reasult = reasult.encode('UTF-8')
-                        # print('reasult:{}'.format(reasult))
-                        # connection.sendall(reasult)
-                        # if (str(reasult)== "0"):
-                        #     break
+                            message = json.loads(message)
+                            # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
+                            reasult = self.serial_control.send_cmd(message)
+                        if (type(reasult)==str):
+                            reasult = reasult.encode('UTF-8')
+                        print('reasult:{}'.format(reasult))
+                        connection.sendall(reasult)
+                        if (str(reasult)== "0"):
+                            break
                     else:
                         break
             finally:
