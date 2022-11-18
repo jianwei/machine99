@@ -36,13 +36,13 @@ class unix_socket():
                             print("message:",message,time.time())
                             message = json.loads(message)
                             # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
-                            reasult = self.serial_control.send_cmd(message)
-                        if (type(reasult)==str):
-                            reasult = reasult.encode('UTF-8')
-                        print('reasult:{}'.format(reasult))
-                        connection.sendall(reasult)
-                        if (str(reasult)== "0"):
-                            break
+                        #     reasult = self.serial_control.send_cmd(message)
+                        # if (type(reasult)==str):
+                        #     reasult = reasult.encode('UTF-8')
+                        # print('reasult:{}'.format(reasult))
+                        # connection.sendall(reasult)
+                        # if (str(reasult)== "0"):
+                        #     break
                     else:
                         break
             finally:
