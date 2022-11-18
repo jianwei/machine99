@@ -40,7 +40,7 @@ class unix_socket():
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
                         print('reasult:{}'.format(reasult))
-                        connection.sendall(reasult)
+                        # connection.sendall(reasult)
                         if (str(reasult)== "0" or str(reasult)== "-1"):
                             break
                     else:
