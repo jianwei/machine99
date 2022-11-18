@@ -39,7 +39,7 @@ class run ():
         cmd = "{} {}".format(cmd_prefix,int(angle))
         # cmd = "{} {}.".format(cmd_prefix,10)
         self.global_angle += angle
-        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
+        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
         print("send cmd message:",message)
         # self.serial_control.send_cmd(message)
         # self.unix_socket_send(message)
