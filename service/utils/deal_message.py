@@ -12,7 +12,7 @@ class deal_message():
         self.work_thread = ""
         # self.cmd_server_address = self.cmd_server_address
         self.run_obj = run(cmd_server_address)
-        self.work_obj = work()
+        self.work_obj = work(cmd_server_address)
 
 
     def do_message(self, message,to_do):
