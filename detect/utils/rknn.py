@@ -49,9 +49,9 @@ class RKNNDetector:
         if ret != 0:
             print('load rknn model failed')
             exit(ret)
-        if self.to_do == "run1":
+        if self.to_do == "near":
             ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0)
-        elif self.to_do == "run2":
+        elif self.to_do == "distance":
             ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_1)
         else:
             # ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1)

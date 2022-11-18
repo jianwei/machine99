@@ -8,7 +8,7 @@ def get_yaml_data(config_yaml):
         # print("get_yaml_data:",data)
         return data
 
-def main(to_do='run1'):
+def main(to_do='near'):
     yaml_config = get_yaml_data('../config.yaml')
     # print(yaml_config)
     camera_unix_socket_path = get_unix_socket(yaml_config.get("camera"),to_do)
@@ -27,7 +27,7 @@ def get_unix_socket(cameras,to_do):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--to_do', type=str,default="run1", help='run or work')
+    parser.add_argument('--to_do', type=str,default="near", help='run or work')
     opt = parser.parse_args()
     # print(opt,type(opt))
     main(**vars(opt))
