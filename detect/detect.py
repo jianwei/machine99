@@ -52,7 +52,6 @@ def main(camera_id,save_video=False,to_do="run"):
             cv2.putText(img_1,"L".format(fps), (0,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.putText(img_1,"R".format(fps), (src_w-20,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
-
             cv2.line(img_1,(int(src_w/2),0),(int(src_w/2),int(src_h)),(255,0,0),2)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if save_video:

@@ -35,7 +35,8 @@ class run ():
         tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
         cmd_prefix = "TR" if is_turn_left else "TL"
-        
+        print("center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(center_pointer_x,target_turn_point_x,is_turn_left))
+
 
         # if (int(abs(angle))<=10 and int(abs(angle))>=3):
         cmd = "{} {}".format(cmd_prefix,int(angle))
