@@ -39,7 +39,7 @@ class run ():
         cmd_prefix = "TR" if is_turn_left else "TL"
         print("center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(center_pointer_x,target_turn_point_x,is_turn_left))
 
-
+        ret = ""
         if (int(abs(angle))<=10 and int(abs(angle))>=3):
             cmd = "{} {}".format(cmd_prefix,angle)
             # cmd = "{} {}.".format(cmd_prefix,10)
