@@ -40,14 +40,16 @@ class run ():
         print("center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(center_pointer_x,target_turn_point_x,is_turn_left))
 
 
-        # if (int(abs(angle))<=10 and int(abs(angle))>=3):
-        cmd = "{} {}".format(cmd_prefix,int(angle))
-        # cmd = "{} {}.".format(cmd_prefix,10)
-        self.global_angle += angle
-        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
-        # print("send cmd message:",message)
-        # self.serial_control.send_cmd(message)
-        # self.unix_socket_send(message)
-        send_socket = unix_socket_send(self.cmd_server_address)
-        ret = send_socket.send_message(message)
+        if (int(abs(angle))<=10 and int(abs(angle))>=3):
+            cmd = "{} {}".format(cmd_prefix,angle)
+            # cmd = "{} {}.".format(cmd_prefix,10)
+            self.global_angle += angle
+            message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
+            # print("send cmd message:",message)
+            # self.serial_control.send_cmd(message)
+            # self.unix_socket_send(message)
+            send_socket = unix_socket_send(self.cmd_server_address)
+            ret = send_socket.send_message(message)
+        else:
+            print("angle:{},is_turn_left:{},angle<3 or angle >10 not turn".format(angle,is_turn_left))
         print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
