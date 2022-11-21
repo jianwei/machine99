@@ -57,6 +57,7 @@ class points ():
                 center_pointer = center_0
             else:
                 center_end = item[length-1].get("centerx")
+                print("center_0:{},center_end:{}".format(center_0,center_end))
                 center_pointer = (center_0+center_end)/2
         return center_pointer
 
