@@ -18,7 +18,7 @@ def main(camera_id,save_video=False,to_do="run"):
         source_video=cv2.VideoWriter(video_path,fource,12,(640,480))
         inference_path = './run/inference/{}.mp4'.format(to_do+"_"+str(now_time))
         inference_video=cv2.VideoWriter(inference_path,fource,12,(640,640))
-    total_frame,totao_fps,t01,success,img,src_h, src_w,img_1,avg_inference_time,avg_yolo_time,t1,fps,avg_fps,t02,min,second = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    total_frame,totao_fps,t01,success,img,src_h, src_w,img_1,avg_inference_time,avg_yolo_time,t1,fps,avg_fps,t02,min,second = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
     t01 = time.time()
     while True:
         print("--------------------------------------------------------------------------------------------------")
