@@ -13,6 +13,7 @@ class run ():
         self.max_angle = 10   #转向不超过 10度
         # self.serial_control = serial_control()
         self.cmd_server_address  = cmd_server_address
+        self.last_turn_time = 0
         
 
     
@@ -28,12 +29,13 @@ class run ():
         gap = 30  # cm 导航摄像头的视野盲区
         screenSize = data[0].get("screenSize")
         center_pointer_x = screenSize[0]/2  # 640px中间
-        diff_point_x = center_pointer_x-target_turn_point_x
+        is_turn_left = False if center_pointer_x>target_turn_point_x else True
+        diff_point_x = abs(center_pointer_x-target_turn_point_x) 
+        tan = diff_point_x/(screenSize[1]-target_turn_point_y)
         tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
-        # print("angle:",angle)
-        cmd_prefix = "TR" if target_turn_point_x<center_pointer_x else "TL"
-
+        cmd_prefix = "TR" if is_turn_left else "TL"
+        
 
         # if (int(abs(angle))<=10 and int(abs(angle))>=3):
         cmd = "{} {}".format(cmd_prefix,int(angle))
