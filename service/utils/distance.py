@@ -12,7 +12,7 @@ class distance():
 
     def do(self,message):
         # print("message:",message)
-        ret = []
+        ret = {}
         lines = self.points.split_line(message)
         ret["lines"] = lines
         return lines
