@@ -78,8 +78,9 @@ def debug_draw_line(ret,img_1):
                     next_item = line[i+1]
                     center = item.get("center")
                     next_center = next_item.get("center")
-                    cv2.line(img_1,(int(center[0]),center[1]),(int(next_center[0]),int(next_center[1])),(227,207,87),2)
                     print("center:",center,next_center)
+                    cv2.line(img_1,(float(center[0]),float(center[1])),(float(next_center[0]),float(next_center[1])),(227,207,87),2)
+                    
     pass
 
 
