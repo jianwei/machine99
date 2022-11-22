@@ -14,7 +14,7 @@ class distance():
         # print("message:",message)
         ret = {}
         lines = self.points.split_line(message)
-        ret["lines"] = lines
+        ret["lines_format"] = lines
         return ret
         # print("lines:",lines)
         # self.get_px_diff(lines)
