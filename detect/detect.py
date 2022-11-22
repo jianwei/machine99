@@ -68,16 +68,18 @@ def main(camera_id,save_video=False,to_do="run"):
                     print("save video to:{},inference_path:{}".format(video_path,inference_path))
                 break
 
-def debug_draw_line(ret,img):
-    # reasult = ret.get("reasult")
-    # print("reasult:",reasult,type(reasult))
-    # ret
+def debug_draw_line(ret,img_1):
     lines  = json.loads(ret).get("reasult").get("lines_format")
     for line in lines:
         if (len(line)>1):
-            for item in line:
-                center = item.get("center")
-                print("center:",center)
+            for i in range(len(line)):
+                if (i!=len(line)-1):
+                    item = line(i)
+                    next_item = line(i+1)
+                    center = item.get("center")
+                    next_center = next_item.get("center")
+                    cv2.line(img_1,(int(center[0]),center[1]),(int(next_center[0]),int(next_center[1])),(227,207,87),2)
+                    print("center:",center,next_center)
     pass
 
 
