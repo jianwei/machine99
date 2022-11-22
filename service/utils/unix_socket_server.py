@@ -45,7 +45,7 @@ class unix_socket_server():
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
                         # print('data:{},reasult:{}'.format(data,reasult))
-                        print('reasult:{}'.format(reasult))
+                        # print('reasult:{}'.format(reasult))
                         connection.sendall(reasult)
                     else:
                         break
