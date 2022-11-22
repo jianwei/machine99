@@ -73,7 +73,7 @@ def main(camera_id,save_video=False,to_do="run"):
 def debug_NPU_load(img_1,src_w,src_h):
     tmp_cmd = 'sudo cat /sys/kernel/debug/rknpu/load'
     val = os.popen(tmp_cmd)
-    cv2.putText(img_1,"{}".format(val), int(src_w/2-20,src_h-10),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+    cv2.putText(img_1,"{}".format(val), (int(src_w/2-20),src_h-10),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
 def debug_draw_line(ret,img_1):
     lines  = json.loads(ret).get("reasult").get("lines_format")
