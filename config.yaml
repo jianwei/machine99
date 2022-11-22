@@ -2,16 +2,16 @@ serial_control:
   unix_socket: "/home/coolpi/arduino"
   port: "/dev/ttyACM0"
 camera:
-  # - {
-  #     unix_socket: "/home/coolpi/uds_socket_distance",
-  #     to_do: "distance",
-  #     camera_id: "0",
-  #   }
   - {
-      unix_socket: "/home/coolpi/uds_socket_near",
-      to_do: "near",
+      unix_socket: "/home/coolpi/uds_socket_distance",
+      to_do: "distance",
       camera_id: "0",
     }
+  # - {
+  #     unix_socket: "/home/coolpi/uds_socket_near",
+  #     to_do: "near",
+  #     camera_id: "0",
+  #   }
   # - {
   #     unix_socket: "/home/coolpi/uds_socket_work",
   #     to_do: "work",
