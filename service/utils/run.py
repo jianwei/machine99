@@ -39,12 +39,13 @@ class run ():
         print("tan:{},angle:{},center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(tan,angle,center_pointer_x,target_turn_point_x,is_turn_left))
 
         ret = ""
-        if (int(abs(abs_angle))<=10 and int(abs(abs_angle))>=3):
+        if (int(abs(abs_angle))<=20 and int(abs(abs_angle))>=3):
             cmd = "{} {}".format(cmd_prefix,abs_angle)
+            print("cmd:{}".format(cmd))
             self.global_angle += angle
             message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
             send_socket = unix_socket_send(self.cmd_server_address)
             ret = send_socket.send_message(message)
         else:
-            print("angle:{},is_turn_left:{},angle<3 or angle >10 not turn".format(abs_angle,is_turn_left))
+            print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
         print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
