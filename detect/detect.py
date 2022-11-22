@@ -69,6 +69,8 @@ def main(camera_id,save_video=False,to_do="run"):
                 break
 
 def debug_draw_line(ret,img):
+    reasult = ret.get("reasult")
+    print("reasult:",reasult,type(reasult))
     lines  = ret.get("reasult").get("lines_format")
     for line in lines:
         if (len(line)>1):
