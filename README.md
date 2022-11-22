@@ -15,3 +15,13 @@ auto wlan0
 iface wlan0 inet dhcp
 wpa-essid Raspberry_PI_5G
 wpa-psk tuniu890!
+
+
+redis:
+sudo apt update
+sudo apt upgrade
+sudo apt install redis-server
+sudo systemctl start redis-server
+sudo systemctl enable redis-server
+systemctl status redis-server
+
