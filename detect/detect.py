@@ -32,6 +32,9 @@ def main(camera_id,save_video=False,to_do="run"):
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
 
+            next_data_reasult = detector.next_data_ret
+            print("next_data_ret:",next_data_reasult)
+
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
             # avg_draw_time = detector.get_draw_time()
