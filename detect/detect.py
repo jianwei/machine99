@@ -1,6 +1,6 @@
 from utils.rknn import RKNNDetector 
 import cv2
-import time,os
+import time,os,json
 import argparse
 
 def main(camera_id,save_video=False,to_do="run"):
@@ -69,9 +69,10 @@ def main(camera_id,save_video=False,to_do="run"):
                 break
 
 def debug_draw_line(ret,img):
-    reasult = ret.get("reasult")
-    print("reasult:",reasult,type(reasult))
-    lines  = ret.get("reasult").get("lines_format")
+    # reasult = ret.get("reasult")
+    # print("reasult:",reasult,type(reasult))
+    # ret
+    lines  = json.loads(ret).get("reasult").get("lines_format")
     for line in lines:
         if (len(line)>1):
             for item in line:
