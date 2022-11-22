@@ -38,7 +38,7 @@ class deal_message():
                     self.work_thread.start()
                     ret["message"] = "work_thread done"
             elif (to_do=="distance" ):
-                ret["do_message"] = self.distance_obj.do(message)
+                ret["reasult"] = self.distance_obj.do(message)
                 # if (self.distance_thread!="" and self.distance_thread.is_alive()):
                 #     ret["message"] = "distance_thread is_alive"
                 # else:
