@@ -34,7 +34,7 @@ def main(camera_id,save_video=False,to_do="run"):
 
             next_data_reasult = detector.next_data_ret
             print("next_data_ret:",next_data_reasult)
-            debug_draw_line(next_data_reasult)
+            debug_draw_line(next_data_reasult,img_1)
 
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
