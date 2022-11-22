@@ -77,6 +77,7 @@ def debug_NPU_load(img_1,src_w,src_h):
 
 def debug_draw_line(ret,img_1):
     lines  = json.loads(ret).get("reasult").get("lines_format")
+    print("lines:",lines)
     for line in lines:
         if (len(line)>1):
             for i in range(len(line)):
@@ -85,7 +86,7 @@ def debug_draw_line(ret,img_1):
                     next_item = line[i+1]
                     center = item.get("center")
                     next_center = next_item.get("center")
-                    print("center:{},{},{},next_center:{},{},{}".format(center,int(center[0]),int(center[1]),next_center,int(next_center[0]),int(next_center[1])))
+                    # print("center:{},{},{},next_center:{},{},{}".format(center,int(center[0]),int(center[1]),next_center,int(next_center[0]),int(next_center[1])))
                     cv2.line(img_1,(int(center[0]),int(center[1])),(int(next_center[0]),int(next_center[1])),(227,207,87),2)
 
 
