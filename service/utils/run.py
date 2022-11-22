@@ -1,7 +1,6 @@
 from utils.points import points
 import time
 import numpy
-# from utils.serial_control import serial_control
 from utils.unix_socket_send import unix_socket_send
 import uuid
 import json
@@ -10,9 +9,8 @@ class run ():
     def __init__(self,cmd_server_address):
         self.points_obj = points()
         self.global_angle = 90
-        self.angle_diff_px = 10  #像素10 以内不做调整
-        self.max_angle = 10   #转向不超过 10度
-        # self.serial_control = serial_control()
+        # self.angle_diff_px = 10  #像素10 以内不做调整
+        # self.max_angle = 10   #转向不超过 10度
         self.cmd_server_address  = cmd_server_address
         self.last_turn_time = 0
         
@@ -49,8 +47,9 @@ class run ():
                 message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
                 send_socket = unix_socket_send(self.cmd_server_address)
                 ret = send_socket.send_message(message)
+                print("send_socket ret:{}".format(ret))
             else:
                 print("1秒内只转向1次,跳出")
         else:
             print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
-        print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
+        print("-------------------------------------------------------------------------------------------------------------------------------------".format(ret))

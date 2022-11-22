@@ -1,3 +1,4 @@
 pyserial
 pyyaml
 opencv-python
+redis
