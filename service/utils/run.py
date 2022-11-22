@@ -33,23 +33,18 @@ class run ():
         is_turn_left = False if center_pointer_x>target_turn_point_x else True
         diff_point_x = abs(center_pointer_x-target_turn_point_x) 
         tan = diff_point_x/(screenSize[1]-target_turn_point_y)
-        # tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
-        angle = math.ceil(angle)
+        abs_angle = math.ceil(angle)
         cmd_prefix = "TR" if is_turn_left else "TL"
-        print("center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(center_pointer_x,target_turn_point_x,is_turn_left))
+        print("tan:{},angle:{},center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(tan,angle,center_pointer_x,target_turn_point_x,is_turn_left))
 
         ret = ""
-        if (int(abs(angle))<=10 and int(abs(angle))>=3):
-            cmd = "{} {}".format(cmd_prefix,angle)
-            # cmd = "{} {}.".format(cmd_prefix,10)
+        if (int(abs(abs_angle))<=10 and int(abs(abs_angle))>=3):
+            cmd = "{} {}".format(cmd_prefix,abs_angle)
             self.global_angle += angle
             message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
-            # print("send cmd message:",message)
-            # self.serial_control.send_cmd(message)
-            # self.unix_socket_send(message)
             send_socket = unix_socket_send(self.cmd_server_address)
             ret = send_socket.send_message(message)
         else:
-            print("angle:{},is_turn_left:{},angle<3 or angle >10 not turn".format(angle,is_turn_left))
+            print("angle:{},is_turn_left:{},angle<3 or angle >10 not turn".format(abs_angle,is_turn_left))
         print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
