@@ -13,7 +13,7 @@ class RKNNDetector:
         self.OBJ_THRESH = 0.25
         self.NMS_THRESH = 0.45
         self.IMG_SIZE = 640
-        self.CLASSES = ("box",)
+        self.CLASSES = ("corn",)
         self.wh = (640, 640)
         self.to_do = to_do
         self._rknn = self.load_rknn_model(model_path)

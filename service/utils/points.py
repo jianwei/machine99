@@ -11,9 +11,9 @@ def cmp_item_x(a, b):
 
 class points ():
     def __init__(self):
-        self.angle = 90  # 摄像头 90度视野
+        # self.angle = 90  # 摄像头 90度视野
         self.line_diff = 20
-        self.line_number = 1
+        # self.line_number = 1
         pass
 
     def format(self, data):
