@@ -6,6 +6,8 @@ class distance():
     def __init__(self,cmd_server_address):
         self.cmd_server_address = cmd_server_address
         self.points = points()
+        self.row_spacing = 90  #px
+
     
     def do(self,message):
         print("message:",message)

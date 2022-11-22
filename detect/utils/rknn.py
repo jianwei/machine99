@@ -159,7 +159,8 @@ class RKNNDetector:
         return next_data
 
     def send_next(self, next_data):
-        self.unix_socket.send_message(json.dumps(next_data))
+        data = self.unix_socket.send_message(json.dumps(next_data))
+        print("return data:",data)
 
     def yolov5_post_process(self, input_data):
         masks = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
