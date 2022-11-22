@@ -40,12 +40,17 @@ class run ():
 
         ret = ""
         if (int(abs(abs_angle))<=20 and int(abs(abs_angle))>=3):
-            cmd = "{} {}".format(cmd_prefix,abs_angle)
-            print("cmd:{}".format(cmd))
-            self.global_angle += angle
-            message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
-            send_socket = unix_socket_send(self.cmd_server_address)
-            ret = send_socket.send_message(message)
+            current_time = time.time()
+            if current_time-self.last_turn_time > 1:
+                self.last_turn_time = current_time
+                cmd = "{} {}".format(cmd_prefix,abs_angle)
+                print("cmd:{}".format(cmd))
+                self.global_angle += angle
+                message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
+                send_socket = unix_socket_send(self.cmd_server_address)
+                ret = send_socket.send_message(message)
+            else:
+                print("1秒内只转向1次,跳出")
         else:
             print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
         print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
