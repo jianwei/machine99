@@ -26,14 +26,14 @@ class run ():
 
 
     def turn(self,data,target_turn_point_x,target_turn_point_y):
-        unit = 0.0386  # 1 pint 0.0386cm
-        gap = 30  # cm 导航摄像头的视野盲区
+        # unit = 0.0386  # 1 pint 0.0386cm
+        # gap = 30  # cm 导航摄像头的视野盲区
         screenSize = data[0].get("screenSize")
         center_pointer_x = screenSize[0]/2  # 640px中间
         is_turn_left = False if center_pointer_x>target_turn_point_x else True
         diff_point_x = abs(center_pointer_x-target_turn_point_x) 
         tan = diff_point_x/(screenSize[1]-target_turn_point_y)
-        tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
+        # tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
         angle = math.ceil(angle)
         cmd_prefix = "TR" if is_turn_left else "TL"
