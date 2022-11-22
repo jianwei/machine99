@@ -2,13 +2,13 @@
 import os
 import socket
 import json,time
-from utils.serial_control import serial_control
+# from utils.serial_control import serial_control
 
 
 class unix_socket():
     def __init__(self,server_address):
         self.server_address = server_address
-        self.serial_control = serial_control()
+        # self.serial_control = serial_control()
         print("self.server_address:",self.server_address)
         try:
             os.unlink(self.server_address)
@@ -25,6 +25,7 @@ class unix_socket():
         while True:
             # print('waiting for cmd socket connection')
             connection, client_address = self.socket.accept()
+            reasult = ""
             try:
                 data_str = ""
                 while True:
@@ -36,7 +37,7 @@ class unix_socket():
                             print("message:{},receive_time:{}".format(message,time.time()))
                             message = json.loads(message)
                             # # message  {"uuid":str(uuid.uuid1()),"cmd":cmd}
-                            reasult = self.serial_control.send_cmd(message)
+                            # reasult = self.serial_control.send_cmd(message)
                         if (type(reasult)==str):
                             reasult = reasult.encode('UTF-8')
                         print('reasult:{}'.format(reasult))
