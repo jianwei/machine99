@@ -9,12 +9,16 @@ class distance():
         self.row_spacing = 90  #px
 
     
+
     def do(self,message):
-        print("message:",message)
+        # print("message:",message)
+        ret = []
         lines = self.points.split_line(message)
-        print("lines:",lines)
-        self.get_px_diff(lines)
-        return "do message"
+        ret["lines"] = lines
+        return lines
+        # print("lines:",lines)
+        # self.get_px_diff(lines)
+        # return "do message"
         # send_message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"distance","send_time":time.time()})
         # send_socket = unix_socket_send(self.cmd_server_address)
         # ret = send_socket.send_message(send_message)
