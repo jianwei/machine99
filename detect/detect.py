@@ -34,6 +34,7 @@ def main(camera_id,save_video=False,to_do="run"):
 
             next_data_reasult = detector.next_data_ret
             print("next_data_ret:",next_data_reasult)
+            debug_draw_line(next_data_reasult)
 
             avg_inference_time = detector.get_inference_time()
             avg_yolo_time = detector.get_yolo_time()
@@ -55,6 +56,9 @@ def main(camera_id,save_video=False,to_do="run"):
             cv2.putText(img_1,"L".format(fps), (0,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.putText(img_1,"R".format(fps), (src_w-20,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
+
+
+
             cv2.line(img_1,(int(src_w/2),0),(int(src_w/2),int(src_h)),(255,0,0),2)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
             if save_video:
@@ -63,6 +67,17 @@ def main(camera_id,save_video=False,to_do="run"):
                 if save_video:
                     print("save video to:{},inference_path:{}".format(video_path,inference_path))
                 break
+
+def debug_draw_line(ret,img):
+    lines  = ret.get("reasult").get("lines_format")
+    for line in lines:
+        if (len(line)>1):
+            for item in line:
+                center = item.get("center")
+                print("center:",center)
+    pass
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
