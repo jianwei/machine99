@@ -2,3 +2,5 @@ pyserial
 pyyaml
 opencv-python
 redis
+numpy
+
