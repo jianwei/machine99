@@ -10,6 +10,8 @@ def main(camera_id,save_video=False,to_do="run"):
     detector = RKNNDetector(RKNN_MODEL_PATH,'../config.yaml',to_do)
     
     cap = cv2.VideoCapture(camera_id)
+    cap.set(3, 1024)
+    cap.set(4, 768) 
     if save_video:
         now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         #对视频设置的编码解码的方式MPEG-4编码
@@ -29,6 +31,7 @@ def main(camera_id,save_video=False,to_do="run"):
             source_video.write(img)
         if success:
             src_h, src_w = img.shape[:2]
+            print("src_h, src_w:",src_h, src_w)
             detector.set_screen_size((src_w,src_h))
             img_1 = detector.predict(img)
 
