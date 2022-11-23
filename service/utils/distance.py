@@ -11,7 +11,7 @@ class distance():
     
 
     def do(self,message):
-        print("message:",message)
+        # print("message:",message)
         ret = {}
         lines = self.points.split_line(message)
         ret["lines_format"] = lines
