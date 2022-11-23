@@ -77,9 +77,9 @@ def debug_NPU_load(img_1,src_w,src_h):
     # cv2.putText(img_1,"{}".format(val), (int(src_w/2-20),src_h-10),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
 def debug_draw_line(ret,img_1):
-    print("ret:",ret)
+    # print("ret:",ret)
     lines  = json.loads(ret).get("reasult").get("lines_format")
-    print("lines:",lines)
+    # print("lines:",lines)
     for line in lines:
         if (len(line)>1):
             for i in range(len(line)):
