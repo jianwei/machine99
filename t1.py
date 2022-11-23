@@ -1,26 +1,21 @@
+import math
+
 def main(data):
-    points = []
-    for line in data:
-        for item in line:
-            points.append(float(item.get("centerx")))
-    get_px_diff(points)
-
-
-def get_px_diff(points):
-    print(points)
-    length = len(points)
-    diff_points = []
-    for i in range(length):
-        item = points[i]
-        print(item)
-        if (i != (length-1)) : 
-            diff_points.append(abs(points[i+1]-points[i]))
-    print(diff_points)
-    pass
-
+    centerx = int(data[0].get("screenSize")[0]/2)
+    print("centerx:",centerx)
+    for item in data:
+        center = item.get("center")
+        print(center)
 
 
 
 if __name__ == '__main__':
-    data =[[{"point":[[518,153],[536,153],[518,169],[536,169]],"name":"corn","time":1669086705.1543727,"center":[527.0,161.0],"centerx":527.0,"centery":161.0,"screenSize":[640,480]},{"point":[[384,155],[402,155],[384,171],[402,171]],"name":"corn","time":1669086705.1492438,"center":[393.0,163.0],"centerx":393.0,"centery":163.0,"screenSize":[640,480]},{"point":[[293,159],[315,159],[293,175],[315,175]],"name":"corn","time":1669086705.1488655,"center":[304.0,167.0],"centerx":304.0,"centery":167.0,"screenSize":[640,480]},{"point":[[203,160],[225,160],[203,177],[225,177]],"name":"corn","time":1669086705.148215,"center":[214.0,168.5],"centerx":214.0,"centery":168.5,"screenSize":[640,480]},{"point":[[59,161],[87,161],[59,183],[87,183]],"name":"corn","time":1669086705.1540048,"center":[73.0,172.0],"centerx":73.0,"centery":172.0,"screenSize":[640,480]}]]
+    data =[{"point":[[292,162],[323,162],[292,188],[323,188]],"name":"corn","time":1669181435.16307,"center":[307.5,175.0],"centerx":307.5,"centery":175.0,"screenSize":[640,480]},{"point":[[132,159],[163,159],[132,186],[163,186]],"name":"corn","time":1669181435.1622827,"center":[147.5,172.5],"centerx":147.5,"centery":172.5,"screenSize":[640,480]},{"point":[[523,154],[557,154],[523,182],[557,182]],"name":"corn","time":1669181435.162673,"center":[540.0,168.0],"centerx":540.0,"centery":168.0,"screenSize":[640,480]},{"point":[[147,106],[176,106],[147,129],[176,129]],"name":"corn","time":1669181435.1629987,"center":[161.5,117.5],"centerx":161.5,"centery":117.5,"screenSize":[640,480]},{"point":[[299,102],[329,102],[299,124],[329,124]],"name":"corn","time":1669181435.1629217,"center":[314.0,113.0],"centerx":314.0,"centery":113.0,"screenSize":[640,480]},{"point":[[500,96],[528,96],[500,120],[528,120]],"name":"corn","time":1669181435.1625562,"center":[514.0,108.0],"centerx":514.0,"centery":108.0,"screenSize":[640,480]}]
+
+
+
+
+
     main(data)
+
+
