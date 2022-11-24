@@ -25,3 +25,7 @@ sudo systemctl start redis-server
 sudo systemctl enable redis-server
 systemctl status redis-server
 
+
+
+
+brew install pyqt --build-from-source python@3.9

@@ -10,7 +10,6 @@ def get_yaml_data(config_yaml):
 
 def main(to_do='near'):
     yaml_config = get_yaml_data('../config.yaml')
-    # print(yaml_config)
     camera_unix_socket_path = get_unix_socket(yaml_config.get("camera"),to_do)
     cmd_unix_socket_path = yaml_config.get("serial_control").get("unix_socket")
     print("camera_unix_socket_path:{},cmd_unix_socket_path:{}".format(camera_unix_socket_path,cmd_unix_socket_path))
@@ -20,7 +19,6 @@ def main(to_do='near'):
 
 def get_unix_socket(cameras,to_do):
     for item in cameras:
-        # print(item)
         if(to_do==item.get("to_do")):
             return item.get("unix_socket")
 
