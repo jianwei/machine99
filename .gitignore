@@ -154,5 +154,4 @@ cython_debug/
 
 #pyqt
 window/build/*
-window/dist/*
 window/*.spec
