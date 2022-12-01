@@ -94,7 +94,7 @@ def debug_draw_line(ret,img_1):
                     # print("center:{},{},{},next_center:{},{},{}".format(center,int(center[0]),int(center[1]),next_center,int(next_center[0]),int(next_center[1])))
                     cv2.line(img_1,(int(center[0]),int(center[1])),(int(next_center[0]),int(next_center[1])),(227,207,87),2)
                     # cv2.line(img_1,(int(center[0]),int(center[1])),(320,480),(227,7,87),2)
-    cv2.putText(img_1,reasult, (620,250),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+    cv2.putText(img_1,reasult, (320,460),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
 
 if __name__ == '__main__':
