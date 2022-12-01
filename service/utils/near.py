@@ -33,7 +33,7 @@ class near ():
         gap = 30  # cm 导航摄像头的视野盲区
         screenSize = data[0].get("screenSize")
         center_pointer_x = screenSize[0]/2  # 640px中间
-        diff_point_x = center_pointer_x-target_turn_point_x
+        diff_point_x = abs(center_pointer_x-target_turn_point_x)
         tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
         print("angle:",angle)
