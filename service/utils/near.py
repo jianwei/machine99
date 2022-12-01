@@ -5,7 +5,7 @@ import numpy
 from utils.unix_socket_send import unix_socket_send
 import uuid
 import json
-class run ():
+class near ():
     def __init__(self,cmd_server_address):
         self.points_obj = points()
         self.global_angle = 90
@@ -23,7 +23,9 @@ class run ():
         # ret["lines_format"] = lines
         
         ret = self.turn(message,target_turn_point_x,target_turn_point_x)
-        ret["source"] = message
+        # ret["source"] = message
+        # ret["lines_format"] = ""
+        return ret
 
 
     def turn(self,data,target_turn_point_x,target_turn_point_y):

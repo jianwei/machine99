@@ -1,21 +1,22 @@
 import json
 import threading
-from utils.run import run 
+from utils.near import near 
 from utils.work import work 
 from utils.distance import distance 
-
+from utils.points import points
 
 
 class deal_message():
 
     def __init__(self,cmd_server_address):
-        self.run_thread = ""
+        self.near_thread = ""
         self.work_thread = ""
         self.distance_thread = ""
         # self.cmd_server_address = self.cmd_server_address
-        self.run_obj = run(cmd_server_address)
+        self.near_obj = near(cmd_server_address)
         self.work_obj = work(cmd_server_address)
         self.distance_obj = distance(cmd_server_address)
+        self.points_obj = points()
 
 
     def do_message(self, message,to_do):
@@ -23,20 +24,17 @@ class deal_message():
         if (message):
             # print("message:",message,type(message))
             message = json.loads(message)
+            lines = self.points.split_line(message)
+            ret["source"] = message
+            ret["lines_format"] = lines
             if (to_do=="near"):
-                if (self.run_thread!="" and self.run_thread.is_alive()):
-                    ret["message"] = "near_thread is_alive"
-                else:
-                    self.run_thread = threading.Thread(target=self.run_obj.do, args=(message,))
-                    self.run_thread.start()
-                    ret["message"] = "near_thread done"
-            elif (to_do=="work" ):
-                if (self.work_thread!="" and self.work_thread.is_alive()):
-                    ret["message"] = "work_thread is_alive"
-                else:
-                    self.work_thread = threading.Thread(target=self.work_obj.do, args=(message,))
-                    self.work_thread.start()
-                    ret["message"] = "work_thread done"
+                ret["reasult"] = self.near_obj.do(message)
+                # if (self.near_thread!="" and self.near_thread.is_alive()):
+                #     ret["message"] = "near_thread is_alive"
+                # else:
+                #     self.near_thread = threading.Thread(target=self.near_obj.do, args=(message,))
+                #     self.near_thread.start()
+                #     ret["message"] = "near_thread done"
             elif (to_do=="distance" ):
                 ret["reasult"] = self.distance_obj.do(message)
                 # if (self.distance_thread!="" and self.distance_thread.is_alive()):
@@ -45,6 +43,13 @@ class deal_message():
                 #     self.distance_thread = threading.Thread(target=self.distance_obj.do, args=(message,))
                 #     self.distance_thread.start()
                 #     ret["message"] = "distance_thread done"
+            elif (to_do=="work" ):
+                if (self.work_thread!="" and self.work_thread.is_alive()):
+                    ret["message"] = "work_thread is_alive"
+                else:
+                    self.work_thread = threading.Thread(target=self.work_obj.do, args=(message,))
+                    self.work_thread.start()
+                    ret["message"] = "work_thread done"
         else:
             ret["message"] = "message is none,message:{}".format(message)
         return json.dumps(ret)
