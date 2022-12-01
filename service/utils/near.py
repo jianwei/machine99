@@ -14,6 +14,7 @@ class near ():
         self.max_angle = 10   #转向不超过 10度
         # self.serial_control = serial_control()
         self.cmd_server_address  = cmd_server_address
+        self.last_turn_time = 0
         
 
     
