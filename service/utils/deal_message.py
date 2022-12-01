@@ -24,7 +24,7 @@ class deal_message():
         if (message):
             # print("message:",message,type(message))
             message = json.loads(message)
-            lines = self.points.split_line(message)
+            lines = self.points_obj.split_line(message)
             ret["source"] = message
             ret["lines_format"] = lines
             if (to_do=="near"):
