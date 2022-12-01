@@ -20,7 +20,10 @@ class run ():
         target_turn_point_x = self.points_obj.get_turn_point_x(message)
         target_turn_point_y = self.points_obj.get_turn_point_y(message)
         print("target_turn_point:",target_turn_point_x,target_turn_point_y)
-        self.turn(message,target_turn_point_x,target_turn_point_x)
+        # ret["lines_format"] = lines
+        
+        ret = self.turn(message,target_turn_point_x,target_turn_point_x)
+        ret["source"] = message
 
 
     def turn(self,data,target_turn_point_x,target_turn_point_y):
@@ -41,8 +44,12 @@ class run ():
         self.global_angle += angle
         message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
         print("send cmd message:",message)
+        ret = {}
+        ret["cmd"] = cmd
         # self.serial_control.send_cmd(message)
         # self.unix_socket_send(message)
-        send_socket = unix_socket_send(self.cmd_server_address)
-        ret = send_socket.send_message(message)
+        # send_socket = unix_socket_send(self.cmd_server_address)
+        # ret = send_socket.send_message(message)
+
         print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
+        return ret
