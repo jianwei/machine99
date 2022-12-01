@@ -5,6 +5,7 @@ import numpy
 from utils.unix_socket_send import unix_socket_send
 import uuid
 import json
+import math
 class near ():
     def __init__(self,cmd_server_address):
         self.points_obj = points()
@@ -20,38 +21,67 @@ class near ():
         target_turn_point_x = self.points_obj.get_turn_point_x(message)
         target_turn_point_y = self.points_obj.get_turn_point_y(message)
         print("target_turn_point:",target_turn_point_x,target_turn_point_y)
-        # ret["lines_format"] = lines
-        
         ret = self.turn(message,target_turn_point_x,target_turn_point_x)
-        # ret["source"] = message
-        # ret["lines_format"] = ""
         return ret
 
 
     def turn(self,data,target_turn_point_x,target_turn_point_y):
-        unit = 0.0386  # 1 pint 0.0386cm
-        gap = 30  # cm 导航摄像头的视野盲区
+        # unit = 0.0386  # 1 pint 0.0386cm
+        # gap = 30  # cm 导航摄像头的视野盲区
         screenSize = data[0].get("screenSize")
         center_pointer_x = screenSize[0]/2  # 640px中间
-        diff_point_x = abs(center_pointer_x-target_turn_point_x)
-        tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
+        is_turn_left = False if center_pointer_x>target_turn_point_x else True
+        diff_point_x = abs(center_pointer_x-target_turn_point_x) 
+        tan = diff_point_x/(screenSize[1]-target_turn_point_y)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
-        print("angle:",angle)
-        cmd_prefix = "TR" if target_turn_point_x<center_pointer_x else "TL"
+        abs_angle = math.ceil(angle)
+        cmd_prefix = "TR" if is_turn_left else "TL"
+        print("tan:{},angle:{},center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(tan,angle,center_pointer_x,target_turn_point_x,is_turn_left))
+
+        ret = ""
+        # if (int(abs(abs_angle))<=20 and int(abs(abs_angle))>=3):
+        current_time = time.time()
+        if current_time-self.last_turn_time > 1:
+            self.last_turn_time = current_time
+            cmd = "{} {}".format(cmd_prefix,abs_angle)
+            print("cmd:{}".format(cmd))
+            self.global_angle += angle
+            message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
+            send_socket = unix_socket_send(self.cmd_server_address)
+            ret = send_socket.send_message(message)
+            print("send_socket ret:{}".format(ret))
+        else:
+            print("1秒内只转向1次,跳出")
+        # else:
+        #     print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
+        print("-------------------------------------------------------------------------------------------------------------------------------------".format(ret))
+    
 
 
-        # if (int(abs(angle))<=10 and int(abs(angle))>=3):
-        cmd = "{} {}".format(cmd_prefix,int(angle))
-        # cmd = "{} {}.".format(cmd_prefix,10)
-        self.global_angle += angle
-        message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
-        print("send cmd message:",message)
-        ret = {}
-        ret["cmd"] = cmd
-        # self.serial_control.send_cmd(message)
-        # self.unix_socket_send(message)
-        # send_socket = unix_socket_send(self.cmd_server_address)
-        # ret = send_socket.send_message(message)
+    # def turn(self,data,target_turn_point_x,target_turn_point_y):
+    #     unit = 0.0386  # 1 pint 0.0386cm
+    #     gap = 30  # cm 导航摄像头的视野盲区
+    #     screenSize = data[0].get("screenSize")
+    #     center_pointer_x = screenSize[0]/2  # 640px中间
+    #     diff_point_x = abs(center_pointer_x-target_turn_point_x)
+    #     tan = (diff_point_x)*unit/(gap+(screenSize[1]-target_turn_point_y)*unit)
+    #     angle = numpy.arctan(tan) * 180.0 / 3.1415926
+    #     print("angle:",angle)
+    #     cmd_prefix = "TR" if target_turn_point_x<center_pointer_x else "TL"
 
-        print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
-        return ret
+
+    #     # if (int(abs(angle))<=10 and int(abs(angle))>=3):
+    #     cmd = "{} {}".format(cmd_prefix,int(angle))
+    #     # cmd = "{} {}.".format(cmd_prefix,10)
+    #     self.global_angle += angle
+    #     message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd})
+    #     print("send cmd message:",message)
+    #     ret = {}
+    #     ret["cmd"] = cmd
+    #     # self.serial_control.send_cmd(message)
+    #     # self.unix_socket_send(message)
+    #     # send_socket = unix_socket_send(self.cmd_server_address)
+    #     # ret = send_socket.send_message(message)
+
+    #     print("send cmd message ret--------------------------------------------------+++++++++++++++++:",ret)
+    #     return ret
