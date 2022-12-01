@@ -52,6 +52,7 @@ class deal_message():
                     ret["message"] = "work_thread done"
         else:
             ret["message"] = "message is none,message:{}".format(message)
+            print(ret)
         return json.dumps(ret)
 
 
