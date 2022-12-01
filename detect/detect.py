@@ -81,7 +81,7 @@ def debug_NPU_load(img_1,src_w,src_h):
 def debug_draw_line(ret,img_1):
     # print("ret:",ret)
     lines  = json.loads(ret).get("reasult").get("lines_format")
-    # print("lines:",lines)
+    print("lines:",lines)
     for line in lines:
         if (len(line)>1):
             for i in range(len(line)):
