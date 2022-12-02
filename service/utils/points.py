@@ -44,10 +44,14 @@ class points ():
 
     def get_turn_point_x(self, data):
         data = self.split_line(data)
-        turn_data_list = data[:1]
+        if (len(data)>1):
+            turn_data_list = data[:2]
+        else:
+            turn_data_list = data[:1]
         screenSize = turn_data_list[0][0].get("screenSize")
         center_pointer = screenSize[0]/2  # 640px中间
-        print("turn_data_list:",turn_data_list)
+        center_pointer_all = 0
+        # print("turn_data_list:",turn_data_list)
         for item in turn_data_list:
             length = len(item)
             center_0 = item[0].get("centerx")
@@ -58,6 +62,8 @@ class points ():
                 center_end = item[length-1].get("centerx")
                 print("center_0:{},center_end:{}".format(center_0,center_end))
                 center_pointer = (center_0+center_end)/2
+            center_pointer_all+=center_pointer
+        center_pointer = int(center_pointer_all/len(turn_data_list))
         return center_pointer
 
     def get_turn_point_y(self, data):
