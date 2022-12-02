@@ -54,12 +54,12 @@ class near ():
             ret["target_turn_point_x"] = target_turn_point_x
             ret["target_turn_point_y"] = target_turn_point_y
             self.global_angle += angle
-            message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
-            send_socket = unix_socket_send(self.cmd_server_address)
-            ret["reasult"] = send_socket.send_message(message)
-            print("send_socket ret:{}".format(ret))
-            message_stop = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"STOP 3","send_time":time.time()})
-            self.setTimeout(send_socket.send_message,0.0001,message_stop)
+            # message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
+            # send_socket = unix_socket_send(self.cmd_server_address)
+            # ret["reasult"] = send_socket.send_message(message)
+            # print("send_socket ret:{}".format(ret))
+            # message_stop = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"STOP 3","send_time":time.time()})
+            # self.setTimeout(send_socket.send_message,0.0001,message_stop)
             # else:
             #     print("1秒内只转向1次,跳出")
         else:
