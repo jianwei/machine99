@@ -22,7 +22,7 @@ class near ():
         target_turn_point_x = self.points_obj.get_turn_point_x(message)
         target_turn_point_y = self.points_obj.get_turn_point_y(message)
         print("target_turn_point:",target_turn_point_x,target_turn_point_y)
-        ret = self.turn(message,target_turn_point_x,target_turn_point_x)
+        ret = self.turn(message,target_turn_point_x,target_turn_point_y)
         return ret
 
 
