@@ -43,7 +43,7 @@ class near ():
         ret["target_turn_point_y"] = target_turn_point_y
         if (screenSize[1]==target_turn_point_y):
             print("screenSize[1]-target_turn_point_y==0,break")
-            return 
+            return ret
         tan = diff_point_x/(screenSize[1]-target_turn_point_y)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
         abs_angle = math.ceil(angle)
