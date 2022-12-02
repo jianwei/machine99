@@ -64,8 +64,6 @@ class near ():
             #     print("1秒内只转向1次,跳出")
         else:
             print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
-
-        
         print("-------------------------------------------------------------------------------------------------------------------------------------".format(ret))
         return ret
 

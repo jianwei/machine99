@@ -76,12 +76,8 @@ def debug_NPU_load(img_1,src_w,src_h):
     # cv2.putText(img_1,"{}".format(val), (int(src_w/2-20),src_h-10),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
 def debug_draw_line(ret,img_1,src_h, src_w):
-    # print("ret:",ret)
     lines  = json.loads(ret).get("lines_format")
     reasult  = json.loads(ret).get("reasult")
-    target_turn_point_x = int(reasult.get("target_turn_point_x"))
-    target_turn_point_y = int(reasult.get("target_turn_point_y"))
-    # print("lines:",lines)
     for line in lines:
         if (len(line)>1):
             for i in range(len(line)):
@@ -93,9 +89,12 @@ def debug_draw_line(ret,img_1,src_h, src_w):
                     # print("center:{},{},{},next_center:{},{},{}".format(center,int(center[0]),int(center[1]),next_center,int(next_center[0]),int(next_center[1])))
                     cv2.line(img_1,(int(center[0]),int(center[1])),(int(next_center[0]),int(next_center[1])),(227,207,87),2)
                     # cv2.line(img_1,(int(center[0]),int(center[1])),(320,480),(227,7,87),2)
-    cv2.putText(img_1,"cmd:{},x:{},y:{}".format(reasult.get("cmd"),target_turn_point_x,target_turn_point_y), (320,470),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
-    cv2.line(img_1,(target_turn_point_x,0),(target_turn_point_x,src_h),(255,97,3),2)
-    cv2.line(img_1,(int(src_w/2),src_h),(target_turn_point_x,target_turn_point_y),(0,255,255),2)
+    if (reasult.get("target_turn_point_x") and reasult.get("target_turn_point_y")):
+        target_turn_point_x = int(reasult.get("target_turn_point_x"))
+        target_turn_point_y = int(reasult.get("target_turn_point_y"))
+        cv2.putText(img_1,"cmd:{},x:{},y:{}".format(reasult.get("cmd"),target_turn_point_x,target_turn_point_y), (320,470),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+        cv2.line(img_1,(target_turn_point_x,0),(target_turn_point_x,src_h),(255,97,3),2)
+        cv2.line(img_1,(int(src_w/2),src_h),(target_turn_point_x,target_turn_point_y),(0,255,255),2)
 
 
 if __name__ == '__main__':
