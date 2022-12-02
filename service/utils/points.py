@@ -51,7 +51,6 @@ class points ():
         screenSize = turn_data_list[0][0].get("screenSize")
         center_pointer = screenSize[0]/2  # 640px中间
         center_pointer_all = 0
-        # print("turn_data_list:",turn_data_list)
         for item in turn_data_list:
             length = len(item)
             center_0 = item[0].get("centerx")
