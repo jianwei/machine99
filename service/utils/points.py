@@ -44,7 +44,7 @@ class points ():
 
     def get_turn_point_x(self, data):
         data = self.split_line(data)
-        turn_data_list = data[:2]
+        turn_data_list = data[:1]
         screenSize = turn_data_list[0][0].get("screenSize")
         center_pointer = screenSize[0]/2  # 640px中间
         print("turn_data_list:",turn_data_list)
