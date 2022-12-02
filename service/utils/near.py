@@ -6,6 +6,7 @@ from utils.unix_socket_send import unix_socket_send
 import uuid
 import json
 import math
+import threading
 class near ():
     def __init__(self,cmd_server_address):
         self.points_obj = points()
@@ -24,6 +25,9 @@ class near ():
         print("target_turn_point:",target_turn_point_x,target_turn_point_y)
         ret = self.turn(message,target_turn_point_x,target_turn_point_y)
         return ret
+    
+    def setTimeout(cbname,delay,*argments):
+        threading.Timer(delay,cbname,argments).start()
 
 
     def turn(self,data,target_turn_point_x,target_turn_point_y):
@@ -58,6 +62,8 @@ class near ():
         #     print("1秒内只转向1次,跳出")
         # else:
         #     print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
+        # message_stop = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"STOP 3","send_time":time.time()})
+        # self.setTimeout(send_socket.send_message,0.0001,message_stop)
         
         print("-------------------------------------------------------------------------------------------------------------------------------------".format(ret))
         return ret
