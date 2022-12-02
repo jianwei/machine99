@@ -56,8 +56,8 @@ def main(camera_id,save_video=False,to_do="run"):
             cv2.putText(img_1,"avg_fps: {}, run: {}:{}, infer: {},yolo:{},tmp:{}".format(avg_fps,min,second,avg_inference_time,avg_yolo_time,tmp), (0,20),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
             cv2.putText(img_1,"cur_fps:{}".format(fps), (0,src_h-10),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
 
-            cv2.putText(img_1,"L".format(fps), (0,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
-            cv2.putText(img_1,"R".format(fps), (src_w-20,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.putText(img_1,"L", (0,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+            cv2.putText(img_1,"R", (src_w-20,int(src_h/2)),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
             cv2.line(img_1,(int(src_w/2),0),(int(src_w/2),int(src_h)),(0,255,255),2)
             cv2.imshow("3588_{}_inference_video".format(to_do),img_1)
@@ -95,7 +95,7 @@ def debug_draw_line(ret,img_1,src_h, src_w):
                     # cv2.line(img_1,(int(center[0]),int(center[1])),(320,480),(227,7,87),2)
     cv2.putText(img_1,"cmd:{},x:{},y:{}".format(reasult.get("cmd"),target_turn_point_x,target_turn_point_y), (320,470),0,0.6,(0, 0, 255),thickness=2,lineType=cv2.LINE_AA)
     cv2.line(img_1,(target_turn_point_x,0),(target_turn_point_x,src_h),(255,97,3),2)
-    cv2.line(img_1,(int(src_w/2),src_h),(target_turn_point_x,target_turn_point_y),(0,0,255),2)
+    cv2.line(img_1,(int(src_w/2),src_h),(target_turn_point_x,target_turn_point_y),(0,255,255),2)
 
 
 if __name__ == '__main__':
