@@ -44,26 +44,27 @@ class near ():
         print("tan:{},angle:{},center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(tan,angle,center_pointer_x,target_turn_point_x,is_turn_left))
 
         ret = {}
-        # if (int(abs(abs_angle))<=20 and int(abs(abs_angle))>=3):
-        current_time = time.time()
-        # if current_time-self.last_turn_time > 1:
-        self.last_turn_time = current_time
-        cmd = "{} {}".format(cmd_prefix,abs_angle)
-        print("cmd:{}".format(cmd))
-        ret["cmd"] = cmd
-        ret["target_turn_point_x"] = target_turn_point_x
-        ret["target_turn_point_y"] = target_turn_point_y
-        self.global_angle += angle
-        # message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
-        # send_socket = unix_socket_send(self.cmd_server_address)
-        # ret["reasult"] = send_socket.send_message(message)
-        print("send_socket ret:{}".format(ret))
-        # else:
-        #     print("1秒内只转向1次,跳出")
-        # else:
-        #     print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
-        # message_stop = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"STOP 3","send_time":time.time()})
-        # self.setTimeout(send_socket.send_message,0.0001,message_stop)
+        if (int(abs(abs_angle))<=20 and int(abs(abs_angle))>=3):
+            current_time = time.time()
+            # if current_time-self.last_turn_time > 1:
+            self.last_turn_time = current_time
+            cmd = "{} {}".format(cmd_prefix,abs_angle)
+            print("cmd:{}".format(cmd))
+            ret["cmd"] = cmd
+            ret["target_turn_point_x"] = target_turn_point_x
+            ret["target_turn_point_y"] = target_turn_point_y
+            self.global_angle += angle
+            message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
+            send_socket = unix_socket_send(self.cmd_server_address)
+            ret["reasult"] = send_socket.send_message(message)
+            print("send_socket ret:{}".format(ret))
+            message_stop = json.dumps({"uuid":str(uuid.uuid1()),"cmd":"STOP 3","send_time":time.time()})
+            self.setTimeout(send_socket.send_message,0.0001,message_stop)
+            # else:
+            #     print("1秒内只转向1次,跳出")
+        else:
+            print("angle:{},is_turn_left:{},angle< 3 or angle >20 not turn".format(abs_angle,is_turn_left))
+
         
         print("-------------------------------------------------------------------------------------------------------------------------------------".format(ret))
         return ret
