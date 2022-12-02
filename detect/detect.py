@@ -94,8 +94,8 @@ def debug_draw_line(ret,img_1,src_h, src_w):
     cv2.putText(img_1,reasult.get("cmd"), (320,460),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
     target_turn_point_x = int(reasult.get("target_turn_point_x"))
     target_turn_point_y = int(reasult.get("target_turn_point_y"))
-    cv2.line(img_1,(int(target_turn_point_x),0),(int(src_w/2),src_h),(227,207,87),2)
-    cv2.line(img_1,(int(src_w/2),target_turn_point_y),(target_turn_point_x,target_turn_point_y),(227,207,87),2)
+    cv2.line(img_1,(target_turn_point_x,0),(target_turn_point_x,src_h),(255,97,3),2)
+    # cv2.line(img_1,(int(src_w/2),target_turn_point_y),(target_turn_point_x,target_turn_point_y),(199,97,20),2)
 
 
 if __name__ == '__main__':
