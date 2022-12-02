@@ -36,7 +36,7 @@ def main(camera_id,save_video=False,to_do="run"):
 
             next_data_reasult = detector.next_data_ret
             print("next_data_ret:",next_data_reasult)
-            debug_draw_line(next_data_reasult,img_1)
+            debug_draw_line(next_data_reasult,img_1,src_h, src_w)
             # debug_NPU_load(img_1,src_w,src_h)
 
             avg_inference_time = detector.get_inference_time()
@@ -75,7 +75,7 @@ def debug_NPU_load(img_1,src_w,src_h):
     print("NPU:{}".format(val))
     # cv2.putText(img_1,"{}".format(val), (int(src_w/2-20),src_h-10),0,0.6,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
 
-def debug_draw_line(ret,img_1):
+def debug_draw_line(ret,img_1,src_h, src_w):
     # print("ret:",ret)
     lines  = json.loads(ret).get("lines_format")
     reasult  = json.dumps(json.loads(ret).get("reasult"))
@@ -91,7 +91,11 @@ def debug_draw_line(ret,img_1):
                     # print("center:{},{},{},next_center:{},{},{}".format(center,int(center[0]),int(center[1]),next_center,int(next_center[0]),int(next_center[1])))
                     cv2.line(img_1,(int(center[0]),int(center[1])),(int(next_center[0]),int(next_center[1])),(227,207,87),2)
                     # cv2.line(img_1,(int(center[0]),int(center[1])),(320,480),(227,7,87),2)
-    cv2.putText(img_1,reasult, (320,460),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+    cv2.putText(img_1,reasult.get("cmd"), (320,460),0,1,(0, 255, 255),thickness=2,lineType=cv2.LINE_AA)
+    target_turn_point_x = reasult.get("target_turn_point_x")
+    target_turn_point_y = reasult.get("target_turn_point_y")
+    cv2.line(img_1,(int(target_turn_point_x),0),(int(src_w/2),src_h),(227,207,87),2)
+    cv2.line(img_1,(int(src_w/2),target_turn_point_y),(int(target_turn_point_x),int(target_turn_point_y)),(227,207,87),2)
 
 
 if __name__ == '__main__':

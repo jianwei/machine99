@@ -47,6 +47,8 @@ class near ():
         cmd = "{} {}".format(cmd_prefix,abs_angle)
         print("cmd:{}".format(cmd))
         ret["cmd"] = cmd
+        ret["target_turn_point_x"] = target_turn_point_x
+        ret["target_turn_point_y"] = target_turn_point_y
         self.global_angle += angle
         # message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
         # send_socket = unix_socket_send(self.cmd_server_address)
