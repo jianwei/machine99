@@ -36,14 +36,21 @@ class near ():
         screenSize = data[0].get("screenSize")
         center_pointer_x = screenSize[0]/2  # 640px中间
         is_turn_left = False if center_pointer_x>target_turn_point_x else True
-        diff_point_x = abs(center_pointer_x-target_turn_point_x) 
+        diff_point_x = abs(center_pointer_x-target_turn_point_x)
+        ret = {}
+        ret["cmd"] = ""
+        ret["target_turn_point_x"] = target_turn_point_x
+        ret["target_turn_point_y"] = target_turn_point_y
+        if (screenSize[1]==target_turn_point_y):
+            print("screenSize[1]-target_turn_point_y==0,break")
+            return 
         tan = diff_point_x/(screenSize[1]-target_turn_point_y)
         angle = numpy.arctan(tan) * 180.0 / 3.1415926
         abs_angle = math.ceil(angle)
         cmd_prefix = "TR" if is_turn_left else "TL"
         print("tan:{},angle:{},center_pointer_x:{},target_turn_point_x:{},is_turn_left:{}".format(tan,angle,center_pointer_x,target_turn_point_x,is_turn_left))
 
-        ret = {}
+        
         if (int(abs(abs_angle))<=20 and int(abs(abs_angle))>=3):
             current_time = time.time()
             # if current_time-self.last_turn_time > 1:
@@ -51,8 +58,7 @@ class near ():
             cmd = "{} {}".format(cmd_prefix,abs_angle)
             print("cmd:{}".format(cmd))
             ret["cmd"] = cmd
-            ret["target_turn_point_x"] = target_turn_point_x
-            ret["target_turn_point_y"] = target_turn_point_y
+            
             self.global_angle += angle
             # message = json.dumps({"uuid":str(uuid.uuid1()),"cmd":cmd,"send_time":time.time()})
             # send_socket = unix_socket_send(self.cmd_server_address)
