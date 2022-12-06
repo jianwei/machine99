@@ -11,8 +11,8 @@ class near ():
     def __init__(self,cmd_server_address):
         self.points_obj = points()
         self.global_angle = 90
-        self.angle_diff_px = 10  #像素10 以内不做调整
-        self.max_angle = 10   #转向不超过 10度
+        # self.angle_diff_px = 10  #像素10 以内不做调整
+        # self.max_angle = 10   #转向不超过 10度
         # self.serial_control = serial_control()
         self.cmd_server_address  = cmd_server_address
         self.last_turn_time = 0
