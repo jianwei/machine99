@@ -10,7 +10,7 @@ camera:
   - {
       unix_socket: "/home/coolpi/uds_socket_near",
       to_do: "near",
-      camera_id: "0",
+      camera_id: "20",
     }
   # - {
   #     unix_socket: "/home/coolpi/uds_socket_work",

@@ -29,3 +29,9 @@ systemctl status redis-server
 
 
 brew install pyqt --build-from-source python@3.9
+
+
+pip debug --verbose
+# 切换活动的 Python 版本
+sudo update-alternatives --config python3
+
