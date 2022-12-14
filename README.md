@@ -35,3 +35,9 @@ pip debug --verbose
 # 切换活动的 Python 版本
 sudo update-alternatives --config python3
 
+sudo vim /usr/bin/gnome-terminal
+line 1 :
+#!/usr/bin/python3.10
+
+
+
