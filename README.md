@@ -22,7 +22,7 @@ sudo apt update
 sudo apt upgrade
 sudo apt install redis-server
 sudo systemctl start redis-server
-sudo systemctl enable redis-server
+sudo systemctl enable redis-server 
 systemctl status redis-server
 
 
@@ -40,4 +40,18 @@ line 1 :
 #!/usr/bin/python3.10
 
 
+
+interface=wlan0
+driver=nl80211
+ssid=Any_SSID_name
+hw_mode=g
+channel=1
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=Any_password
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
 
