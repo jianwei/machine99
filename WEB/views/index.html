@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>machine</title>
+    <style type="text/css">
+        .menu_tab{
+            float:left;
+            height:32px;
+            width:50%;
+            font-size:64px
+        }
+        .detail{
+            font-size:48px  
+        }
+        .button{
+            width:120px;
+            height:80px;
+            font-size:48px;
+            margin-left:50px
+        }
+        .button-right{
+            margin-left:200px
+        }
+        #setting {
+            font-size:48px;
+        }
+        #setting .text{
+            width:360px;
+            height:50px;
+            font-size:36px
+        }
+        .setting-table{
+            margin-bottom:80px
+        }
+    </style>
+  </head>
+    <body>
+        <div style="width:100%;">
+            <div class="menu_tab" onclick="operation()">操作</div>
+            <div class="menu_tab" onclick = "setting()">设置</div>
+        </div>
+        <div id="operation" style="padding-top:100px" class="detail">
+            <table>
+                <tr>
+                    <td>
+                        <input type="button" class="button" onclick="begin()" value="开始">
+                    </td>
+                    <td>
+                        <input type="button" class="button button-right"  onclick="stop()"  value="停止">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="setting" style="padding-top:100px;display:none">
+            <table class="setting-table">
+                <tr>
+                    <td>
+                        陇间距:<input type="input" id="distaice_long" class="text">cm
+                    </td>
+                </tr>
+            </table>
+            <input type="button" class="button button-right"  onclick="save()"  value="保存">
+            <input type="button" class="button button-right"  onclick="restart()"  value="重启">
+        </div>
+    </body>
+  <script>
+    
+    config = null
+    
+    function load(){
+        ajax_get('./load',{},load_callback)
+    }
+    function load_callback(res){
+        console.log("load_callback",res)
+        config = res
+        //document.getElementById("distaice_long")
+        distaice_long.value=res.other.distaice_long
+    }
+    
+    
+    function begin(){
+        console.log("begin")
+        ajax_get('./setting',{})
+    }
+
+    function save(){
+        distaice_long = document.getElementById("distaice_long").value;
+        config.other.distaice_long = parseInt(distaice_long)
+        //console.log(config)
+        //str = JSON.stringify(config)
+        ajax_get('./setting?data='+btoa(JSON.stringify(config)))
+    }
+
+
+    function stop(){
+        console.log("stop")
+    }
+
+    function ajax_get(url,params,callback){
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                console.log(xhr);
+                var res = JSON.parse(xhr.responseText)
+                console.log(res);
+                if(callback ){
+                    callback(res)
+                } 
+                //callback(res)                                    
+            }
+        }
+        xhr.open('GET', url,true)
+        xhr.send()     
+    }
+    function ajax_post(url,params,callback){
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                //console.log(xhr);
+                var res = JSON.parse(xhr.responseText)
+                //console.log(res);
+                if(callback ){
+                    callback(res)
+                } 
+                //callback(res)                                    
+            }
+        }
+        xhr.open('POST', url,true)
+        xhr.send('data=0000000000000000000000000000000000000')     
+    }
+
+
+    function setting(){
+        console.log("setting")
+        load()
+        document.getElementById("operation").setAttribute("style","display:none")
+        document.getElementById("setting").setAttribute("style","padding-top:100px")
+    }
+    function operation(){
+        console.log("operation")
+        document.getElementById("operation").setAttribute("style","padding-top:100px")
+        document.getElementById("setting").setAttribute("style","display:none")
+    }
+  </script>
+</html>
